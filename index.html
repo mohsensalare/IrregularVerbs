@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#4f46e5">
+<title>افعال بی‌قاعده — یادگیری و تمرین</title>
+<style>
+  :root{
+    --bg1:#4f46e5; --bg2:#7c3aed; --bg3:#0ea5e9;
+    --card:#ffffff; --ink:#1e293b; --muted:#64748b;
+    --line:#e2e8f0; --soft:#f1f5f9;
+    --ok:#16a34a; --okbg:#dcfce7;
+    --bad:#dc2626; --badbg:#fee2e2;
+    --accent:#4f46e5; --accent2:#7c3aed;
+    --radius:18px;
+    --shadow:0 10px 30px rgba(15,23,42,.12);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Vazirmatn","Vazir",Tahoma,"Segoe UI",system-ui,sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    background:linear-gradient(165deg,var(--bg1),var(--bg2));
+    display:flex;justify-content:center;
+    padding:18px 14px calc(env(safe-area-inset-bottom) + 18px);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    -webkit-text-size-adjust:100%;
+  }
+  .app{width:100%;max-width:680px}
+
+  /* Header */
+  header{color:#fff;text-align:center;margin:6px 2px 14px}
+  header h1{margin:0;font-size:clamp(20px,5.5vw,28px);font-weight:800;letter-spacing:-.3px}
+  header p{margin:4px 0 0;opacity:.85;font-size:13px}
+
+  .statbar{display:flex;gap:8px;margin:14px 0;}
+  .stat{flex:1;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:9px 6px;color:#fff;text-align:center}
+  .stat b{display:block;font-size:clamp(16px,4.6vw,22px);font-weight:800;line-height:1.1}
+  .stat span{font-size:11px;opacity:.85}
+
+  /* Tabs */
+  nav.tabs{display:flex;gap:5px;background:rgba(255,255,255,.14);padding:5px;border-radius:16px;
+    overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:1 0 auto;white-space:nowrap;border:0;cursor:pointer;color:#fff;scroll-snap-align:center;
+    background:transparent;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:700;
+    font-family:inherit;transition:.2s;opacity:.78}
+  .tab.active{background:#fff;color:var(--accent);opacity:1;box-shadow:0 4px 12px rgba(15,23,42,.18)}
+  @media(max-width:380px){.tab{padding:10px 11px;font-size:13px}}
+
+  /* Card */
+  main{margin-top:14px}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px 18px;animation:rise .3s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .word{direction:ltr;font-weight:800;letter-spacing:.5px;line-height:1.15}
+  .muted{color:var(--muted)}
+  .center{text-align:center}
+
+  /* Learn / flashcard */
+  .flash{text-align:center}
+  .flash .lead{color:var(--muted);font-size:13px;margin-bottom:8px}
+  .flash .base{font-size:clamp(30px,9vw,46px);color:var(--accent);}
+  .forms{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  .form{background:var(--soft);border-radius:14px;padding:12px 8px;text-align:center}
+  .form small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
+  .form .v{direction:ltr;font-size:clamp(16px,4.6vw,21px);font-weight:800}
+  .hidden-form{filter:blur(7px);cursor:pointer;user-select:none}
+  .progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin:16px 0 4px}
+  .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
+
+  .row{display:flex;gap:10px;margin-top:14px}
+  .btn{flex:1;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;
+    padding:13px;border-radius:13px;transition:.15s;background:var(--soft);color:var(--ink)}
+  .btn:active{transform:scale(.97)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 6px 16px rgba(79,70,229,.35)}
+  .btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted)}
+  .icon-btn{flex:0 0 auto;width:50px;background:var(--soft);font-size:18px}
+
+  /* Quiz */
+  .prompt{text-align:center;margin-bottom:6px}
+  .prompt .ask{color:var(--muted);font-size:14px}
+  .prompt .qword{font-size:clamp(28px,8vw,42px);color:var(--accent);margin:8px 0}
+  .prompt .tag{display:inline-block;background:var(--soft);color:var(--muted);
+    padding:4px 12px;border-radius:99px;font-size:12.5px;font-weight:700}
+  .target{margin-top:10px;font-size:15px;font-weight:700}
+  .target b{color:var(--accent2)}
+  .fa-mean{color:var(--muted);font-size:15px;font-weight:700;margin-top:6px}
+  .flash .fa-mean{font-size:17px;color:var(--ink);margin-top:8px}
+
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  @media(max-width:420px){.options{grid-template-columns:1fr}}
+  .opt{direction:ltr;border:1.5px solid var(--line);background:#fff;cursor:pointer;
+    font-family:inherit;font-weight:800;font-size:17px;padding:14px 12px;border-radius:14px;transition:.15s;color:var(--ink);
+    text-align:center;min-height:56px;display:flex;align-items:center;justify-content:center;word-break:break-word}
+  .opt:active{transform:scale(.97)}
+  .opt.correct{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+  .opt.wrong{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+  .opt:disabled{cursor:default}
+
+  .typewrap{margin-top:18px}
+  input.type{width:100%;direction:ltr;text-align:center;font-family:inherit;font-weight:800;
+    font-size:22px;padding:15px;border:2px solid var(--line);border-radius:14px;outline:none;transition:.15s}
+  input.type:focus{border-color:var(--accent)}
+  input.type.correct{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+  input.type.wrong{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+
+  .feedback{margin-top:14px;border-radius:14px;padding:13px 14px;font-weight:700;display:none}
+  .feedback.show{display:block;animation:rise .25s}
+  .feedback.ok{background:var(--okbg);color:var(--ok)}
+  .feedback.bad{background:var(--badbg);color:var(--bad)}
+  .feedback .full{direction:ltr;display:block;margin-top:6px;font-weight:800;color:var(--ink);font-size:15px}
+  .shake{animation:shake .35s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+
+  .mini{display:flex;justify-content:center;gap:16px;margin-top:16px;color:var(--muted);font-size:13px}
+  .mini b{color:var(--ink)}
+
+  /* Mistakes */
+  .mlist{margin-top:6px;display:flex;flex-direction:column;gap:8px}
+  .mitem{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:13px;padding:11px 13px}
+  .mitem .w{direction:ltr;font-weight:800;font-size:17px;flex:0 0 auto}
+  .mitem .d{direction:ltr;color:var(--muted);font-size:13px;flex:1;text-align:left}
+  .mitem .c{background:var(--badbg);color:var(--bad);font-weight:800;border-radius:99px;
+    min-width:26px;height:26px;display:grid;place-items:center;font-size:13px;padding:0 7px}
+  .empty{text-align:center;color:var(--muted);padding:24px 8px}
+  .empty .big{font-size:40px;margin-bottom:8px}
+
+  .note{margin-top:12px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--muted);
+    border-radius:99px;padding:5px 11px;font-size:12px;font-weight:700;cursor:pointer;border:0;font-family:inherit}
+  footer{color:rgba(255,255,255,.7);text-align:center;font-size:11.5px;margin:16px 0 4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>افعال بی‌قاعده انگلیسی</h1>
+    <div class="statbar">
+      <div class="stat"><b id="sAcc">۰٪</b><span>دقت کل</span></div>
+      <div class="stat"><b id="sStreak">۰</b><span>زنجیرهٔ درست</span></div>
+      <div class="stat"><b id="sMis">۰</b><span>افعال اشتباه</span></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="learn">📖 یادگیری</button>
+    <button class="tab" data-tab="choice">🔘 چهارگزینه‌ای</button>
+    <button class="tab" data-tab="type">⌨️ تایپ</button>
+    <button class="tab" data-tab="mixed">🎲 ترکیبی</button>
+    <button class="tab" data-tab="mistakes">❌ اشتباهات</button>
+  </nav>
+
+  <main id="view"></main>
+</div>
+
+<script>
+/* ---------- داده افعال (embed شده تا فایل مستقل باشد) ---------- */
+const VERBS = [
+{"infinitive":"be","past_simple":"was/were","past_participle":"been","common_mistakes":["beed","bee","ben"],"fa":"بودن"},
+{"infinitive":"become","past_simple":"became","past_participle":"become","common_mistakes":["becomed","becamed","becomen"],"fa":"شدن"},
+{"infinitive":"begin","past_simple":"began","past_participle":"begun","common_mistakes":["beginned","begined","begunned"],"fa":"شروع کردن"},
+{"infinitive":"bite","past_simple":"bit","past_participle":"bitten","common_mistakes":["bited","biten","bote"],"fa":"گاز گرفتن"},
+{"infinitive":"bleed","past_simple":"bled","past_participle":"bled","common_mistakes":["bleeded","blead","bledded"],"fa":"خون‌ریزی کردن"},
+{"infinitive":"break","past_simple":"broke","past_participle":"broken","common_mistakes":["breaked","broked","broaken"],"fa":"شکستن"},
+{"infinitive":"bring","past_simple":"brought","past_participle":"brought","common_mistakes":["bringed","brang","brung"],"fa":"آوردن"},
+{"infinitive":"build","past_simple":"built","past_participle":"built","common_mistakes":["builded","bilt","buildt"],"fa":"ساختن"},
+{"infinitive":"buy","past_simple":"bought","past_participle":"bought","common_mistakes":["buyed","boughten","buyt"],"fa":"خریدن"},
+{"infinitive":"choose","past_simple":"chose","past_participle":"chosen","common_mistakes":["choosed","chosed","choosen"],"fa":"انتخاب کردن"},
+{"infinitive":"come","past_simple":"came","past_participle":"come","common_mistakes":["comed","camed","comen"],"fa":"آمدن"},
+{"infinitive":"cost","past_simple":"cost","past_participle":"cost","common_mistakes":["costed","costd","coast"],"fa":"هزینه داشتن"},
+{"infinitive":"cut","past_simple":"cut","past_participle":"cut","common_mistakes":["cutted","cuted","cutten"],"fa":"بریدن"},
+{"infinitive":"dig","past_simple":"dug","past_participle":"dug","common_mistakes":["digged","dag","digen"],"fa":"کندن / حفر کردن"},
+{"infinitive":"do","past_simple":"did","past_participle":"done","common_mistakes":["doed","dod","doned"],"fa":"انجام دادن"},
+{"infinitive":"drink","past_simple":"drank","past_participle":"drunk","common_mistakes":["drinked","dranked","drunken"],"fa":"نوشیدن"},
+{"infinitive":"drive","past_simple":"drove","past_participle":"driven","common_mistakes":["drived","droved","drivven"],"fa":"رانندگی کردن"},
+{"infinitive":"eat","past_simple":"ate","past_participle":"eaten","common_mistakes":["eated","aten","eeten"],"fa":"خوردن"},
+{"infinitive":"fall","past_simple":"fell","past_participle":"fallen","common_mistakes":["falled","felled","fellen"],"fa":"افتادن"},
+{"infinitive":"feed","past_simple":"fed","past_participle":"fed","common_mistakes":["feeded","fad","feded"],"fa":"غذا دادن"},
+{"infinitive":"feel","past_simple":"felt","past_participle":"felt","common_mistakes":["feeled","felted","feld"],"fa":"احساس کردن"},
+{"infinitive":"fight","past_simple":"fought","past_participle":"fought","common_mistakes":["fighted","faught","foughten"],"fa":"جنگیدن"},
+{"infinitive":"find","past_simple":"found","past_participle":"found","common_mistakes":["finded","founded","fund"],"fa":"پیدا کردن"},
+{"infinitive":"forget","past_simple":"forgot","past_participle":"forgotten","common_mistakes":["forgetted","forgated","forgoten"],"fa":"فراموش کردن"},
+{"infinitive":"get","past_simple":"got","past_participle":"got","common_mistakes":["getted","gat","goted"],"fa":"گرفتن / به‌دست آوردن"},
+{"infinitive":"give","past_simple":"gave","past_participle":"given","common_mistakes":["gived","gaved","givven"],"fa":"دادن"},
+{"infinitive":"go","past_simple":"went","past_participle":"gone","common_mistakes":["goed","wented","goned"],"fa":"رفتن"},
+{"infinitive":"grow","past_simple":"grew","past_participle":"grown","common_mistakes":["growed","grewed","grewn"],"fa":"رشد کردن"},
+{"infinitive":"hang","past_simple":"hung","past_participle":"hung","common_mistakes":["hanged","hunged","hangen"],"fa":"آویزان کردن"},
+{"infinitive":"have","past_simple":"had","past_participle":"had","common_mistakes":["haved","haded","haves"],"fa":"داشتن"},
+{"infinitive":"hear","past_simple":"heard","past_participle":"heard","common_mistakes":["heared","herd","heart"],"fa":"شنیدن"},
+{"infinitive":"hide","past_simple":"hid","past_participle":"hidden","common_mistakes":["hided","hod","hiden"],"fa":"پنهان کردن"},
+{"infinitive":"hit","past_simple":"hit","past_participle":"hit","common_mistakes":["hitted","hat","hitten"],"fa":"زدن (ضربه)"},
+{"infinitive":"hold","past_simple":"held","past_participle":"held","common_mistakes":["holded","helded","holden"],"fa":"نگه داشتن"},
+{"infinitive":"hurt","past_simple":"hurt","past_participle":"hurt","common_mistakes":["hurted","hart","hurten"],"fa":"صدمه زدن / درد گرفتن"},
+{"infinitive":"keep","past_simple":"kept","past_participle":"kept","common_mistakes":["keeped","kep","kepted"],"fa":"نگه داشتن"},
+{"infinitive":"know","past_simple":"knew","past_participle":"known","common_mistakes":["knowed","knewed","knowen"],"fa":"دانستن"},
+{"infinitive":"leave","past_simple":"left","past_participle":"left","common_mistakes":["leaved","lefted","leved"],"fa":"ترک کردن"},
+{"infinitive":"lend","past_simple":"lent","past_participle":"lent","common_mistakes":["lended","lendt","lont"],"fa":"قرض دادن"},
+{"infinitive":"let","past_simple":"let","past_participle":"let","common_mistakes":["letted","leted","letten"],"fa":"اجازه دادن"},
+{"infinitive":"lose","past_simple":"lost","past_participle":"lost","common_mistakes":["losed","loosed","loosted"],"fa":"گم کردن / باختن"},
+{"infinitive":"make","past_simple":"made","past_participle":"made","common_mistakes":["maked","maded","mayed"],"fa":"ساختن / درست کردن"},
+{"infinitive":"meet","past_simple":"met","past_participle":"met","common_mistakes":["meeted","metted","mett"],"fa":"ملاقات کردن"},
+{"infinitive":"pay","past_simple":"paid","past_participle":"paid","common_mistakes":["payed","paied","payd"],"fa":"پرداختن"},
+{"infinitive":"put","past_simple":"put","past_participle":"put","common_mistakes":["putted","puted","putten"],"fa":"گذاشتن"},
+{"infinitive":"read","past_simple":"read","past_participle":"read","common_mistakes":["readed","red","reded"],"fa":"خواندن"},
+{"infinitive":"ride","past_simple":"rode","past_participle":"ridden","common_mistakes":["rided","ridded","riden"],"fa":"سوار شدن"},
+{"infinitive":"ring","past_simple":"rang","past_participle":"rung","common_mistakes":["ringed","ranged","runged"],"fa":"زنگ زدن"},
+{"infinitive":"run","past_simple":"ran","past_participle":"run","common_mistakes":["runned","runed","rin"],"fa":"دویدن"},
+{"infinitive":"say","past_simple":"said","past_participle":"said","common_mistakes":["sayed","saided","sed"],"fa":"گفتن"},
+{"infinitive":"see","past_simple":"saw","past_participle":"seen","common_mistakes":["seed","sawed","seien"],"fa":"دیدن"},
+{"infinitive":"sell","past_simple":"sold","past_participle":"sold","common_mistakes":["selled","solded","sould"],"fa":"فروختن"},
+{"infinitive":"send","past_simple":"sent","past_participle":"sent","common_mistakes":["sended","sentd","sint"],"fa":"فرستادن"},
+{"infinitive":"set","past_simple":"set","past_participle":"set","common_mistakes":["setted","seted","setten"],"fa":"قرار دادن / تنظیم کردن"},
+{"infinitive":"show","past_simple":"showed","past_participle":"shown","common_mistakes":["shew","showd","showen"],"fa":"نشان دادن"},
+{"infinitive":"sit","past_simple":"sat","past_participle":"sat","common_mistakes":["sitted","satted","sitten"],"fa":"نشستن"},
+{"infinitive":"sleep","past_simple":"slept","past_participle":"slept","common_mistakes":["sleeped","slep","sleepted"],"fa":"خوابیدن"},
+{"infinitive":"speak","past_simple":"spoke","past_participle":"spoken","common_mistakes":["speaked","spoked","spoaken"],"fa":"صحبت کردن"},
+{"infinitive":"spend","past_simple":"spent","past_participle":"spent","common_mistakes":["spended","spendt","spened"],"fa":"خرج کردن / گذراندن"},
+{"infinitive":"swim","past_simple":"swam","past_participle":"swum","common_mistakes":["swimmed","swammed","swumed"],"fa":"شنا کردن"},
+{"infinitive":"take","past_simple":"took","past_participle":"taken","common_mistakes":["taked","tooked","takken"],"fa":"گرفتن / بردن"},
+{"infinitive":"teach","past_simple":"taught","past_participle":"taught","common_mistakes":["teached","taughted","teech"],"fa":"آموزش دادن"},
+{"infinitive":"tell","past_simple":"told","past_participle":"told","common_mistakes":["telled","tolded","tald"],"fa":"گفتن / تعریف کردن"},
+{"infinitive":"think","past_simple":"thought","past_participle":"thought","common_mistakes":["thinked","thunk","thoughted"],"fa":"فکر کردن"},
+{"infinitive":"throw","past_simple":"threw","past_participle":"thrown","common_mistakes":["throwed","threwed","throwen"],"fa":"پرتاب کردن"},
+{"infinitive":"understand","past_simple":"understood","past_participle":"understood","common_mistakes":["understanded","understan","understudd"],"fa":"فهمیدن"},
+{"infinitive":"wear","past_simple":"wore","past_participle":"worn","common_mistakes":["weared","wored","weren"],"fa":"پوشیدن"},
+{"infinitive":"win","past_simple":"won","past_participle":"won","common_mistakes":["winned","wan","wonned"],"fa":"برنده شدن"},
+{"infinitive":"write","past_simple":"wrote","past_participle":"written","common_mistakes":["writed","wroted","writ"],"fa":"نوشتن"}
+];
+
+const TYPES = ["infinitive","past_simple","past_participle"];
+const LABEL = {infinitive:"مصدر", past_simple:"گذشتهٔ ساده", past_participle:"اسم مفعول"};
+const SHORT = {infinitive:"Base", past_simple:"Past", past_participle:"P.P."};
+
+/* ---------- ذخیره‌سازی ---------- */
+const KEY = "irregular_verbs_v1";
+let store = loadStore();
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {mistakes:{}, life:{correct:0, wrong:0}};
+}
+let saveTimer=null;
+function saveStore(){
+  try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
+}
+let askedPersist=false;
+async function askPersist(){
+  if(askedPersist) return; askedPersist=true;
+  try{
+    if(navigator.storage && navigator.storage.persist){
+      const already = await navigator.storage.persisted();
+      if(!already) await navigator.storage.persist();
+    }
+  }catch(e){}
+}
+
+/* ---------- ابزارها ---------- */
+const $ = s => document.querySelector(s);
+const view = $("#view");
+const rand = arr => arr[Math.floor(Math.random()*arr.length)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fa(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g," ");}
+// امتیاز شباهت املایی: حروف مشترک + هم‌شروع/هم‌پایان بودن
+function similar(a,b){
+  a=norm(a); b=norm(b); let s=0;
+  const sa=new Set(a), sb=new Set(b);
+  sa.forEach(c=>{ if(sb.has(c)) s++; });
+  if(a[0]===b[0]) s+=2;
+  if(a[a.length-1]===b[b.length-1]) s++;
+  s-=Math.abs(a.length-b.length)*0.5;
+  return s;
+}
+function accepted(verb,type){
+  const v = verb[type];
+  const parts = v.split("/").map(norm);
+  return new Set([norm(v),...parts]);
+}
+function speak(text){
+  try{
+    if(!window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang="en-US"; u.rate=.85;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ---------- وضعیت ---------- */
+let activeTab = "learn";
+let learnIndex = 0;
+let session = {correct:0, wrong:0, streak:0};
+let quizMode = "choice";       // choice | type | mixed
+let quizPool = "all";          // all | mistakes
+let current = null;            // سوال جاری
+let answered = false;
+
+function mistakeVerbs(){ return VERBS.filter(v=>store.mistakes[v.infinitive]&&store.mistakes[v.infinitive].count>0); }
+function poolVerbs(){ return quizPool==="mistakes" ? mistakeVerbs() : VERBS; }
+
+// انتخاب کیسه‌ای (shuffle bag): هر فعل یک‌بار در هر دور می‌آید؛
+// تکرار فقط بعد از تمام‌شدن دور رخ می‌دهد → نه تمرکز روی اولی‌ها، نه تکرار پشت‌سرهم.
+let deck=[], deckKey="", lastVerb=null;
+function nextVerb(){
+  const pool=poolVerbs();
+  if(!pool.length) return null;
+  const key=quizPool+":"+pool.map(v=>v.infinitive).join(",");
+  if(deckKey!==key){ deckKey=key; deck=[]; }
+  if(deck.length===0){
+    deck=shuffle(pool.slice());
+    // جلوگیری از تکرارِ بلافاصله سرِ دورِ جدید
+    if(deck.length>1 && deck[0].infinitive===lastVerb){ [deck[0],deck[1]]=[deck[1],deck[0]]; }
+  }
+  const v=deck.shift();
+  lastVerb=v.infinitive;
+  return v;
+}
+
+function recordMistake(verb,type){
+  const k=verb.infinitive;
+  const m = store.mistakes[k] || {count:0, forms:{}};
+  m.count++; m.forms[type]=(m.forms[type]||0)+1;
+  store.mistakes[k]=m;
+  store.life.wrong++;
+  saveStore();
+}
+function recordSuccess(verb,type){
+  const k=verb.infinitive;
+  if(store.mistakes[k]){
+    const m=store.mistakes[k];
+    m.count=Math.max(0,m.count-1);
+    if(m.forms[type]) m.forms[type]=Math.max(0,m.forms[type]-1);
+    if(m.count<=0) delete store.mistakes[k];
+  }
+  store.life.correct++;
+  saveStore();
+}
+
+/* ---------- نوار آمار بالا ---------- */
+function refreshStats(){
+  const tot = store.life.correct + store.life.wrong;
+  const acc = tot ? Math.round(store.life.correct/tot*100) : 0;
+  $("#sAcc").textContent = fa(acc)+"٪";
+  $("#sStreak").textContent = fa(session.streak);
+  $("#sMis").textContent = fa(mistakeVerbs().length);
+}
+
+/* ---------- روتر ---------- */
+function setTab(tab){
+  activeTab=tab;
+  document.querySelectorAll(".tab").forEach(b=>{
+    const on=b.dataset.tab===tab; b.classList.toggle("active",on);
+    if(on && b.scrollIntoView) b.scrollIntoView({inline:"center",block:"nearest"});
+  });
+  if(tab==="learn") renderLearn();
+  else if(tab==="mistakes") renderMistakes();
+  else { quizMode=tab; renderQuiz(); }
+  refreshStats();
+}
+
+/* ---------- یادگیری (فلش‌کارت) ---------- */
+let revealed=false;
+function renderLearn(){
+  const v = VERBS[learnIndex];
+  const pct = ((learnIndex+1)/VERBS.length*100);
+  view.innerHTML = `
+  <div class="card flash">
+    <div class="lead">کارت ${fa(learnIndex+1)} از ${fa(VERBS.length)}</div>
+    <div class="word base" id="baseW">${v.infinitive}</div>
+    <div class="fa-mean">${v.fa}</div>
+    <button class="pill" id="say" style="margin-top:10px">🔊 تلفظ</button>
+    <div class="forms">
+      <div class="form"><small>${LABEL.past_simple} · ${SHORT.past_simple}</small>
+        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</div></div>
+      <div class="form"><small>${LABEL.past_participle} · ${SHORT.past_participle}</small>
+        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</div></div>
+    </div>
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <div class="row">
+      <button class="btn" id="prev">قبلی ›</button>
+      <button class="btn ghost" id="reveal">${revealed?'مخفی کن':'نمایش'}</button>
+      <button class="btn primary" id="next">‹ بعدی</button>
+    </div>
+    <div class="note">روی قسمت تار بزن تا جواب را ببینی</div>
+  </div>`;
+
+  $("#say").onclick=()=>speak(`${v.infinitive}, ${v.past_simple.replace('/',' or ')}, ${v.past_participle}`);
+  $("#reveal").onclick=()=>{revealed=!revealed;renderLearn();};
+  view.querySelectorAll("[data-reveal]").forEach(el=>el.onclick=()=>{revealed=true;renderLearn();});
+  $("#prev").onclick=()=>{learnIndex=(learnIndex-1+VERBS.length)%VERBS.length;revealed=false;renderLearn();};
+  $("#next").onclick=()=>{learnIndex=(learnIndex+1)%VERBS.length;revealed=false;renderLearn();};
+}
+
+/* ---------- ساخت سوال ---------- */
+function makeQuestion(){
+  const verb = nextVerb();
+  if(!verb){ current=null; return; }
+  const answerType = rand(TYPES);
+  let promptType; do{ promptType=rand(TYPES); }while(promptType===answerType);
+  let mode = quizMode==="mixed" ? rand(["choice","type"]) : quizMode;
+  let options=[];
+  if(mode==="choice"){
+    const correct=verb[answerType];
+    const set=new Set([correct]);
+    // فاصله‌نزدیک: اول صورت‌های دیگرِ همین فعل، بعد اشتباهات املایی رایج همین فعل
+    const close=[];
+    for(const t of TYPES){ if(t!==answerType) close.push(verb[t]); }
+    if(verb.common_mistakes) close.push(...verb.common_mistakes);
+    for(const d of shuffle(close)){ if(set.size>=4)break; if(d && d!==correct) set.add(d); }
+    // اگر کم آمد، نزدیک‌ترین‌ها از نظر املا را از بقیهٔ افعال بردار (نه رندومِ بی‌ربط)
+    if(set.size<4){
+      const others=VERBS.filter(o=>o!==verb).map(o=>o[answerType])
+        .filter(w=>w&&!set.has(w))
+        .sort((a,b)=>similar(b,correct)-similar(a,correct));
+      for(const w of others){ if(set.size>=4)break; set.add(w); }
+    }
+    options=shuffle([...set]);
+  }
+  current={verb,promptType,answerType,mode,options};
+  answered=false;
+}
+
+function renderQuiz(){
+  if(quizPool==="mistakes" && !mistakeVerbs().length){
+    quizPool="all";
+  }
+  if(!current) makeQuestion();
+  if(!current){ // pool خالی
+    view.innerHTML=`<div class="card empty"><div class="big">🎉</div>چیزی برای تمرین نیست!</div>`;
+    return;
+  }
+  const q=current, v=q.verb;
+  const poolBadge = quizPool==="mistakes"
+    ? `<button class="pill" id="poolBtn">🎯 فقط اشتباهات (${fa(mistakeVerbs().length)}) — تغییر</button>`
+    : `<button class="pill" id="poolBtn">📚 همهٔ افعال — تمرین اشتباهات؟</button>`;
+
+  let answerArea;
+  if(q.mode==="choice"){
+    answerArea=`<div class="options" id="opts">${q.options.map(o=>
+      `<button class="opt" data-val="${o}">${o}</button>`).join("")}</div>`;
+  }else{
+    answerArea=`<div class="typewrap">
+      <input class="type" id="ans" placeholder="جواب را تایپ کن…" autocomplete="off"
+        autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done">
+      <div class="row"><button class="btn primary" id="check">بررسی</button></div>
+    </div>`;
+  }
+
+  view.innerHTML=`
+  <div class="card">
+    <div style="text-align:center;margin-bottom:10px">${poolBadge}</div>
+    <div class="prompt">
+      <div class="ask">${q.mode==="choice"?"کدام درست است؟":"این فعل را صرف کن"}</div>
+      <div class="word qword">${v[q.promptType]}</div>
+      <span class="tag">${LABEL[q.promptType]}</span>
+      <div class="fa-mean">${v.fa}</div>
+      <div class="target">→ ${LABEL[q.answerType]} <b>(${SHORT[q.answerType]})</b> ؟</div>
+    </div>
+    ${answerArea}
+    <div class="feedback" id="fb"></div>
+    <div class="mini">
+      <span>درست: <b id="mc">${fa(session.correct)}</b></span>
+      <span>غلط: <b id="mw">${fa(session.wrong)}</b></span>
+      <span>زنجیره: <b id="ms">${fa(session.streak)}</b></span>
+    </div>
+  </div>`;
+
+  $("#poolBtn").onclick=()=>{
+    if(quizPool==="mistakes"){ quizPool="all"; }
+    else { if(!mistakeVerbs().length){alert("هنوز اشتباهی ذخیره نشده 🙂");return;} quizPool="mistakes"; }
+    current=null; makeQuestion(); renderQuiz(); refreshStats();
+  };
+
+  if(q.mode==="choice"){
+    view.querySelectorAll(".opt").forEach(b=> b.onclick=()=>chooseAnswer(b.dataset.val,b));
+  }else{
+    const inp=$("#ans"); inp.focus();
+    const go=()=>submitTyped(inp.value);
+    $("#check").onclick=go;
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+  }
+}
+
+function finishAnswer(correct, chosen){
+  askPersist();
+  const q=current, v=q.verb;
+  answered=true;
+  if(correct){ session.correct++; session.streak++; recordSuccess(v,q.answerType); }
+  else { session.wrong++; session.streak=0; recordMistake(v,q.answerType); }
+
+  const fb=$("#fb");
+  fb.className="feedback show "+(correct?"ok":"bad");
+  fb.innerHTML = (correct? "✅ آفرین! درست بود." : `❌ نه، درستش این بود: <b>${v[q.answerType]}</b>`)
+    + `<span class="full">${v.infinitive} → ${v.past_simple} → ${v.past_participle}</span>`
+    + `<div style="margin-top:4px;color:var(--muted);font-size:14px">${v.fa}</div>`
+    + `<div class="row"><button class="btn primary" id="nextQ">سوال بعدی ›</button>
+         <button class="btn icon-btn" id="sayQ">🔊</button></div>`;
+  $("#nextQ").onclick=()=>{ current=null; makeQuestion(); renderQuiz(); refreshStats(); };
+  $("#sayQ").onclick=()=>speak(`${v.infinitive}, ${v.past_simple.replace('/',' or ')}, ${v.past_participle}`);
+  if(!correct) fb.classList.add("shake");
+
+  $("#mc").textContent=fa(session.correct);
+  $("#mw").textContent=fa(session.wrong);
+  $("#ms").textContent=fa(session.streak);
+  refreshStats();
+}
+
+function chooseAnswer(val,btn){
+  if(answered) return;
+  const q=current;
+  const correct = val===q.verb[q.answerType];
+  view.querySelectorAll(".opt").forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.val===q.verb[q.answerType]) b.classList.add("correct");
+    else if(b===btn) b.classList.add("wrong");
+  });
+  finishAnswer(correct,val);
+}
+
+function submitTyped(value){
+  if(answered) return;
+  if(!value.trim()){ return; }
+  const q=current;
+  const ok = accepted(q.verb,q.answerType).has(norm(value));
+  const inp=$("#ans");
+  inp.disabled=true;
+  inp.classList.add(ok?"correct":"wrong");
+  $("#check").style.display="none";
+  finishAnswer(ok,value);
+}
+
+/* ---------- اشتباهات ---------- */
+function renderMistakes(){
+  const list = mistakeVerbs()
+    .sort((a,b)=>store.mistakes[b.infinitive].count-store.mistakes[a.infinitive].count);
+  let body;
+  if(!list.length){
+    body=`<div class="empty"><div class="big">✨</div>هنوز اشتباهی ذخیره نشده.<br>برو تست بده تا اینجا پر بشه!</div>`;
+  }else{
+    body=`<div class="mlist">`+list.map(v=>{
+      const m=store.mistakes[v.infinitive];
+      const forms=Object.keys(m.forms).filter(f=>m.forms[f]>0).map(f=>SHORT[f]).join(" · ");
+      return `<div class="mitem">
+        <span class="w">${v.infinitive}</span>
+        <span class="d">${v.past_simple} · ${v.past_participle}${forms?` &nbsp; [${forms}]`:''}<br><span dir="rtl" style="color:var(--muted)">${v.fa}</span></span>
+        <span class="c">${fa(m.count)}</span></div>`;
+    }).join("")+`</div>`;
+  }
+  view.innerHTML=`
+  <div class="card">
+    <div class="prompt"><div class="ask">افعالی که اشتباه زدی (ذخیره‌شده روی مرورگر)</div></div>
+    ${body}
+    <div class="row" style="margin-top:16px">
+      <button class="btn primary" id="practice" ${list.length?'':'disabled style="opacity:.5"'}>🎯 تمرین فقط اشتباهات</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn ghost" id="clear" ${list.length?'':'disabled style="opacity:.5"'}>پاک کردن همه</button>
+    </div>
+    <div class="note">با هر جواب درست به این افعال، شمارنده کم می‌شود و وقتی به صفر برسد از لیست حذف می‌شوند.</div>
+  </div>`;
+
+  if(list.length){
+    $("#practice").onclick=()=>{ quizPool="mistakes"; quizMode="mixed"; current=null; makeQuestion(); setTab("mixed"); };
+    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); renderMistakes(); refreshStats(); } };
+  }
+}
+
+/* ---------- راه‌اندازی ---------- */
+document.querySelectorAll(".tab").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const t=b.dataset.tab;
+    if(t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
+    setTab(t);
+  });
+});
+refreshStats();
+renderLearn();
+</script>
+</body>
+</html>
