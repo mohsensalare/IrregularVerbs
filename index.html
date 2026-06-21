@@ -285,14 +285,101 @@ function accepted(verb,type){
   const parts = v.split("/").map(norm);
   return new Set([norm(v),...parts]);
 }
+/* ---------- تلفظ (انتخاب بهترین صدای موجود) ----------
+   مشکل قبلی: هیچ voice‌ای انتخاب نمی‌شد و مرورگر صدای پیش‌فرضِ
+   اغلب بی‌کیفیت (compact) را با rate پایین می‌خواند → ربات‌گونه.
+   حالا بهترین صدای انگلیسیِ دستگاه انتخاب می‌شود و کاربر هم می‌تواند تغییرش دهد. */
+const VOICE_KEY = "tts_voice_v1";
+let voicesCache = [];
+let chosenVoice = null;
+let preferredVoiceName = (()=>{ try{return localStorage.getItem(VOICE_KEY)||"";}catch(e){return "";} })();
+
+function englishVoices(){ return voicesCache.filter(v=>/^en/i.test(v.lang||"")); }
+
+// صداهای تفننی/بی‌کیفیتِ سیستم که برای آموزش بی‌فایده‌اند
+const BAD_VOICE = /\b(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|good news|jester|junior|kathy|organ|princess|ralph|trinoids|whisper|wobble|zarvox|superstar|grandma|grandpa|rocko|sandy|shelley|reed|flo|eddy|fred|hysterical|novelty)\b/i;
+
+// فقط صداهای مفید برای آموزش: آمریکایی/بریتانیایی، باکیفیت، بدون تکرار — حداکثر چند تا
+function usefulVoices(){
+  let list = voicesCache.filter(v=>{
+    const l=v.lang||"", n=v.name||"";
+    if(!/^en[-_](us|gb)/i.test(l)) return false;     // فقط US و GB
+    if(/compact|eloquence/i.test(n)) return false;   // صداهای فشردهٔ بی‌کیفیت
+    if(BAD_VOICE.test(n)) return false;              // صداهای تفننی
+    return true;
+  });
+  if(!list.length) list = englishVoices();           // اگر چیزی نماند، عقب‌نشینی
+  list = list.slice().sort((a,b)=>rankVoice(b)-rankVoice(a));
+  const seen=new Set();
+  return list.filter(v=>{ if(seen.has(v.name))return false; seen.add(v.name); return true; }).slice(0,5);
+}
+
+// امتیازدهی به صداها: طبیعی/باکیفیت بالا، compact پایین
+function rankVoice(v){
+  const n=(v.name||"").toLowerCase(), l=(v.lang||"");
+  let s=0;
+  if(/^en/i.test(l)) s+=40;
+  if(/^en[-_]us/i.test(l)) s+=12; else if(/^en[-_]gb/i.test(l)) s+=8;
+  if(n.includes("natural")) s+=30;
+  if(n.includes("neural")) s+=28;
+  if(n.includes("premium")||n.includes("enhanced")) s+=22;
+  if(n.includes("google")) s+=20;
+  if(n.includes("microsoft")) s+=10;
+  if(/\b(samantha|alex|daniel|karen|moira|serena|aaron|ava|allison|tom|evan|zoe)\b/.test(n)) s+=14;
+  if(n.includes("compact")) s-=25;
+  if(n.includes("eloquence")) s-=25;
+  if(v.localService===false) s+=6; // صداهای آنلاین معمولاً طبیعی‌ترند
+  return s;
+}
+
+function pickVoice(){
+  try{ voicesCache = speechSynthesis.getVoices() || []; }catch(e){ voicesCache=[]; }
+  if(!voicesCache.length) return null;
+  if(preferredVoiceName){
+    const m = voicesCache.find(v=>v.name===preferredVoiceName);
+    if(m) return m;
+  }
+  const good = usefulVoices();
+  return good[0] || null;
+}
+function refreshVoices(){ chosenVoice = pickVoice(); }
+
+if(window.speechSynthesis){
+  refreshVoices();
+  // بعضی مرورگرها لیست صداها را با تأخیر می‌دهند
+  speechSynthesis.onvoiceschanged = ()=>{ refreshVoices(); if(activeTab==="learn") renderLearn(); };
+}
+
 function speak(text){
   try{
     if(!window.speechSynthesis) return;
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang="en-US"; u.rate=.85;
-    speechSynthesis.speak(u);
+    if(!chosenVoice) refreshVoices();
+    // هر صورتِ فعل را جدا و با مکثِ طبیعی بگو تا واضح‌تر باشد
+    const parts = String(text).split(",").map(s=>s.trim()).filter(Boolean);
+    (parts.length?parts:[String(text)]).forEach(p=>{
+      const u = new SpeechSynthesisUtterance(p);
+      if(chosenVoice){ u.voice=chosenVoice; u.lang=chosenVoice.lang; }
+      else u.lang="en-US";
+      u.rate=.9; u.pitch=1;
+      speechSynthesis.speak(u);
+    });
   }catch(e){}
+}
+
+// منوی انتخاب صدا (فقط وقتی چند صدای انگلیسی موجود باشد)
+function voiceSelectHTML(){
+  const list = usefulVoices();
+  if(list.length<2) return "";
+  const cur = chosenVoice ? chosenVoice.name : "";
+  const label = v=>{
+    const flag = /^en[-_]gb/i.test(v.lang||"") ? "🇬🇧" : "🇺🇸";
+    const name = v.name.replace(/\s*\((enhanced|premium|natural)\)/i,"").trim();
+    return `${flag} ${name}`;
+  };
+  return `<select id="voiceSel" class="pill" style="direction:ltr;max-width:220px;font-size:12px;padding:6px 10px">
+    ${list.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${v.name===cur?' selected':''}>${label(v)}</option>`).join("")}
+  </select>`;
 }
 
 /* ---------- وضعیت ---------- */
@@ -377,7 +464,10 @@ function renderLearn(){
     <div class="lead">کارت ${fa(learnIndex+1)} از ${fa(VERBS.length)}</div>
     <div class="word base" id="baseW">${v.infinitive}</div>
     <div class="fa-mean">${v.fa}</div>
-    <button class="pill" id="say" style="margin-top:10px">🔊 تلفظ</button>
+    <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center">
+      <button class="pill" id="say">🔊 تلفظ</button>
+      ${voiceSelectHTML()}
+    </div>
     <div class="forms">
       <div class="form"><small>${LABEL.past_simple} · ${SHORT.past_simple}</small>
         <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</div></div>
@@ -394,6 +484,13 @@ function renderLearn(){
   </div>`;
 
   $("#say").onclick=()=>speak(`${v.infinitive}, ${v.past_simple.replace('/',' or ')}, ${v.past_participle}`);
+  const vsel=$("#voiceSel");
+  if(vsel) vsel.onchange=()=>{
+    preferredVoiceName=vsel.value;
+    try{ localStorage.setItem(VOICE_KEY, preferredVoiceName); }catch(e){}
+    refreshVoices();
+    speak(v.infinitive); // پیش‌نمایش صدای انتخاب‌شده
+  };
   $("#reveal").onclick=()=>{revealed=!revealed;renderLearn();};
   view.querySelectorAll("[data-reveal]").forEach(el=>el.onclick=()=>{revealed=true;renderLearn();});
   $("#prev").onclick=()=>{learnIndex=(learnIndex-1+VERBS.length)%VERBS.length;revealed=false;renderLearn();};
