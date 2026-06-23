@@ -164,20 +164,25 @@
 /* ---------- داده افعال (embed شده تا فایل مستقل باشد) ---------- */
 const VERBS = [
 {"infinitive":"be","past_simple":"was/were","past_participle":"been","common_mistakes":["beed","bee","ben"],"fa":"بودن"},
+{"infinitive":"beat","past_simple":"beat","past_participle":"beaten","common_mistakes":["beated","beeten","beaden"],"fa":"کتک زدن / شکست دادن"},
 {"infinitive":"become","past_simple":"became","past_participle":"become","common_mistakes":["becomed","becamed","becomen"],"fa":"شدن"},
 {"infinitive":"begin","past_simple":"began","past_participle":"begun","common_mistakes":["beginned","begined","begunned"],"fa":"شروع کردن"},
+{"infinitive":"bend","past_simple":"bent","past_participle":"bent","common_mistakes":["bended","bendt","bant"],"fa":"خم کردن"},
 {"infinitive":"bite","past_simple":"bit","past_participle":"bitten","common_mistakes":["bited","biten","bote"],"fa":"گاز گرفتن"},
 {"infinitive":"bleed","past_simple":"bled","past_participle":"bled","common_mistakes":["bleeded","blead","bledded"],"fa":"خون‌ریزی کردن"},
+{"infinitive":"blow","past_simple":"blew","past_participle":"blown","common_mistakes":["blowed","blewed","blowen"],"fa":"دمیدن / فوت کردن"},
 {"infinitive":"break","past_simple":"broke","past_participle":"broken","common_mistakes":["breaked","broked","broaken"],"fa":"شکستن"},
 {"infinitive":"bring","past_simple":"brought","past_participle":"brought","common_mistakes":["bringed","brang","brung"],"fa":"آوردن"},
 {"infinitive":"build","past_simple":"built","past_participle":"built","common_mistakes":["builded","bilt","buildt"],"fa":"ساختن"},
 {"infinitive":"buy","past_simple":"bought","past_participle":"bought","common_mistakes":["buyed","boughten","buyt"],"fa":"خریدن"},
+{"infinitive":"catch","past_simple":"caught","past_participle":"caught","common_mistakes":["catched","cought","caughted"],"fa":"گرفتن / گیر انداختن"},
 {"infinitive":"choose","past_simple":"chose","past_participle":"chosen","common_mistakes":["choosed","chosed","choosen"],"fa":"انتخاب کردن"},
 {"infinitive":"come","past_simple":"came","past_participle":"come","common_mistakes":["comed","camed","comen"],"fa":"آمدن"},
 {"infinitive":"cost","past_simple":"cost","past_participle":"cost","common_mistakes":["costed","costd","coast"],"fa":"هزینه داشتن"},
 {"infinitive":"cut","past_simple":"cut","past_participle":"cut","common_mistakes":["cutted","cuted","cutten"],"fa":"بریدن"},
 {"infinitive":"dig","past_simple":"dug","past_participle":"dug","common_mistakes":["digged","dag","digen"],"fa":"کندن / حفر کردن"},
 {"infinitive":"do","past_simple":"did","past_participle":"done","common_mistakes":["doed","dod","doned"],"fa":"انجام دادن"},
+{"infinitive":"draw","past_simple":"drew","past_participle":"drawn","common_mistakes":["drawed","drewed","drawned"],"fa":"کشیدن (نقاشی)"},
 {"infinitive":"drink","past_simple":"drank","past_participle":"drunk","common_mistakes":["drinked","dranked","drunken"],"fa":"نوشیدن"},
 {"infinitive":"drive","past_simple":"drove","past_participle":"driven","common_mistakes":["drived","droved","drivven"],"fa":"رانندگی کردن"},
 {"infinitive":"eat","past_simple":"ate","past_participle":"eaten","common_mistakes":["eated","aten","eeten"],"fa":"خوردن"},
@@ -186,7 +191,10 @@ const VERBS = [
 {"infinitive":"feel","past_simple":"felt","past_participle":"felt","common_mistakes":["feeled","felted","feld"],"fa":"احساس کردن"},
 {"infinitive":"fight","past_simple":"fought","past_participle":"fought","common_mistakes":["fighted","faught","foughten"],"fa":"جنگیدن"},
 {"infinitive":"find","past_simple":"found","past_participle":"found","common_mistakes":["finded","founded","fund"],"fa":"پیدا کردن"},
+{"infinitive":"fly","past_simple":"flew","past_participle":"flown","common_mistakes":["flied","flyed","flewn"],"fa":"پرواز کردن"},
 {"infinitive":"forget","past_simple":"forgot","past_participle":"forgotten","common_mistakes":["forgetted","forgated","forgoten"],"fa":"فراموش کردن"},
+{"infinitive":"forgive","past_simple":"forgave","past_participle":"forgiven","common_mistakes":["forgived","forgaved","forgivven"],"fa":"بخشیدن"},
+{"infinitive":"freeze","past_simple":"froze","past_participle":"frozen","common_mistakes":["freezed","frozed","freezen"],"fa":"یخ زدن"},
 {"infinitive":"get","past_simple":"got","past_participle":"got","common_mistakes":["getted","gat","goted"],"fa":"گرفتن / به‌دست آوردن"},
 {"infinitive":"give","past_simple":"gave","past_participle":"given","common_mistakes":["gived","gaved","givven"],"fa":"دادن"},
 {"infinitive":"go","past_simple":"went","past_participle":"gone","common_mistakes":["goed","wented","goned"],"fa":"رفتن"},
@@ -200,35 +208,54 @@ const VERBS = [
 {"infinitive":"hurt","past_simple":"hurt","past_participle":"hurt","common_mistakes":["hurted","hart","hurten"],"fa":"صدمه زدن / درد گرفتن"},
 {"infinitive":"keep","past_simple":"kept","past_participle":"kept","common_mistakes":["keeped","kep","kepted"],"fa":"نگه داشتن"},
 {"infinitive":"know","past_simple":"knew","past_participle":"known","common_mistakes":["knowed","knewed","knowen"],"fa":"دانستن"},
+{"infinitive":"lay","past_simple":"laid","past_participle":"laid","common_mistakes":["layed","laided","lain"],"fa":"گذاشتن / پهن کردن"},
+{"infinitive":"lead","past_simple":"led","past_participle":"led","common_mistakes":["leaded","leeded","ledded"],"fa":"رهبری / هدایت کردن"},
 {"infinitive":"leave","past_simple":"left","past_participle":"left","common_mistakes":["leaved","lefted","leved"],"fa":"ترک کردن"},
 {"infinitive":"lend","past_simple":"lent","past_participle":"lent","common_mistakes":["lended","lendt","lont"],"fa":"قرض دادن"},
 {"infinitive":"let","past_simple":"let","past_participle":"let","common_mistakes":["letted","leted","letten"],"fa":"اجازه دادن"},
 {"infinitive":"lose","past_simple":"lost","past_participle":"lost","common_mistakes":["losed","loosed","loosted"],"fa":"گم کردن / باختن"},
 {"infinitive":"make","past_simple":"made","past_participle":"made","common_mistakes":["maked","maded","mayed"],"fa":"ساختن / درست کردن"},
+{"infinitive":"mean","past_simple":"meant","past_participle":"meant","common_mistakes":["meaned","ment","meened"],"fa":"معنی دادن / قصد داشتن"},
 {"infinitive":"meet","past_simple":"met","past_participle":"met","common_mistakes":["meeted","metted","mett"],"fa":"ملاقات کردن"},
 {"infinitive":"pay","past_simple":"paid","past_participle":"paid","common_mistakes":["payed","paied","payd"],"fa":"پرداختن"},
 {"infinitive":"put","past_simple":"put","past_participle":"put","common_mistakes":["putted","puted","putten"],"fa":"گذاشتن"},
 {"infinitive":"read","past_simple":"read","past_participle":"read","common_mistakes":["readed","red","reded"],"fa":"خواندن"},
 {"infinitive":"ride","past_simple":"rode","past_participle":"ridden","common_mistakes":["rided","ridded","riden"],"fa":"سوار شدن"},
 {"infinitive":"ring","past_simple":"rang","past_participle":"rung","common_mistakes":["ringed","ranged","runged"],"fa":"زنگ زدن"},
+{"infinitive":"rise","past_simple":"rose","past_participle":"risen","common_mistakes":["rised","rosed","rissen"],"fa":"بالا آمدن / طلوع کردن"},
 {"infinitive":"run","past_simple":"ran","past_participle":"run","common_mistakes":["runned","runed","rin"],"fa":"دویدن"},
 {"infinitive":"say","past_simple":"said","past_participle":"said","common_mistakes":["sayed","saided","sed"],"fa":"گفتن"},
 {"infinitive":"see","past_simple":"saw","past_participle":"seen","common_mistakes":["seed","sawed","seien"],"fa":"دیدن"},
 {"infinitive":"sell","past_simple":"sold","past_participle":"sold","common_mistakes":["selled","solded","sould"],"fa":"فروختن"},
 {"infinitive":"send","past_simple":"sent","past_participle":"sent","common_mistakes":["sended","sentd","sint"],"fa":"فرستادن"},
 {"infinitive":"set","past_simple":"set","past_participle":"set","common_mistakes":["setted","seted","setten"],"fa":"قرار دادن / تنظیم کردن"},
+{"infinitive":"shake","past_simple":"shook","past_participle":"shaken","common_mistakes":["shaked","shooked","shoke"],"fa":"تکان دادن"},
+{"infinitive":"shine","past_simple":"shone","past_participle":"shone","common_mistakes":["shined","shoned","shinen"],"fa":"درخشیدن"},
+{"infinitive":"shoot","past_simple":"shot","past_participle":"shot","common_mistakes":["shooted","shotted","shotten"],"fa":"شلیک کردن"},
 {"infinitive":"show","past_simple":"showed","past_participle":"shown","common_mistakes":["shew","showd","showen"],"fa":"نشان دادن"},
+{"infinitive":"shut","past_simple":"shut","past_participle":"shut","common_mistakes":["shutted","shuted","shutten"],"fa":"بستن"},
+{"infinitive":"sing","past_simple":"sang","past_participle":"sung","common_mistakes":["singed","sanged","sunged"],"fa":"آواز خواندن"},
+{"infinitive":"sink","past_simple":"sank","past_participle":"sunk","common_mistakes":["sinked","sanked","sunken"],"fa":"غرق شدن / فرو رفتن"},
 {"infinitive":"sit","past_simple":"sat","past_participle":"sat","common_mistakes":["sitted","satted","sitten"],"fa":"نشستن"},
 {"infinitive":"sleep","past_simple":"slept","past_participle":"slept","common_mistakes":["sleeped","slep","sleepted"],"fa":"خوابیدن"},
 {"infinitive":"speak","past_simple":"spoke","past_participle":"spoken","common_mistakes":["speaked","spoked","spoaken"],"fa":"صحبت کردن"},
 {"infinitive":"spend","past_simple":"spent","past_participle":"spent","common_mistakes":["spended","spendt","spened"],"fa":"خرج کردن / گذراندن"},
+{"infinitive":"spread","past_simple":"spread","past_participle":"spread","common_mistakes":["spreaded","spred","spreadt"],"fa":"پخش کردن / گستردن"},
+{"infinitive":"stand","past_simple":"stood","past_participle":"stood","common_mistakes":["standed","stooded","staned"],"fa":"ایستادن"},
+{"infinitive":"steal","past_simple":"stole","past_participle":"stolen","common_mistakes":["stealed","stoled","stealen"],"fa":"دزدیدن"},
+{"infinitive":"stick","past_simple":"stuck","past_participle":"stuck","common_mistakes":["sticked","stucked","stuk"],"fa":"چسباندن / گیر کردن"},
+{"infinitive":"strike","past_simple":"struck","past_participle":"struck","common_mistakes":["striked","strucked","stroke"],"fa":"ضربه زدن / اعتصاب کردن"},
+{"infinitive":"swear","past_simple":"swore","past_participle":"sworn","common_mistakes":["sweared","swored","sweren"],"fa":"قسم خوردن / فحش دادن"},
+{"infinitive":"sweep","past_simple":"swept","past_participle":"swept","common_mistakes":["sweeped","swepted","swep"],"fa":"جارو کردن"},
 {"infinitive":"swim","past_simple":"swam","past_participle":"swum","common_mistakes":["swimmed","swammed","swumed"],"fa":"شنا کردن"},
 {"infinitive":"take","past_simple":"took","past_participle":"taken","common_mistakes":["taked","tooked","takken"],"fa":"گرفتن / بردن"},
 {"infinitive":"teach","past_simple":"taught","past_participle":"taught","common_mistakes":["teached","taughted","teech"],"fa":"آموزش دادن"},
+{"infinitive":"tear","past_simple":"tore","past_participle":"torn","common_mistakes":["teared","tored","tearn"],"fa":"پاره کردن"},
 {"infinitive":"tell","past_simple":"told","past_participle":"told","common_mistakes":["telled","tolded","tald"],"fa":"گفتن / تعریف کردن"},
 {"infinitive":"think","past_simple":"thought","past_participle":"thought","common_mistakes":["thinked","thunk","thoughted"],"fa":"فکر کردن"},
 {"infinitive":"throw","past_simple":"threw","past_participle":"thrown","common_mistakes":["throwed","threwed","throwen"],"fa":"پرتاب کردن"},
 {"infinitive":"understand","past_simple":"understood","past_participle":"understood","common_mistakes":["understanded","understan","understudd"],"fa":"فهمیدن"},
+{"infinitive":"wake","past_simple":"woke","past_participle":"woken","common_mistakes":["waked","woked","waken"],"fa":"بیدار شدن"},
 {"infinitive":"wear","past_simple":"wore","past_participle":"worn","common_mistakes":["weared","wored","weren"],"fa":"پوشیدن"},
 {"infinitive":"win","past_simple":"won","past_participle":"won","common_mistakes":["winned","wan","wonned"],"fa":"برنده شدن"},
 {"infinitive":"write","past_simple":"wrote","past_participle":"written","common_mistakes":["writed","wroted","writ"],"fa":"نوشتن"}
@@ -367,6 +394,17 @@ function speak(text){
   }catch(e){}
 }
 
+// تلفظ‌های استثنا (هم‌نگاره‌ها): گذشتهٔ read مثل «red» خوانده می‌شود نه «reed»
+const PRON = {
+  read: { past_simple:"red", past_participle:"red" },
+  lead: { infinitive:"leed" },   // فعل: «لید» (رهبری) نه «لِد» (فلز سرب)
+  tear: { infinitive:"tare" }    // فعل پاره‌کردن: «تِر» نه «تییر» (اشک)
+};
+function sayForm(v,type){ return (PRON[v.infinitive] && PRON[v.infinitive][type]) || v[type]; }
+function spokenForms(v){
+  return `${sayForm(v,'infinitive')}, ${sayForm(v,'past_simple').replace('/',' or ')}, ${sayForm(v,'past_participle')}`;
+}
+
 // منوی انتخاب صدا (فقط وقتی چند صدای انگلیسی موجود باشد)
 function voiceSelectHTML(){
   const list = usefulVoices();
@@ -456,13 +494,50 @@ function setTab(tab){
 
 /* ---------- یادگیری (فلش‌کارت) ---------- */
 let revealed=false;
+
+// جستجو روی صورت‌های انگلیسی و معنی فارسی
+function searchVerbs(q){
+  q = norm(q);
+  if(!q) return [];
+  return VERBS.filter(v=>
+    v.infinitive.toLowerCase().includes(q) ||
+    v.past_simple.toLowerCase().includes(q) ||
+    v.past_participle.toLowerCase().includes(q) ||
+    (v.fa && v.fa.includes(q))
+  );
+}
+// نتایج را فقط داخل کانتینر به‌روزرسانی می‌کند تا فوکوس اینپوت از بین نرود
+function renderSearchResults(){
+  const box=$("#searchResults"), sb=$("#searchBox");
+  if(!box||!sb) return;
+  const q=sb.value;
+  if(!q.trim()){ box.innerHTML=""; return; }
+  const res=searchVerbs(q);
+  if(!res.length){ box.innerHTML=`<div class="note" style="text-align:right">چیزی پیدا نشد</div>`; return; }
+  box.innerHTML=`<div class="mlist" style="margin-top:8px">`+res.slice(0,8).map(v=>{
+    const i=VERBS.indexOf(v);
+    return `<div class="mitem" data-i="${i}" style="cursor:pointer">
+      <span class="w">${v.infinitive}</span>
+      <span class="d">${v.past_simple} · ${v.past_participle} — <span dir="rtl">${v.fa}</span></span></div>`;
+  }).join("")+`</div>`;
+  box.querySelectorAll(".mitem").forEach(el=>el.onclick=()=>{
+    learnIndex=parseInt(el.dataset.i,10); revealed=false; renderLearn();
+  });
+}
+
 function renderLearn(){
   const v = VERBS[learnIndex];
   const pct = ((learnIndex+1)/VERBS.length*100);
   view.innerHTML = `
   <div class="card flash">
+    <div style="margin-bottom:12px">
+      <input id="searchBox" dir="auto" placeholder="🔍 جستجوی فعل یا معنی…" autocomplete="off"
+        autocorrect="off" autocapitalize="none" spellcheck="false"
+        style="width:100%;font-family:inherit;font-size:15px;padding:11px 14px;border:1.5px solid var(--line);border-radius:13px;outline:none">
+      <div id="searchResults"></div>
+    </div>
     <div class="lead">کارت ${fa(learnIndex+1)} از ${fa(VERBS.length)}</div>
-    <div class="word base" id="baseW">${v.infinitive}</div>
+    <div class="word base" id="baseW" style="cursor:pointer" title="برای شنیدن بزن">${v.infinitive}</div>
     <div class="fa-mean">${v.fa}</div>
     <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center">
       <button class="pill" id="say">🔊 تلفظ</button>
@@ -470,9 +545,11 @@ function renderLearn(){
     </div>
     <div class="forms">
       <div class="form"><small>${LABEL.past_simple} · ${SHORT.past_simple}</small>
-        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</div></div>
+        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</div>
+        <button class="pill sayf" data-type="past_simple" style="margin-top:6px;padding:3px 11px;font-size:13px">🔊</button></div>
       <div class="form"><small>${LABEL.past_participle} · ${SHORT.past_participle}</small>
-        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</div></div>
+        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</div>
+        <button class="pill sayf" data-type="past_participle" style="margin-top:6px;padding:3px 11px;font-size:13px">🔊</button></div>
     </div>
     <div class="progress"><i style="width:${pct}%"></i></div>
     <div class="row">
@@ -483,7 +560,14 @@ function renderLearn(){
     <div class="note">روی قسمت تار بزن تا جواب را ببینی</div>
   </div>`;
 
-  $("#say").onclick=()=>speak(`${v.infinitive}, ${v.past_simple.replace('/',' or ')}, ${v.past_participle}`);
+  const sb=$("#searchBox");
+  if(sb){ sb.oninput=renderSearchResults; sb.onfocus=()=>sb.select(); }
+  $("#say").onclick=()=>speak(spokenForms(v));
+  $("#baseW").onclick=()=>speak(sayForm(v,'infinitive'));
+  view.querySelectorAll(".sayf").forEach(b=>b.onclick=e=>{
+    e.stopPropagation();
+    speak(sayForm(v,b.dataset.type).replace('/',' or '));
+  });
   const vsel=$("#voiceSel");
   if(vsel) vsel.onchange=()=>{
     preferredVoiceName=vsel.value;
@@ -602,7 +686,7 @@ function finishAnswer(correct, chosen){
     + `<div class="row"><button class="btn primary" id="nextQ">سوال بعدی ›</button>
          <button class="btn icon-btn" id="sayQ">🔊</button></div>`;
   $("#nextQ").onclick=()=>{ current=null; makeQuestion(); renderQuiz(); refreshStats(); };
-  $("#sayQ").onclick=()=>speak(`${v.infinitive}, ${v.past_simple.replace('/',' or ')}, ${v.past_participle}`);
+  $("#sayQ").onclick=()=>speak(spokenForms(v));
   if(!correct) fb.classList.add("shake");
 
   $("#mc").textContent=fa(session.correct);
