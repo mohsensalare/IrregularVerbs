@@ -446,22 +446,26 @@ window.oneSignalSdkReady = new Promise(resolve=>{
       <div><h2 id="reminderTitle">یادآوری مطالعه</h2><p>زمان اعلان را خودت تعیین کن.</p></div>
       <button type="button" class="dialog-close" id="closeReminder" aria-label="بستن">×</button>
     </div>
-    <div class="reminder-summary">اگر تا ساعت انتخابی تمرین نکرده باشی، یک اعلان می‌گیری. موارد اشتباه نیز یک و سه روز بعد یادآوری می‌شوند.</div>
+    <div class="reminder-summary">اگر تا ساعت انتخابی تمرین نکرده باشی، یک یادآوری دوستانه می‌گیری. جمعه‌ها و مرور اشتباهات را هم می‌توانی جداگانه تنظیم کنی.</div>
     <div class="reminder-control">
       <div class="reminder-control-copy"><span>اعلان روزانه</span><small>فقط یک‌بار و در صورت تمرین‌نکردن</small></div>
       <label class="switch"><span class="sr-only">فعال‌کردن اعلان روزانه</span><input type="checkbox" id="reminderEnabled"><span class="switch-track"></span></label>
     </div>
     <label class="reminder-control" for="reminderTime">
       <span class="reminder-control-copy"><span>ساعت یادآوری</span><small>بر اساس ساعت همین دستگاه</small></span>
-      <input class="reminder-time" type="time" id="reminderTime" value="20:00" required>
+      <input class="reminder-time" type="time" id="reminderTime" value="20:00" step="1800" required>
     </label>
+    <div class="reminder-control">
+      <div class="reminder-control-copy"><span>جمعه‌ها یادم بنداز</span><small>یک تمرین سبک برای آخر هفته</small></div>
+      <label class="switch"><span class="sr-only">فعال‌کردن یادآوری جمعه‌ها</span><input type="checkbox" id="fridayReminderEnabled"><span class="switch-track"></span></label>
+    </div>
     <div class="reminder-control">
       <div class="reminder-control-copy"><span>مرور اشتباهات</span><small>یک و سه روز بعد از پاسخ اشتباه</small></div>
       <label class="switch"><span class="sr-only">فعال‌کردن مرور اشتباهات</span><input type="checkbox" id="reviewReminderEnabled" checked><span class="switch-track"></span></label>
     </div>
     <div class="reminder-status" id="reminderStatus" role="status" aria-live="polite"></div>
     <button type="submit" class="btn primary reminder-save" id="saveReminder">ذخیره تنظیمات</button>
-    <p class="reminder-privacy">اجازهٔ اعلان فقط پس از لمس دکمه درخواست می‌شود و هر زمان بخواهی می‌توانی آن را خاموش کنی.</p>
+    <p class="reminder-privacy">اجازهٔ اعلان فقط پس از لمس دکمه درخواست می‌شود. برای خاموش‌کردن کامل، هر سه کلید را خاموش کن.</p>
   </form>
 </dialog>
 
@@ -701,10 +705,13 @@ function saveStore(){
   try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
 }
 function loadReminderState(){
-  const fallback={enabled:false,time:"20:00",reviewEnabled:true,lastPracticeDay:0,reviewDue1:0,reviewDue3:0};
+  const fallback={enabled:false,dailyEnabled:false,time:"20:00",fridayEnabled:false,reviewEnabled:true,lastPracticeDay:0,lastPracticeAt:0,skipDailySlot:"0",reviewDue1:0,reviewDue3:0,reviewDue1Slot:"0",reviewDue3Slot:"0"};
   try{
     const saved=JSON.parse(localStorage.getItem(REMINDER_KEY)||"null");
-    return saved ? {...fallback,...saved} : fallback;
+    if(!saved) return fallback;
+    const merged={...fallback,...saved};
+    if(typeof saved.dailyEnabled!=="boolean") merged.dailyEnabled=Boolean(saved.enabled);
+    return merged;
   }catch(e){return fallback;}
 }
 function saveReminderState(){
@@ -732,12 +739,54 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&
 function pad2(n){return String(n).padStart(2,"0");}
 function localDayValue(date=new Date()){return Number(`${date.getFullYear()}${pad2(date.getMonth()+1)}${pad2(date.getDate())}`);}
 function localDayPlus(days){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+days);return localDayValue(d);}
-function reminderUtcSlot(){
+function normalizeReminderTime(value){
+  const [rawHour,rawMinute]=String(value||"20:00").split(":").map(Number);
+  const total=Math.max(0,Math.min(1439,(rawHour||0)*60+(rawMinute||0)));
+  const rounded=Math.round(total/30)*30%1440;
+  return `${pad2(Math.floor(rounded/60))}:${pad2(rounded%60)}`;
+}
+function reminderMinute(){
   const [hour,minute]=String(reminderState.time||"20:00").split(":").map(Number);
+  return hour*60+minute;
+}
+function reminderUtcSlot(){
+  const [hour,minute]=normalizeReminderTime(reminderState.time).split(":").map(Number);
   const offset=-new Date().getTimezoneOffset();
   const utc=((hour*60+minute-offset)%1440+1440)%1440;
   return `${pad2(Math.floor(utc/60))}:${pad2(utc%60)}`;
 }
+function utcFullSlot(date){
+  return `${date.getUTCFullYear()}${pad2(date.getUTCMonth()+1)}${pad2(date.getUTCDate())}${pad2(date.getUTCHours())}${pad2(date.getUTCMinutes())}`;
+}
+function slotForLocalDayValue(dayValue){
+  const value=String(dayValue||"");
+  if(!/^\d{8}$/.test(value)) return "0";
+  const [hour,minute]=normalizeReminderTime(reminderState.time).split(":").map(Number);
+  const date=new Date(Number(value.slice(0,4)),Number(value.slice(4,6))-1,Number(value.slice(6,8)),hour,minute,0,0);
+  return utcFullSlot(date);
+}
+function todayReminderSlot(){return slotForLocalDayValue(localDayValue());}
+function fridayUtcWeekday(){
+  const [hour,minute]=normalizeReminderTime(reminderState.time).split(":").map(Number);
+  const friday=new Date();
+  friday.setHours(hour,minute,0,0);
+  friday.setDate(friday.getDate()+((5-friday.getDay()+7)%7));
+  return friday.getUTCDay();
+}
+function reminderCopyType(){
+  const minute=reminderMinute();
+  if(minute>=300&&minute<720) return "morning";
+  if(minute>=1200||minute<180) return "night";
+  return "general";
+}
+function refreshReminderScheduleState(){
+  reminderState.time=normalizeReminderTime(reminderState.time);
+  if(reminderState.lastPracticeDay===localDayValue()) reminderState.skipDailySlot=todayReminderSlot();
+  if(reminderState.reviewDue1) reminderState.reviewDue1Slot=slotForLocalDayValue(reminderState.reviewDue1);
+  if(reminderState.reviewDue3) reminderState.reviewDue3Slot=slotForLocalDayValue(reminderState.reviewDue3);
+  saveReminderState();
+}
+refreshReminderScheduleState();
 function oneSignalWithTimeout(timeout=8000){
   if(!window.oneSignalSdkReady) return Promise.resolve(null);
   return Promise.race([
@@ -748,14 +797,23 @@ function oneSignalWithTimeout(timeout=8000){
 function reminderTags(enabled=reminderState.enabled){
   return {
     reminder_enabled:enabled?"1":"0",
+    daily_enabled:reminderState.dailyEnabled?"1":"0",
     reminder_time:String(reminderState.time||"20:00"),
+    reminder_minute:String(reminderMinute()),
     reminder_slot_utc:reminderUtcSlot(),
+    reminder_copy:reminderCopyType(),
     timezone_offset:String(-new Date().getTimezoneOffset()),
     last_practice_day:String(reminderState.lastPracticeDay||0),
+    last_practice_at:String(reminderState.lastPracticeAt||0),
+    skip_daily_slot:String(reminderState.skipDailySlot||"0"),
+    friday_enabled:reminderState.fridayEnabled?"1":"0",
+    friday_utc_weekday:String(fridayUtcWeekday()),
     review_enabled:reminderState.reviewEnabled?"1":"0",
     review_needed:mistakeVerbs().length?"1":"0",
     review_due_1:String(reminderState.reviewDue1||0),
-    review_due_3:String(reminderState.reviewDue3||0)
+    review_due_3:String(reminderState.reviewDue3||0),
+    review_due_1_slot:String(reminderState.reviewDue1Slot||"0"),
+    review_due_3_slot:String(reminderState.reviewDue3Slot||"0")
   };
 }
 async function syncReminderTags(oneSignal=null,enabled=reminderState.enabled){
@@ -771,12 +829,18 @@ async function syncReminderTags(oneSignal=null,enabled=reminderState.enabled){
 }
 function recordStudyActivity(hadMistake){
   reminderState.lastPracticeDay=localDayValue();
+  reminderState.lastPracticeAt=Math.floor(Date.now()/1000);
+  reminderState.skipDailySlot=todayReminderSlot();
   if(hadMistake && reminderState.reviewEnabled){
     reminderState.reviewDue1=localDayPlus(1);
     reminderState.reviewDue3=localDayPlus(3);
+    reminderState.reviewDue1Slot=slotForLocalDayValue(reminderState.reviewDue1);
+    reminderState.reviewDue3Slot=slotForLocalDayValue(reminderState.reviewDue3);
   }else if(!mistakeVerbs().length){
     reminderState.reviewDue1=0;
     reminderState.reviewDue3=0;
+    reminderState.reviewDue1Slot="0";
+    reminderState.reviewDue3Slot="0";
   }
   saveReminderState();
   if(reminderState.enabled) syncReminderTags();
@@ -1586,7 +1650,7 @@ function renderMistakes(){
 
   if(list.length){
     $("#practice").onclick=()=>{ quizPool="mistakes"; quizMode="mixed"; current=null; makeQuestion(); setTab("mixed"); };
-    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); reminderState.reviewDue1=0; reminderState.reviewDue3=0; saveReminderState(); if(reminderState.enabled)syncReminderTags(); renderMistakes(); refreshStats(); } };
+    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); reminderState.reviewDue1=0; reminderState.reviewDue3=0; reminderState.reviewDue1Slot="0"; reminderState.reviewDue3Slot="0"; saveReminderState(); if(reminderState.enabled)syncReminderTags(); renderMistakes(); refreshStats(); } };
   }
 }
 
@@ -1619,6 +1683,7 @@ const isIos=/iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform
 const reminderDialog=document.getElementById("reminderDialog");
 const reminderForm=document.getElementById("reminderForm");
 const reminderEnabledInput=document.getElementById("reminderEnabled");
+const fridayReminderInput=document.getElementById("fridayReminderEnabled");
 const reviewReminderInput=document.getElementById("reviewReminderEnabled");
 const reminderTimeInput=document.getElementById("reminderTime");
 const reminderStatus=document.getElementById("reminderStatus");
@@ -1633,11 +1698,13 @@ function setReminderStatus(message,tone=""){
   reminderStatus.className="reminder-status"+(tone?" "+tone:"");
 }
 function populateReminderForm(){
-  reminderEnabledInput.checked=Boolean(reminderState.enabled);
+  reminderEnabledInput.checked=Boolean(reminderState.dailyEnabled);
+  fridayReminderInput.checked=Boolean(reminderState.fridayEnabled);
   reviewReminderInput.checked=reminderState.reviewEnabled!==false;
   reminderTimeInput.value=reminderState.time||"20:00";
   if(isIos&&!isStandalone) setReminderStatus("در آیفون، ابتدا برنامه را به Home Screen اضافه کن.");
-  else setReminderStatus(reminderState.enabled?`یادآوری ساعت ${reminderState.time} فعال است.`:"اعلان هنوز فعال نشده است.",reminderState.enabled?"ok":"");
+  else if(reminderState.enabled) setReminderStatus(`یادآوری‌های انتخابی در ساعت ${reminderState.time} فعال‌اند.`,"ok");
+  else setReminderStatus("اعلان هنوز فعال نشده است.");
 }
 function openReminderDialog(){
   populateReminderForm();
@@ -1653,10 +1720,23 @@ document.getElementById("closeReminder").addEventListener("click",closeReminderD
 reminderDialog.addEventListener("click",event=>{if(event.target===reminderDialog)closeReminderDialog();});
 reminderForm.addEventListener("submit",async event=>{
   event.preventDefault();
-  const wantsEnabled=reminderEnabledInput.checked;
   const saveButton=document.getElementById("saveReminder");
-  reminderState.time=reminderTimeInput.value||"20:00";
+  reminderState.time=normalizeReminderTime(reminderTimeInput.value||"20:00");
+  reminderTimeInput.value=reminderState.time;
+  reminderState.dailyEnabled=reminderEnabledInput.checked;
+  reminderState.fridayEnabled=fridayReminderInput.checked;
   reminderState.reviewEnabled=reviewReminderInput.checked;
+  const wantsEnabled=reminderState.dailyEnabled||reminderState.fridayEnabled||reminderState.reviewEnabled;
+  if(reminderState.lastPracticeDay===localDayValue()) reminderState.skipDailySlot=todayReminderSlot();
+  if(reminderState.reviewEnabled){
+    reminderState.reviewDue1Slot=slotForLocalDayValue(reminderState.reviewDue1);
+    reminderState.reviewDue3Slot=slotForLocalDayValue(reminderState.reviewDue3);
+  }else{
+    reminderState.reviewDue1=0;
+    reminderState.reviewDue3=0;
+    reminderState.reviewDue1Slot="0";
+    reminderState.reviewDue3Slot="0";
+  }
   saveButton.disabled=true;
   setReminderStatus("در حال ذخیره…");
   try{
@@ -1700,11 +1780,13 @@ reminderForm.addEventListener("submit",async event=>{
     if(reminderState.reviewEnabled&&mistakeVerbs().length&&!reminderState.reviewDue1){
       reminderState.reviewDue1=localDayPlus(1);
       reminderState.reviewDue3=localDayPlus(3);
+      reminderState.reviewDue1Slot=slotForLocalDayValue(reminderState.reviewDue1);
+      reminderState.reviewDue3Slot=slotForLocalDayValue(reminderState.reviewDue3);
     }
     saveReminderState();
     await syncReminderTags(oneSignal,true);
     updateReminderIndicator();
-    setReminderStatus(`یادآوری ساعت ${reminderState.time} فعال شد.`,"ok");
+    setReminderStatus(`یادآوری‌های انتخابی در ساعت ${reminderState.time} فعال شدند.`,"ok");
   }catch(error){
     console.warn("Reminder settings failed",error);
     setReminderStatus("فعال‌سازی کامل نشد؛ دوباره تلاش کن.","bad");

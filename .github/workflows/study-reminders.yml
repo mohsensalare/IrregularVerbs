@@ -1,0 +1,30 @@
+name: Send study reminders
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: study-reminders
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the main branch
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Send due reminders through OneSignal
+        env:
+          ONESIGNAL_APP_ID: 20182128-cf1f-40a2-be0c-18938fcd6f82
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+        run: node scripts/send-reminders.mjs
