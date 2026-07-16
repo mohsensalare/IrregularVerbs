@@ -19,6 +19,13 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="آموزش افعال بی‌قاعده انگلیسی با معنی فارسی">
 <meta name="twitter:description" content="تمرین رایگان V1، V2 و V3 با معنی فارسی، تلفظ و آزمون آنلاین.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="آزمایشگاه فعل">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -308,6 +315,10 @@
   .result-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.result-answer{background:#fff;border-radius:12px;padding:9px 10px;min-width:0}.result-answer span{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.result-answer b{display:block;text-align:start;font-family:var(--font-word),var(--font-ui);font-size:13px;overflow-wrap:anywhere}.result-answer.wrong b{color:var(--bad)}.result-answer.correct b{color:var(--ok)}
   .result-fa{margin-top:8px;color:var(--muted);font-size:12px}.result-restart{margin-top:18px}
 
+  .install-banner{position:fixed;z-index:50;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(560px,calc(100% - 24px));display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:11px;padding:12px 13px;background:rgba(255,255,255,.97);border:1px solid rgba(70,83,189,.2);border-radius:19px;box-shadow:0 18px 54px rgba(30,39,89,.24);backdrop-filter:blur(14px);animation:install-rise .28s ease}
+  .install-banner[hidden]{display:none}.install-mark{direction:ltr;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--primary-deep);color:#fff;font-family:var(--font-word);font-size:12px;font-weight:900}.install-copy{min-width:0;text-align:right}.install-copy strong{display:block;font-size:14px}.install-copy span{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.55}.install-action{min-height:42px;padding:8px 16px}.install-close{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:var(--muted);font-size:22px;line-height:1}.install-close:active{background:var(--soft)}
+  @keyframes install-rise{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+
   @media(min-width:700px){
     body{padding-top:16px}
     header{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,.9fr);align-items:center;gap:22px;padding:18px 22px}
@@ -322,7 +333,7 @@
     .quiz-body:not(.pair-mode) .prompt{margin-bottom:0}
     .quiz-body:not(.pair-mode) .options,.quiz-body:not(.pair-mode) .typewrap{margin-top:0}
   }
-  @media(max-width:430px){body{padding-left:10px;padding-right:10px}header{padding:13px 14px 12px;border-radius:20px 20px 9px 9px}header::after{right:18px;width:68px;height:4px}.brand-mark{width:42px;height:42px;border-radius:12px;font-size:11px}.brand-row{gap:9px}.eyebrow,header p{display:none}header h1{font-size:18px;letter-spacing:-.035em}.statbar{gap:6px;margin-top:9px}.stat{padding:6px 3px;border-radius:12px}.stat b{font-size:16px}.stat span{margin-top:2px;font-size:9px}nav.tabs{padding:6px;gap:4px}.tab{min-height:48px;font-size:11px;gap:4px}.tab .icon{width:16px;height:16px}.card{padding:20px 15px;border-radius:21px}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options.meaning-options .opt{font-size:13px;padding:10px 7px}.row{gap:7px}.btn{padding-left:9px;padding-right:9px;font-size:14px}.exam-settings{grid-template-columns:1fr}.pair-fields{grid-template-columns:1fr}.pair-actions,.inline-error{grid-column:1}.triplet{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:3px}.triplet-step{min-height:76px;padding:7px 3px}.triplet-step strong{font-size:18px}}
+  @media(max-width:430px){body{padding-left:10px;padding-right:10px}header{padding:13px 14px 12px;border-radius:20px 20px 9px 9px}header::after{right:18px;width:68px;height:4px}.brand-mark{width:42px;height:42px;border-radius:12px;font-size:11px}.brand-row{gap:9px}.eyebrow,header p{display:none}header h1{font-size:18px;letter-spacing:-.035em}.statbar{gap:6px;margin-top:9px}.stat{padding:6px 3px;border-radius:12px}.stat b{font-size:16px}.stat span{margin-top:2px;font-size:9px}nav.tabs{padding:6px;gap:4px}.tab{min-height:48px;font-size:11px;gap:4px}.tab .icon{width:16px;height:16px}.card{padding:20px 15px;border-radius:21px}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options.meaning-options .opt{font-size:13px;padding:10px 7px}.row{gap:7px}.btn{padding-left:9px;padding-right:9px;font-size:14px}.exam-settings{grid-template-columns:1fr}.pair-fields{grid-template-columns:1fr}.pair-actions,.inline-error{grid-column:1}.triplet{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:3px}.triplet-step{min-height:76px;padding:7px 3px}.triplet-step strong{font-size:18px}.install-banner{grid-template-columns:auto minmax(0,1fr) auto;padding:11px;gap:9px}.install-mark{width:40px;height:40px}.install-action{grid-column:2/3;justify-self:start;min-height:40px;margin-top:2px}.install-close{grid-column:3;grid-row:1/3}}
   @media(max-width:350px){nav.tabs{grid-template-columns:repeat(3,1fr)}.tab{flex-direction:column;gap:1px;font-size:10px}.brand-mark{display:none}}
   @media(orientation:landscape) and (max-height:520px){header{padding-top:16px;padding-bottom:16px}.statbar{margin-top:12px}main{margin-top:10px}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
@@ -383,6 +394,16 @@
 
   <main id="view" tabindex="-1"></main>
 </div>
+
+<aside class="install-banner" id="installBanner" role="region" aria-labelledby="installTitle" hidden>
+  <div class="install-mark" aria-hidden="true">V¹V²V³</div>
+  <div class="install-copy">
+    <strong id="installTitle">نصب آزمایشگاه فعل</strong>
+    <span id="installText">برای دسترسی سریع‌تر، برنامه را روی دستگاهت نصب کن.</span>
+  </div>
+  <button type="button" class="btn primary install-action" id="installApp">نصب برنامه</button>
+  <button type="button" class="install-close" id="closeInstall" aria-label="فعلاً نصب نکن">×</button>
+</aside>
 
 <script>
 /* ---------- داده افعال (embed شده تا فایل مستقل باشد) ---------- */
@@ -1458,6 +1479,63 @@ window.addEventListener("hashchange",()=>{
   setTab(t,false);
 });
 setTab(activeTab);
+
+/* ---------- نصب PWA ---------- */
+let deferredInstallPrompt=null;
+const installBanner=document.getElementById("installBanner");
+const installButton=document.getElementById("installApp");
+const installText=document.getElementById("installText");
+const INSTALL_DISMISS_KEY="pwa_install_dismissed_at";
+const isStandalone=matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
+const isIos=/iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+
+function installWasRecentlyDismissed(){
+  try{
+    const time=Number(localStorage.getItem(INSTALL_DISMISS_KEY)||0);
+    return Date.now()-time<7*24*60*60*1000;
+  }catch(e){return false;}
+}
+function showInstallSuggestion(iosGuide=false){
+  if(isStandalone || installWasRecentlyDismissed()) return;
+  if(iosGuide){
+    installText.textContent="از دکمهٔ اشتراک، «Add to Home Screen» را انتخاب کن.";
+    installButton.textContent="متوجه شدم";
+    installButton.dataset.ios="true";
+  }
+  installBanner.hidden=false;
+}
+function hideInstallSuggestion(remember=true){
+  installBanner.hidden=true;
+  if(remember){try{localStorage.setItem(INSTALL_DISMISS_KEY,String(Date.now()));}catch(e){}}
+}
+
+window.addEventListener("beforeinstallprompt",event=>{
+  event.preventDefault();
+  deferredInstallPrompt=event;
+  showInstallSuggestion(false);
+});
+installButton.addEventListener("click",async()=>{
+  if(installButton.dataset.ios==="true"){
+    hideInstallSuggestion();
+    return;
+  }
+  if(!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const choice=await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt=null;
+  hideInstallSuggestion(choice.outcome!=="accepted");
+});
+document.getElementById("closeInstall").addEventListener("click",()=>hideInstallSuggestion());
+window.addEventListener("appinstalled",()=>{
+  deferredInstallPrompt=null;
+  installBanner.hidden=true;
+  try{localStorage.removeItem(INSTALL_DISMISS_KEY);}catch(e){}
+});
+if(isIos && !isStandalone) setTimeout(()=>showInstallSuggestion(true),1400);
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
 </script>
 </body>
 </html>

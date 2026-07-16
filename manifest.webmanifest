@@ -1,0 +1,52 @@
+{
+  "id": "./",
+  "name": "آزمایشگاه فعل؛ آموزش افعال بی‌قاعده",
+  "short_name": "آزمایشگاه فعل",
+  "description": "آموزش، تمرین و آزمون ۹۶ فعل بی‌قاعده انگلیسی با معنی فارسی",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef1f8",
+  "theme_color": "#303a8c",
+  "orientation": "any",
+  "categories": ["education", "games"],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "یادگیری",
+      "short_name": "یادگیری",
+      "url": "./#learn"
+    },
+    {
+      "name": "شروع آزمون",
+      "short_name": "آزمون",
+      "url": "./#exam"
+    },
+    {
+      "name": "مرور اشتباهات",
+      "short_name": "مرور",
+      "url": "./#mistakes"
+    }
+  ]
+}
