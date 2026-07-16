@@ -2,9 +2,12 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#4f46e5">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#303a8c">
 <title>افعال بی‌قاعده — یادگیری و تمرین</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700;800;900&amp;family=Vazirmatn:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --bg1:#4f46e5; --bg2:#7c3aed; --bg3:#0ea5e9;
@@ -137,27 +140,211 @@
     border-radius:99px;padding:5px 11px;font-size:12px;font-weight:700;cursor:pointer;border:0;font-family:inherit}
   footer{color:rgba(255,255,255,.7);text-align:center;font-size:11.5px;margin:16px 0 4px}
 </style>
+<style id="workbook-theme">
+  :root{
+    --canvas:#eef1f8;--paper:#fff;--card:#fff;--ink:#172033;--muted:#5f687b;
+    --primary:#4653bd;--primary-deep:#303a8c;--primary-soft:#eef0ff;
+    --accent:#edae2e;--accent-soft:#fff3d5;--line:#dce1ec;--soft:#f4f6fa;
+    --ok:#117657;--okbg:#e7f6ef;--bad:#b83248;--badbg:#fcebef;
+    --radius:24px;--shadow:0 18px 50px rgba(35,42,78,.10);
+    --shadow-small:0 7px 20px rgba(35,42,78,.08);
+    --font-ui:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;
+    --font-word:"Nunito Sans","Avenir Next","Trebuchet MS",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{min-width:320px}
+  body{
+    font-family:var(--font-ui);color:var(--ink);min-height:100vh;min-height:100dvh;
+    background-color:var(--canvas);
+    background-image:radial-gradient(circle at 8% 8%,rgba(237,174,46,.16),transparent 22rem),linear-gradient(rgba(70,83,189,.045) 1px,transparent 1px);
+    background-size:auto,100% 32px;display:flex;justify-content:center;
+    padding:max(16px,env(safe-area-inset-top)) 14px max(24px,env(safe-area-inset-bottom));
+    line-height:1.7;-webkit-text-size-adjust:100%;
+  }
+  button,input,select{font:inherit}
+  button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  button:not(:disabled),select:not(:disabled){cursor:pointer}
+  .app{width:100%;max-width:920px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .icon{width:20px;height:20px;display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  header{position:relative;overflow:hidden;color:#fff;background:var(--primary-deep);border-radius:28px 28px 12px 12px;padding:24px;box-shadow:var(--shadow);isolation:isolate;text-align:right;margin:0}
+  header::before{content:"";position:absolute;inset:auto -70px -100px auto;width:260px;height:260px;border:44px solid rgba(255,255,255,.055);border-radius:50%;z-index:-1}
+  header::after{content:"";position:absolute;top:0;right:32px;width:92px;height:6px;background:var(--accent);border-radius:0 0 8px 8px}
+  .brand-row{display:flex;align-items:center;gap:14px;text-align:right}
+  .brand-mark{direction:ltr;width:62px;height:62px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);border-radius:18px;display:grid;place-items:center;font-family:var(--font-word);font-size:15px;font-weight:900;letter-spacing:-1px;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+  .brand-copy{min-width:0}.eyebrow{margin:0 0 2px;color:#f8d981;font-size:12px;font-weight:800;letter-spacing:.02em}
+  header h1{margin:0;font-size:clamp(22px,5vw,32px);font-weight:900;letter-spacing:-.045em;line-height:1.35}
+  header p{margin:4px 0 0;color:rgba(255,255,255,.78);font-size:13px}
+  .statbar{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:20px 0 0}
+  .stat{min-width:0;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px 8px;color:#fff;text-align:center;backdrop-filter:none}
+  .stat b{display:block;font-family:var(--font-word),var(--font-ui);font-size:clamp(18px,4.5vw,24px);font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:4px;font-size:11px;color:rgba(255,255,255,.72);white-space:nowrap;opacity:1}
+
+  nav.tabs{position:sticky;top:max(8px,env(safe-area-inset-top));z-index:20;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:rgba(255,255,255,.94);padding:7px;margin-top:10px;border:1px solid rgba(216,221,233,.9);border-radius:14px 14px 22px 22px;box-shadow:var(--shadow-small);backdrop-filter:blur(14px);overflow:visible;scroll-snap-type:none}
+  .tab{min-width:0;min-height:50px;white-space:normal;border:0;color:var(--muted);background:transparent;padding:8px 5px;border-radius:13px;font-size:12px;font-weight:700;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease;display:flex;align-items:center;justify-content:center;gap:6px;opacity:1}
+  .tab .icon{width:18px;height:18px}.tab.active{background:var(--primary-soft);color:var(--primary-deep);box-shadow:inset 0 0 0 1px rgba(70,83,189,.12)}
+  .tab:active{background:#e5e8f7}
+
+  main{margin-top:14px}
+  .card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;animation:rise .28s ease-out}
+  .card::before{content:"";position:absolute;top:24px;right:-1px;width:5px;height:40px;background:var(--accent);border-radius:4px 0 0 4px}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .word{direction:ltr;font-family:var(--font-word);font-weight:900;letter-spacing:.01em;line-height:1.15}
+  .word-button,.reveal-word{border:0;background:transparent;color:inherit;padding:4px;width:auto}
+  .reveal-word{width:100%;min-height:38px}.sayf .icon{width:17px;height:17px}
+
+  .flash{text-align:center}.search-wrap{position:relative;margin-bottom:20px}
+  .search-wrap>.icon{position:absolute;right:15px;top:15px;color:var(--muted);pointer-events:none}
+  .search-input{width:100%;min-height:50px;background:var(--soft);color:var(--ink);font-size:16px;padding:11px 46px 11px 14px;border:1.5px solid transparent;border-radius:14px;outline:none;transition:border-color .2s,background-color .2s,box-shadow .2s}
+  .search-input:focus{background:#fff;border-color:var(--primary);box-shadow:0 0 0 4px rgba(70,83,189,.12)}
+  .flash .lead{color:var(--muted);font-size:13px;margin-bottom:6px}.flash .base{font-size:clamp(38px,10vw,58px);color:var(--primary-deep)}
+  .forms{direction:ltr;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .forms::before{content:"";position:absolute;left:25%;right:25%;top:50%;border-top:2px dashed #c8cede;z-index:0}
+  .form{position:relative;z-index:1;background:var(--soft);border:1px solid var(--line);border-radius:17px;padding:14px 9px;text-align:center}
+  .form small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.form .v{direction:ltr;font-family:var(--font-word);font-size:clamp(18px,4.6vw,23px);font-weight:900}
+  .hidden-form{filter:blur(7px);cursor:pointer;user-select:none}.progress{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin:22px 0 5px}
+  .progress i{display:block;height:100%;background:var(--primary);border-radius:inherit;transition:width .3s ease}
+  .row{display:flex;gap:10px;margin-top:14px}
+  .btn{flex:1;min-height:50px;border:1px solid transparent;font-weight:800;font-size:15px;padding:11px 14px;border-radius:14px;transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .12s ease;background:var(--soft);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:7px}
+  .btn:active:not(:disabled){transform:scale(.98)}.btn.primary{background:var(--primary);color:#fff;box-shadow:0 6px 0 var(--primary-deep)}
+  .btn.primary:active:not(:disabled){box-shadow:0 3px 0 var(--primary-deep);transform:translateY(2px)}.btn.ghost{background:#fff;border-color:var(--line);color:var(--muted)}
+  .btn:disabled{cursor:not-allowed;opacity:.46}.icon-btn{flex:0 0 50px;width:50px;padding:0;background:var(--soft);font-size:inherit}
+
+  .quiz-toolbar{display:flex;justify-content:center;margin-bottom:16px}.prompt{text-align:center;margin-bottom:6px}
+  .quiz-body{min-width:0}
+  .prompt .ask{color:var(--muted);font-size:14px}.prompt .qword{font-size:clamp(36px,9vw,54px);color:var(--primary-deep);margin:8px 0}
+  .prompt .qword.meaning-word{font-size:clamp(28px,7vw,44px);overflow-wrap:anywhere}
+  .prompt .tag{display:inline-flex;background:var(--accent-soft);color:#77530a;padding:4px 12px;border-radius:99px;font-size:12.5px;font-weight:800}
+  .target{margin-top:12px;font-size:15px;font-weight:800}.target b{color:var(--primary)}.target .form-cue{direction:ltr;display:inline-block;margin-right:5px;color:var(--muted);font-family:var(--font-word);font-size:11px;font-weight:800}.fa-mean{color:var(--muted);font-size:15px;font-weight:700;margin-top:7px}
+  .recall-hint{margin-top:5px;color:var(--muted);font-size:12px;font-weight:400}
+  .flash .fa-mean{font-size:17px;color:var(--ink);margin-top:7px}
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  .opt{direction:ltr;border:1.5px solid var(--line);background:#fff;font-family:var(--font-word);font-weight:900;font-size:18px;padding:13px 12px;border-radius:15px;transition:background-color .18s,border-color .18s,box-shadow .18s;color:var(--ink);text-align:center;min-height:58px;display:flex;align-items:center;justify-content:center;word-break:break-word}
+  .options.meaning-options .opt{direction:rtl;font-family:var(--font-ui);font-size:15px;font-weight:800}
+  .opt:active:not(:disabled){background:var(--primary-soft);border-color:#b8c0ef}.opt.correct{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+  .opt.wrong{background:var(--badbg);border-color:var(--bad);color:var(--bad)}.opt:disabled{cursor:default;opacity:1}
+  .typewrap{margin-top:18px}.field-label{display:block;margin:0 0 7px;color:var(--muted);font-size:13px;font-weight:800;text-align:right}
+  input.type{width:100%;min-height:56px;direction:ltr;text-align:center;font-family:var(--font-word);font-weight:900;font-size:21px;padding:12px 15px;border:2px solid var(--line);border-radius:14px;outline:none;transition:border-color .18s,background-color .18s,box-shadow .18s;color:var(--ink);background:#fff}
+  input.type:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(70,83,189,.12)}input.type.correct{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+  input.type.wrong{border-color:var(--bad);background:var(--badbg);color:var(--bad)}input.type:disabled{-webkit-text-fill-color:currentColor;opacity:1}
+
+  .pair-instruction{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:8px}
+  .pair-random{min-height:36px;font-weight:600}
+  .triplet{direction:ltr;display:grid;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1fr);gap:5px;align-items:center;margin:6px 0 18px}
+  .triplet-step{min-width:0;min-height:86px;border:1.5px dashed #c6ccda;border-radius:17px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 5px}
+  .triplet-step.known{background:var(--primary-soft);border-style:solid;border-color:#b9c1ef}.triplet-step small{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .triplet-step strong{font-family:var(--font-word);font-size:clamp(18px,5.5vw,27px);font-weight:900;color:var(--primary-deep);overflow-wrap:anywhere}.triplet-step.blank strong{color:#949caf;font-size:24px}
+  .triplet-arrow{color:#a7aebe;font-family:var(--font-word);font-weight:900;text-align:center}.pair-fields{direction:ltr;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .pair-field{display:block;text-align:left}.pair-field .field-label{text-align:left}.pair-actions{direction:rtl;grid-column:1/-1;margin-top:2px}
+  .inline-error{display:none;grid-column:1/-1;direction:rtl;text-align:center;color:var(--bad);font-size:13px;font-weight:700;margin-top:-3px}.inline-error.show{display:block}
+
+  .feedback{margin-top:16px;border:1px solid transparent;border-radius:18px;padding:15px;font-weight:700;display:none;text-align:center}
+  .answer-slot{min-width:0}.answer-slot.answered>:not(.feedback){display:none}.answer-slot .feedback{margin-top:0}
+  .feedback.show{display:block;position:static;width:auto;max-width:none;margin:0;box-shadow:none;animation:rise .24s}.feedback.ok{background:var(--okbg);border-color:#9bd5bf;color:var(--ok)}.feedback.bad{background:var(--badbg);border-color:#efb4bf;color:var(--bad)}
+  .feedback-title{display:flex;align-items:center;justify-content:center;gap:7px;font-weight:900}.feedback .full{direction:ltr;display:block;margin-top:8px;font-family:var(--font-word);font-weight:900;color:var(--ink);font-size:16px}
+  .feedback-meaning{margin-top:4px;color:var(--muted);font-size:14px}.mini{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:18px;color:var(--muted);font-size:12px}
+  .mini span{background:var(--soft);border-radius:99px;padding:5px 10px}.mini b{color:var(--ink)}
+
+  .mlist{margin-top:6px;display:flex;flex-direction:column;gap:8px}.mitem{display:flex;align-items:center;gap:11px;background:var(--soft);border:1px solid transparent;border-radius:15px;padding:12px 13px;transition:border-color .18s,background-color .18s}
+  button.mitem{width:100%;color:inherit;text-align:inherit}.mitem:active{background:var(--primary-soft);border-color:#c7cdef}.mitem .w{direction:ltr;font-family:var(--font-word);font-weight:900;font-size:18px;flex:0 0 auto}
+  .mitem .d{direction:ltr;color:var(--muted);font-size:13px;flex:1;text-align:left;line-height:1.55}.empty{text-align:center;color:var(--muted);padding:24px 8px}
+  .empty .big{width:54px;height:54px;margin:0 auto 10px;color:var(--primary)}.note{margin-top:12px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
+  .pill{min-height:38px;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--soft);color:var(--muted);border-radius:99px;padding:6px 12px;font-size:12px;font-weight:800;border:1px solid transparent}
+  .pill:active{background:#e7eaf2}:focus-visible{outline:3px solid rgba(237,174,46,.9);outline-offset:3px}
+
+  .exam-setup{text-align:center}.exam-setup .big{width:56px;height:56px;color:var(--primary);margin-bottom:8px}
+  .exam-setup h2{margin:0;font-size:26px}.exam-setup p{max-width:540px;margin:8px auto 22px;color:var(--muted);font-size:14px}
+  .exam-settings{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;margin:0 auto}.exam-select-wrap{display:block;text-align:right}.exam-select-wrap span{display:block;margin-bottom:7px;color:var(--muted);font-size:13px;font-weight:700}
+  .exam-select{width:100%;min-height:52px;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none}
+  .exam-select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(70,83,189,.12)}
+  .exam-start{max-width:320px;margin:18px auto 0}.exam-progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin:-7px 0 18px}
+  .exam-progress i{display:block;height:100%;background:var(--accent);border-radius:inherit;transition:width .25s ease}
+
+  .result-hero{background:var(--primary-deep);color:#fff;border-radius:20px;padding:24px;text-align:center;overflow:hidden;position:relative}
+  .result-hero::after{content:"";position:absolute;width:180px;height:180px;border:34px solid rgba(255,255,255,.05);border-radius:50%;left:-70px;top:-80px}
+  .result-label{color:#f8d981;font-size:12px;font-weight:700}.result-score{font-family:var(--font-word),var(--font-ui);font-size:clamp(54px,12vw,78px);font-weight:900;line-height:1;margin:8px 0}.result-message{color:rgba(255,255,255,.82);font-size:14px}
+  .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.result-stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:9px 5px}.result-stat b{display:block;font-family:var(--font-word),var(--font-ui);font-size:21px}.result-stat span{font-size:10px;color:rgba(255,255,255,.7)}
+  .result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 26px}.result-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:24px;margin-bottom:12px}.result-section-head h3{margin:0;font-size:20px}.result-section-head span{color:var(--muted);font-size:12px}
+  .result-mistakes{display:flex;flex-direction:column;gap:10px}.result-mistake{border:1px solid var(--line);background:var(--soft);border-radius:17px;padding:14px}.result-mistake-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.result-mistake-head strong{direction:ltr;font-family:var(--font-word);font-size:20px}.result-target{color:var(--muted);font-size:12px}
+  .result-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.result-answer{background:#fff;border-radius:12px;padding:9px 10px;min-width:0}.result-answer span{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.result-answer b{display:block;text-align:start;font-family:var(--font-word),var(--font-ui);font-size:13px;overflow-wrap:anywhere}.result-answer.wrong b{color:var(--bad)}.result-answer.correct b{color:var(--ok)}
+  .result-fa{margin-top:8px;color:var(--muted);font-size:12px}.result-restart{margin-top:18px}
+
+  @media(min-width:700px){
+    body{padding-top:16px}
+    header{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,.9fr);align-items:center;gap:22px;padding:18px 22px}
+    .brand-mark{width:52px;height:52px;border-radius:15px;font-size:13px}
+    header h1{font-size:25px}header p{font-size:12px}.eyebrow{font-size:10px}
+    .statbar{margin:0;gap:7px}.stat{padding:8px 5px}.stat b{font-size:20px}.stat span{font-size:10px}
+    nav.tabs{grid-template-columns:repeat(8,1fr)}.tab{min-height:46px;font-size:12px}
+    main{margin-top:10px}.card{padding:22px 26px}
+    .flash .search-wrap{margin-bottom:10px}.flash .base{font-size:46px}.flash .forms{margin-top:12px}
+    .flash .form{padding:9px}.flash .progress{margin:14px 0 4px}.flash .row{margin-top:10px}.flash .note{margin-top:6px}
+    .quiz-body:not(.pair-mode){display:grid;grid-template-columns:minmax(240px,.82fr) minmax(320px,1.18fr);gap:28px;align-items:center}
+    .quiz-body:not(.pair-mode) .prompt{margin-bottom:0}
+    .quiz-body:not(.pair-mode) .options,.quiz-body:not(.pair-mode) .typewrap{margin-top:0}
+  }
+  @media(max-width:430px){body{padding-left:10px;padding-right:10px}header{padding:13px 14px 12px;border-radius:20px 20px 9px 9px}header::after{right:18px;width:68px;height:4px}.brand-mark{width:42px;height:42px;border-radius:12px;font-size:11px}.brand-row{gap:9px}.eyebrow,header p{display:none}header h1{font-size:18px;letter-spacing:-.035em}.statbar{gap:6px;margin-top:9px}.stat{padding:6px 3px;border-radius:12px}.stat b{font-size:16px}.stat span{margin-top:2px;font-size:9px}nav.tabs{padding:6px;gap:4px}.tab{min-height:48px;font-size:11px;gap:4px}.tab .icon{width:16px;height:16px}.card{padding:20px 15px;border-radius:21px}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options.meaning-options .opt{font-size:13px;padding:10px 7px}.row{gap:7px}.btn{padding-left:9px;padding-right:9px;font-size:14px}.exam-settings{grid-template-columns:1fr}.pair-fields{grid-template-columns:1fr}.pair-actions,.inline-error{grid-column:1}.triplet{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:3px}.triplet-step{min-height:76px;padding:7px 3px}.triplet-step strong{font-size:18px}}
+  @media(max-width:350px){nav.tabs{grid-template-columns:repeat(3,1fr)}.tab{flex-direction:column;gap:1px;font-size:10px}.brand-mark{display:none}}
+  @media(orientation:landscape) and (max-height:520px){header{padding-top:16px;padding-bottom:16px}.statbar{margin-top:12px}main{margin-top:10px}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 <div class="app">
   <header>
-    <h1>افعال بی‌قاعده انگلیسی</h1>
+    <div class="brand-row">
+      <div class="brand-mark" aria-hidden="true">V¹ V² V³</div>
+      <div class="brand-copy">
+        <div class="eyebrow">IRREGULAR VERB WORKBOOK</div>
+        <h1>آزمایشگاه فعل</h1>
+        <p>سه شکل را ببین، به‌خاطر بسپار و بدون حدس‌زدن بازیابی کن.</p>
+      </div>
+    </div>
     <div class="statbar">
       <div class="stat"><b id="sAcc">۰٪</b><span>دقت کل</span></div>
       <div class="stat"><b id="sStreak">۰</b><span>زنجیرهٔ درست</span></div>
-      <div class="stat"><b id="sMis">۰</b><span>افعال اشتباه</span></div>
+      <div class="stat"><b id="sMis">۰</b><span>نیاز به مرور</span></div>
     </div>
   </header>
 
-  <nav class="tabs" id="tabs">
-    <button class="tab active" data-tab="learn">📖 یادگیری</button>
-    <button class="tab" data-tab="choice">🔘 چهارگزینه‌ای</button>
-    <button class="tab" data-tab="type">⌨️ تایپ</button>
-    <button class="tab" data-tab="mixed">🎲 ترکیبی</button>
-    <button class="tab" data-tab="mistakes">❌ اشتباهات</button>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="حالت تمرین">
+    <button type="button" role="tab" aria-selected="true" class="tab active" data-tab="learn">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg>
+      یادگیری
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="meaning">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h7M7.5 3v2c0 4-2 7-5 9M5 10c1.4 1.7 3 3 5 4M13 19l4-10 4 10M14.5 15h5"/></svg>
+      معنی
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="choice">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+      گزینه‌ای
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="type">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h.01M11 9h.01M15 9h.01M18 9h.01M8 13h8"/></svg>
+      تایپ
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="pair">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h5v5H4zM15 12h5v5h-5zM9 9.5h3a3 3 0 0 1 3 3v2"/></svg>
+      دو فرم
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="mixed">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h3c4 0 5 10 9 10h6M18 14l3 3-3 3M3 17h3c1.2 0 2.1-.9 3-2.2M15 7h6M18 4l3 3-3 3"/></svg>
+      ترکیبی
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="exam">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5M9 9h6M9 13h6M9 17h4"/></svg>
+      آزمون
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="mistakes">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2.8 19a1.4 1.4 0 0 0 1.2 2h16a1.4 1.4 0 0 0 1.2-2zM12 9v4M12 17h.01"/></svg>
+      مرور
+    </button>
   </nav>
 
-  <main id="view"></main>
+  <main id="view" tabindex="-1"></main>
 </div>
 
 <script>
@@ -209,7 +396,7 @@ const VERBS = [
 {"infinitive":"keep","past_simple":"kept","past_participle":"kept","common_mistakes":["keeped","kep","kepted"],"fa":"نگه داشتن"},
 {"infinitive":"know","past_simple":"knew","past_participle":"known","common_mistakes":["knowed","knewed","knowen"],"fa":"دانستن"},
 {"infinitive":"lay","past_simple":"laid","past_participle":"laid","common_mistakes":["layed","laided","lain"],"fa":"گذاشتن / پهن کردن"},
-{"infinitive":"lead","past_simple":"led","past_participle":"led","common_mistakes":["leaded","leeded","ledded"],"fa":"رهبری / هدایت کردن"},
+{"infinitive":"lead","past_simple":"led","past_participle":"led","common_mistakes":["leaded","leeded","ledded"],"fa":"رهبری کردن / هدایت کردن"},
 {"infinitive":"leave","past_simple":"left","past_participle":"left","common_mistakes":["leaved","lefted","leved"],"fa":"ترک کردن"},
 {"infinitive":"lend","past_simple":"lent","past_participle":"lent","common_mistakes":["lended","lendt","lont"],"fa":"قرض دادن"},
 {"infinitive":"let","past_simple":"let","past_participle":"let","common_mistakes":["letted","leted","letten"],"fa":"اجازه دادن"},
@@ -261,9 +448,123 @@ const VERBS = [
 {"infinitive":"write","past_simple":"wrote","past_participle":"written","common_mistakes":["writed","wroted","writ"],"fa":"نوشتن"}
 ];
 
+const FA_FORMS = {
+  "be":{"infinitive":"بودن","past_simple":"بود","past_participle":"بوده"},
+  "beat":{"infinitive":"کتک زدن / شکست دادن","past_simple":"کتک زد / شکست داد","past_participle":"کتک زده / شکست داده"},
+  "become":{"infinitive":"شدن","past_simple":"شد","past_participle":"شده"},
+  "begin":{"infinitive":"شروع کردن","past_simple":"شروع کرد","past_participle":"شروع کرده"},
+  "bend":{"infinitive":"خم کردن","past_simple":"خم کرد","past_participle":"خم کرده"},
+  "bite":{"infinitive":"گاز گرفتن","past_simple":"گاز گرفت","past_participle":"گاز گرفته"},
+  "bleed":{"infinitive":"خون‌ریزی کردن","past_simple":"خون‌ریزی کرد","past_participle":"خون‌ریزی کرده"},
+  "blow":{"infinitive":"دمیدن / فوت کردن","past_simple":"دمید / فوت کرد","past_participle":"دمیده / فوت کرده"},
+  "break":{"infinitive":"شکستن","past_simple":"شکست","past_participle":"شکسته"},
+  "bring":{"infinitive":"آوردن","past_simple":"آورد","past_participle":"آورده"},
+  "build":{"infinitive":"ساختن","past_simple":"ساخت","past_participle":"ساخته"},
+  "buy":{"infinitive":"خریدن","past_simple":"خرید","past_participle":"خریده"},
+  "catch":{"infinitive":"گرفتن / گیر انداختن","past_simple":"گرفت / گیر انداخت","past_participle":"گرفته / گیر انداخته"},
+  "choose":{"infinitive":"انتخاب کردن","past_simple":"انتخاب کرد","past_participle":"انتخاب کرده"},
+  "come":{"infinitive":"آمدن","past_simple":"آمد","past_participle":"آمده"},
+  "cost":{"infinitive":"هزینه داشتن","past_simple":"هزینه داشت","past_participle":"هزینه داشته"},
+  "cut":{"infinitive":"بریدن","past_simple":"برید","past_participle":"بریده"},
+  "dig":{"infinitive":"کندن / حفر کردن","past_simple":"کند / حفر کرد","past_participle":"کنده / حفر کرده"},
+  "do":{"infinitive":"انجام دادن","past_simple":"انجام داد","past_participle":"انجام داده"},
+  "draw":{"infinitive":"کشیدن (نقاشی)","past_simple":"کشید (نقاشی)","past_participle":"کشیده (نقاشی)"},
+  "drink":{"infinitive":"نوشیدن","past_simple":"نوشید","past_participle":"نوشیده"},
+  "drive":{"infinitive":"رانندگی کردن","past_simple":"رانندگی کرد","past_participle":"رانندگی کرده"},
+  "eat":{"infinitive":"خوردن","past_simple":"خورد","past_participle":"خورده"},
+  "fall":{"infinitive":"افتادن","past_simple":"افتاد","past_participle":"افتاده"},
+  "feed":{"infinitive":"غذا دادن","past_simple":"غذا داد","past_participle":"غذا داده"},
+  "feel":{"infinitive":"احساس کردن","past_simple":"احساس کرد","past_participle":"احساس کرده"},
+  "fight":{"infinitive":"جنگیدن","past_simple":"جنگید","past_participle":"جنگیده"},
+  "find":{"infinitive":"پیدا کردن","past_simple":"پیدا کرد","past_participle":"پیدا کرده"},
+  "fly":{"infinitive":"پرواز کردن","past_simple":"پرواز کرد","past_participle":"پرواز کرده"},
+  "forget":{"infinitive":"فراموش کردن","past_simple":"فراموش کرد","past_participle":"فراموش کرده"},
+  "forgive":{"infinitive":"بخشیدن","past_simple":"بخشید","past_participle":"بخشیده"},
+  "freeze":{"infinitive":"یخ زدن","past_simple":"یخ زد","past_participle":"یخ زده"},
+  "get":{"infinitive":"گرفتن / به‌دست آوردن","past_simple":"گرفت / به‌دست آورد","past_participle":"گرفته / به‌دست آورده"},
+  "give":{"infinitive":"دادن","past_simple":"داد","past_participle":"داده"},
+  "go":{"infinitive":"رفتن","past_simple":"رفت","past_participle":"رفته"},
+  "grow":{"infinitive":"رشد کردن","past_simple":"رشد کرد","past_participle":"رشد کرده"},
+  "hang":{"infinitive":"آویزان کردن","past_simple":"آویزان کرد","past_participle":"آویزان کرده"},
+  "have":{"infinitive":"داشتن","past_simple":"داشت","past_participle":"داشته"},
+  "hear":{"infinitive":"شنیدن","past_simple":"شنید","past_participle":"شنیده"},
+  "hide":{"infinitive":"پنهان کردن","past_simple":"پنهان کرد","past_participle":"پنهان کرده"},
+  "hit":{"infinitive":"زدن (ضربه)","past_simple":"زد (ضربه)","past_participle":"زده (ضربه)"},
+  "hold":{"infinitive":"نگه داشتن","past_simple":"نگه داشت","past_participle":"نگه داشته"},
+  "hurt":{"infinitive":"صدمه زدن / درد گرفتن","past_simple":"صدمه زد / درد گرفت","past_participle":"صدمه زده / درد گرفته"},
+  "keep":{"infinitive":"نگه داشتن","past_simple":"نگه داشت","past_participle":"نگه داشته"},
+  "know":{"infinitive":"دانستن","past_simple":"دانست","past_participle":"دانسته"},
+  "lay":{"infinitive":"گذاشتن / پهن کردن","past_simple":"گذاشت / پهن کرد","past_participle":"گذاشته / پهن کرده"},
+  "lead":{"infinitive":"رهبری کردن / هدایت کردن","past_simple":"رهبری کرد / هدایت کرد","past_participle":"رهبری کرده / هدایت کرده"},
+  "leave":{"infinitive":"ترک کردن","past_simple":"ترک کرد","past_participle":"ترک کرده"},
+  "lend":{"infinitive":"قرض دادن","past_simple":"قرض داد","past_participle":"قرض داده"},
+  "let":{"infinitive":"اجازه دادن","past_simple":"اجازه داد","past_participle":"اجازه داده"},
+  "lose":{"infinitive":"گم کردن / باختن","past_simple":"گم کرد / باخت","past_participle":"گم کرده / باخته"},
+  "make":{"infinitive":"ساختن / درست کردن","past_simple":"ساخت / درست کرد","past_participle":"ساخته / درست کرده"},
+  "mean":{"infinitive":"معنی دادن / قصد داشتن","past_simple":"معنی داد / قصد داشت","past_participle":"معنی داده / قصد داشته"},
+  "meet":{"infinitive":"ملاقات کردن","past_simple":"ملاقات کرد","past_participle":"ملاقات کرده"},
+  "pay":{"infinitive":"پرداختن","past_simple":"پرداخت","past_participle":"پرداخته"},
+  "put":{"infinitive":"گذاشتن","past_simple":"گذاشت","past_participle":"گذاشته"},
+  "read":{"infinitive":"خواندن","past_simple":"خواند","past_participle":"خوانده"},
+  "ride":{"infinitive":"سوار شدن","past_simple":"سوار شد","past_participle":"سوار شده"},
+  "ring":{"infinitive":"زنگ زدن","past_simple":"زنگ زد","past_participle":"زنگ زده"},
+  "rise":{"infinitive":"بالا آمدن / طلوع کردن","past_simple":"بالا آمد / طلوع کرد","past_participle":"بالا آمده / طلوع کرده"},
+  "run":{"infinitive":"دویدن","past_simple":"دوید","past_participle":"دویده"},
+  "say":{"infinitive":"گفتن","past_simple":"گفت","past_participle":"گفته"},
+  "see":{"infinitive":"دیدن","past_simple":"دید","past_participle":"دیده"},
+  "sell":{"infinitive":"فروختن","past_simple":"فروخت","past_participle":"فروخته"},
+  "send":{"infinitive":"فرستادن","past_simple":"فرستاد","past_participle":"فرستاده"},
+  "set":{"infinitive":"قرار دادن / تنظیم کردن","past_simple":"قرار داد / تنظیم کرد","past_participle":"قرار داده / تنظیم کرده"},
+  "shake":{"infinitive":"تکان دادن","past_simple":"تکان داد","past_participle":"تکان داده"},
+  "shine":{"infinitive":"درخشیدن","past_simple":"درخشید","past_participle":"درخشیده"},
+  "shoot":{"infinitive":"شلیک کردن","past_simple":"شلیک کرد","past_participle":"شلیک کرده"},
+  "show":{"infinitive":"نشان دادن","past_simple":"نشان داد","past_participle":"نشان داده"},
+  "shut":{"infinitive":"بستن","past_simple":"بست","past_participle":"بسته"},
+  "sing":{"infinitive":"آواز خواندن","past_simple":"آواز خواند","past_participle":"آواز خوانده"},
+  "sink":{"infinitive":"غرق شدن / فرو رفتن","past_simple":"غرق شد / فرو رفت","past_participle":"غرق شده / فرو رفته"},
+  "sit":{"infinitive":"نشستن","past_simple":"نشست","past_participle":"نشسته"},
+  "sleep":{"infinitive":"خوابیدن","past_simple":"خوابید","past_participle":"خوابیده"},
+  "speak":{"infinitive":"صحبت کردن","past_simple":"صحبت کرد","past_participle":"صحبت کرده"},
+  "spend":{"infinitive":"خرج کردن / گذراندن","past_simple":"خرج کرد / گذراند","past_participle":"خرج کرده / گذرانده"},
+  "spread":{"infinitive":"پخش کردن / گستردن","past_simple":"پخش کرد / گسترد","past_participle":"پخش کرده / گسترده"},
+  "stand":{"infinitive":"ایستادن","past_simple":"ایستاد","past_participle":"ایستاده"},
+  "steal":{"infinitive":"دزدیدن","past_simple":"دزدید","past_participle":"دزدیده"},
+  "stick":{"infinitive":"چسباندن / گیر کردن","past_simple":"چسباند / گیر کرد","past_participle":"چسبانده / گیر کرده"},
+  "strike":{"infinitive":"ضربه زدن / اعتصاب کردن","past_simple":"ضربه زد / اعتصاب کرد","past_participle":"ضربه زده / اعتصاب کرده"},
+  "swear":{"infinitive":"قسم خوردن / فحش دادن","past_simple":"قسم خورد / فحش داد","past_participle":"قسم خورده / فحش داده"},
+  "sweep":{"infinitive":"جارو کردن","past_simple":"جارو کرد","past_participle":"جارو کرده"},
+  "swim":{"infinitive":"شنا کردن","past_simple":"شنا کرد","past_participle":"شنا کرده"},
+  "take":{"infinitive":"گرفتن / بردن","past_simple":"گرفت / برد","past_participle":"گرفته / برده"},
+  "teach":{"infinitive":"آموزش دادن","past_simple":"آموزش داد","past_participle":"آموزش داده"},
+  "tear":{"infinitive":"پاره کردن","past_simple":"پاره کرد","past_participle":"پاره کرده"},
+  "tell":{"infinitive":"گفتن / تعریف کردن","past_simple":"گفت / تعریف کرد","past_participle":"گفته / تعریف کرده"},
+  "think":{"infinitive":"فکر کردن","past_simple":"فکر کرد","past_participle":"فکر کرده"},
+  "throw":{"infinitive":"پرتاب کردن","past_simple":"پرتاب کرد","past_participle":"پرتاب کرده"},
+  "understand":{"infinitive":"فهمیدن","past_simple":"فهمید","past_participle":"فهمیده"},
+  "wake":{"infinitive":"بیدار شدن","past_simple":"بیدار شد","past_participle":"بیدار شده"},
+  "wear":{"infinitive":"پوشیدن","past_simple":"پوشید","past_participle":"پوشیده"},
+  "win":{"infinitive":"برنده شدن","past_simple":"برنده شد","past_participle":"برنده شده"},
+  "write":{"infinitive":"نوشتن","past_simple":"نوشت","past_participle":"نوشته"}
+};
+
 const TYPES = ["infinitive","past_simple","past_participle"];
-const LABEL = {infinitive:"مصدر", past_simple:"گذشتهٔ ساده", past_participle:"اسم مفعول"};
-const SHORT = {infinitive:"Base", past_simple:"Past", past_participle:"P.P."};
+const LABEL = {infinitive:"مصدر", past_simple:"گذشتهٔ ساده", past_participle:"اسم مفعول", meaning:"معنی"};
+const SHORT = {infinitive:"Base", past_simple:"Past", past_participle:"P.P.", meaning:"معنی"};
+const ICON_PATH = {
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  volume:'<path d="M11 5 6 9H3v6h3l5 4zM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M21 12h-3"/>',
+  book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.2 2.2 4.8-5"/>',
+  x:'<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',
+  spark:'<path d="m12 3 1.3 4.2L17.5 9l-4.2 1.8L12 15l-1.3-4.2L6.5 9l4.2-1.8zM19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7z"/>',
+  share:'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/>',
+  image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 15-4.5-4.5L7 20"/>',
+  restart:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/>'
+};
+function icon(name, cls=""){
+  return `<svg class="icon ${cls}" aria-hidden="true" viewBox="0 0 24 24">${ICON_PATH[name]||""}</svg>`;
+}
 
 /* ---------- ذخیره‌سازی ---------- */
 const KEY = "irregular_verbs_v1";
@@ -297,6 +598,7 @@ const rand = arr => arr[Math.floor(Math.random()*arr.length)];
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
 function fa(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);}
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g," ");}
+function esc(s){return String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
 // امتیاز شباهت املایی: حروف مشترک + هم‌شروع/هم‌پایان بودن
 function similar(a,b){
   a=norm(a); b=norm(b); let s=0;
@@ -311,6 +613,15 @@ function accepted(verb,type){
   const v = verb[type];
   const parts = v.split("/").map(norm);
   return new Set([norm(v),...parts]);
+}
+function faForm(verb,type){
+  return FA_FORMS[verb.infinitive]?.[type] || verb.fa;
+}
+function meaningPromptText(verb,type){
+  return verb[type];
+}
+function meaningNeedsFormHint(verb,type){
+  return TYPES.filter(t=>verb[t]===verb[type]).length>1;
 }
 /* ---------- تلفظ (انتخاب بهترین صدای موجود) ----------
    مشکل قبلی: هیچ voice‌ای انتخاب نمی‌شد و مرورگر صدای پیش‌فرضِ
@@ -411,20 +722,26 @@ function voiceSelectHTML(){
   if(list.length<2) return "";
   const cur = chosenVoice ? chosenVoice.name : "";
   const label = v=>{
-    const flag = /^en[-_]gb/i.test(v.lang||"") ? "🇬🇧" : "🇺🇸";
+    const region = /^en[-_]gb/i.test(v.lang||"") ? "UK" : "US";
     const name = v.name.replace(/\s*\((enhanced|premium|natural)\)/i,"").trim();
-    return `${flag} ${name}`;
+    return `${region} — ${name}`;
   };
-  return `<select id="voiceSel" class="pill" style="direction:ltr;max-width:220px;font-size:12px;padding:6px 10px">
+  return `<select id="voiceSel" class="pill" aria-label="انتخاب صدای تلفظ" style="direction:ltr;max-width:220px;font-size:12px;padding:6px 10px">
     ${list.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${v.name===cur?' selected':''}>${label(v)}</option>`).join("")}
   </select>`;
 }
 
 /* ---------- وضعیت ---------- */
-let activeTab = "learn";
+const TAB_IDS = new Set(["learn","meaning","choice","type","pair","mixed","exam","mistakes"]);
+function tabFromHash(){
+  const tab=location.hash.slice(1);
+  return TAB_IDS.has(tab) ? tab : "learn";
+}
+let activeTab = tabFromHash();
 let learnIndex = 0;
 let session = {correct:0, wrong:0, streak:0};
-let quizMode = "choice";       // choice | type | mixed
+let exam = {status:"setup", mode:"mixed", total:10, answered:0, correct:0, wrong:0, mistakes:[], startedAt:0};
+let quizMode = "choice";       // meaning | choice | type | pair | mixed
 let quizPool = "all";          // all | mistakes
 let current = null;            // سوال جاری
 let answered = false;
@@ -480,14 +797,21 @@ function refreshStats(){
 }
 
 /* ---------- روتر ---------- */
-function setTab(tab){
+function setTab(tab,syncHash=true){
+  if(!TAB_IDS.has(tab)) tab="learn";
   activeTab=tab;
+  if(syncHash && location.hash!=="#"+tab){
+    try{ history.replaceState(null,"","#"+tab); }
+    catch(e){ location.hash=tab; }
+  }
   document.querySelectorAll(".tab").forEach(b=>{
     const on=b.dataset.tab===tab; b.classList.toggle("active",on);
+    b.setAttribute("aria-selected",String(on));
     if(on && b.scrollIntoView) b.scrollIntoView({inline:"center",block:"nearest"});
   });
   if(tab==="learn") renderLearn();
   else if(tab==="mistakes") renderMistakes();
+  else if(tab==="exam") renderExam();
   else { quizMode=tab; renderQuiz(); }
   refreshStats();
 }
@@ -503,7 +827,7 @@ function searchVerbs(q){
     v.infinitive.toLowerCase().includes(q) ||
     v.past_simple.toLowerCase().includes(q) ||
     v.past_participle.toLowerCase().includes(q) ||
-    (v.fa && v.fa.includes(q))
+    TYPES.some(type=>faForm(v,type).includes(q))
   );
 }
 // نتایج را فقط داخل کانتینر به‌روزرسانی می‌کند تا فوکوس اینپوت از بین نرود
@@ -516,9 +840,9 @@ function renderSearchResults(){
   if(!res.length){ box.innerHTML=`<div class="note" style="text-align:right">چیزی پیدا نشد</div>`; return; }
   box.innerHTML=`<div class="mlist" style="margin-top:8px">`+res.slice(0,8).map(v=>{
     const i=VERBS.indexOf(v);
-    return `<div class="mitem" data-i="${i}" style="cursor:pointer">
+    return `<button type="button" class="mitem" data-i="${i}">
       <span class="w">${v.infinitive}</span>
-      <span class="d">${v.past_simple} · ${v.past_participle} — <span dir="rtl">${v.fa}</span></span></div>`;
+      <span class="d">${v.past_simple} · ${v.past_participle} — <span dir="rtl">${faForm(v,"infinitive")}</span></span></button>`;
   }).join("")+`</div>`;
   box.querySelectorAll(".mitem").forEach(el=>el.onclick=()=>{
     learnIndex=parseInt(el.dataset.i,10); revealed=false; renderLearn();
@@ -530,32 +854,33 @@ function renderLearn(){
   const pct = ((learnIndex+1)/VERBS.length*100);
   view.innerHTML = `
   <div class="card flash">
-    <div style="margin-bottom:12px">
-      <input id="searchBox" dir="auto" placeholder="🔍 جستجوی فعل یا معنی…" autocomplete="off"
-        autocorrect="off" autocapitalize="none" spellcheck="false"
-        style="width:100%;font-family:inherit;font-size:15px;padding:11px 14px;border:1.5px solid var(--line);border-radius:13px;outline:none">
+    <div class="search-wrap">
+      <label for="searchBox" class="sr-only">جستجوی فعل یا معنی</label>
+      ${icon("search")}
+      <input class="search-input" id="searchBox" dir="auto" placeholder="جستجوی فعل یا معنی…" autocomplete="off"
+        autocorrect="off" autocapitalize="none" spellcheck="false">
       <div id="searchResults"></div>
     </div>
     <div class="lead">کارت ${fa(learnIndex+1)} از ${fa(VERBS.length)}</div>
-    <div class="word base" id="baseW" style="cursor:pointer" title="برای شنیدن بزن">${v.infinitive}</div>
-    <div class="fa-mean">${v.fa}</div>
+    <button type="button" class="word base word-button" id="baseW" aria-label="شنیدن تلفظ ${v.infinitive}">${v.infinitive}</button>
+    <div class="fa-mean">${faForm(v,"infinitive")}</div>
     <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center">
-      <button class="pill" id="say">🔊 تلفظ</button>
+      <button type="button" class="pill" id="say">${icon("volume")} تلفظ کامل</button>
       ${voiceSelectHTML()}
     </div>
     <div class="forms">
       <div class="form"><small>${LABEL.past_simple} · ${SHORT.past_simple}</small>
-        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</div>
-        <button class="pill sayf" data-type="past_simple" style="margin-top:6px;padding:3px 11px;font-size:13px">🔊</button></div>
+        <button type="button" class="v reveal-word ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</button>
+        <button type="button" class="pill sayf" aria-label="شنیدن گذشته ساده" data-type="past_simple" style="margin-top:6px;padding:3px 11px;font-size:13px">${icon("volume")}</button></div>
       <div class="form"><small>${LABEL.past_participle} · ${SHORT.past_participle}</small>
-        <div class="v ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</div>
-        <button class="pill sayf" data-type="past_participle" style="margin-top:6px;padding:3px 11px;font-size:13px">🔊</button></div>
+        <button type="button" class="v reveal-word ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</button>
+        <button type="button" class="pill sayf" aria-label="شنیدن اسم مفعول" data-type="past_participle" style="margin-top:6px;padding:3px 11px;font-size:13px">${icon("volume")}</button></div>
     </div>
     <div class="progress"><i style="width:${pct}%"></i></div>
     <div class="row">
-      <button class="btn" id="prev">قبلی ›</button>
-      <button class="btn ghost" id="reveal">${revealed?'مخفی کن':'نمایش'}</button>
-      <button class="btn primary" id="next">‹ بعدی</button>
+      <button type="button" class="btn" id="prev">قبلی</button>
+      <button type="button" class="btn ghost" id="reveal">${revealed?'مخفی کن':'نمایش پاسخ'}</button>
+      <button type="button" class="btn primary" id="next">بعدی</button>
     </div>
     <div class="note">روی قسمت تار بزن تا جواب را ببینی</div>
   </div>`;
@@ -581,14 +906,226 @@ function renderLearn(){
   $("#next").onclick=()=>{learnIndex=(learnIndex+1)%VERBS.length;revealed=false;renderLearn();};
 }
 
+/* ---------- آزمون زمان‌دار با تعداد سؤال مشخص ---------- */
+function renderExam(){
+  if(exam.status==="running"){
+    quizMode=exam.mode;
+    quizPool="all";
+    if(!current) makeQuestion();
+    renderQuiz();
+    return;
+  }
+  if(exam.status==="finished"){
+    renderExamResult();
+    return;
+  }
+
+  view.innerHTML=`
+  <div class="card exam-setup">
+    ${icon("spark","big")}
+    <h2>آزمون</h2>
+    <p>نوع آزمون و تعداد سؤال را خودت مشخص کن.</p>
+    <div class="exam-settings">
+      <label class="exam-select-wrap" for="examMode">
+        <span>نوع آزمون</span>
+        <select class="exam-select" id="examMode">
+          <option value="mixed" selected>تصادفی · همهٔ حالت‌ها</option>
+          <option value="type">تایپ فرم درست</option>
+          <option value="choice">چهارگزینه‌ای</option>
+          <option value="meaning">معنی فارسی</option>
+          <option value="pair">نوشتن دو فرم</option>
+        </select>
+      </label>
+      <label class="exam-select-wrap" for="examCount">
+        <span>تعداد سؤال</span>
+        <select class="exam-select" id="examCount">
+          <option value="5">۵ سؤال</option>
+          <option value="10" selected>۱۰ سؤال</option>
+          <option value="20">۲۰ سؤال</option>
+          <option value="30">۳۰ سؤال</option>
+          <option value="all">همهٔ فعل‌ها · ${fa(VERBS.length)} سؤال</option>
+        </select>
+      </label>
+    </div>
+    <div class="exam-start"><button type="button" class="btn primary" id="startExam">شروع آزمون</button></div>
+    <div class="note">در پایان، نمره و فهرست پاسخ‌های اشتباه را یکجا می‌بینی.</div>
+  </div>`;
+  $("#startExam").onclick=()=>{
+    const count=$("#examCount").value;
+    startExam(count==="all"?VERBS.length:Number(count),$("#examMode").value);
+  };
+}
+
+function startExam(total,mode="mixed"){
+  exam={status:"running",mode,total,answered:0,correct:0,wrong:0,mistakes:[],startedAt:Date.now()};
+  quizMode=mode;
+  quizPool="all";
+  current=null;
+  deck=[];
+  deckKey="";
+  makeQuestion();
+  renderQuiz();
+}
+
+function recordExamResult(correct,chosen){
+  if(activeTab!=="exam" || exam.status!=="running") return;
+  const q=current,v=q.verb;
+  exam.answered++;
+  if(correct) exam.correct++; else exam.wrong++;
+  if(correct) return;
+
+  let target,expected,answer;
+  if(q.mode==="meaning"){
+    target="معنی فارسی";
+    expected=q.meaningAnswer;
+    answer=chosen;
+  }else if(q.mode==="pair"){
+    target=q.answerTypes.map(type=>LABEL[type]).join(" و ");
+    expected=q.answerTypes.map(type=>`${SHORT[type]}: ${v[type]}`).join(" · ");
+    answer=q.answerTypes.map((type,index)=>`${SHORT[type]}: ${chosen[index]}`).join(" · ");
+  }else{
+    target=LABEL[q.answerType];
+    expected=v[q.answerType];
+    answer=chosen;
+  }
+  exam.mistakes.push({
+    verb:v.infinitive,
+    shown:q.mode==="meaning"?meaningPromptText(v,q.promptType):`${SHORT[q.promptType]}: ${v[q.promptType]}`,
+    target,
+    answer:answer||"بدون پاسخ",
+    expected,
+    persian:TYPES.map(type=>faForm(v,type)).join(" · ")
+  });
+}
+
+function advanceExam(){
+  if(exam.answered>=exam.total){
+    exam.status="finished";
+    current=null;
+    renderExamResult();
+    window.scrollTo({top:0,behavior:"smooth"});
+    return;
+  }
+  current=null;
+  makeQuestion();
+  renderQuiz();
+}
+
+function examResultText(){
+  const score=exam.total?Math.round(exam.correct/exam.total*100):0;
+  const modeName={mixed:"تصادفی",type:"تایپ",choice:"چهارگزینه‌ای",meaning:"معنی فارسی",pair:"دو فرم"}[exam.mode]||"تصادفی";
+  const details=exam.mistakes.map((m,index)=>`${index+1}) ${m.verb} | پاسخ: ${m.answer} | درست: ${m.expected}`).join("\n");
+  return `نتیجه آزمون افعال بی‌قاعده\nنوع آزمون: ${modeName}\nنمره: ${score}٪\nدرست: ${exam.correct} از ${exam.total}\nغلط: ${exam.wrong}${details?`\n\nنیاز به مرور:\n${details}`:""}`;
+}
+
+async function shareExamResult(){
+  const button=$("#shareExam"),text=examResultText();
+  try{
+    if(navigator.share) await navigator.share({title:"نتیجه آزمون افعال بی‌قاعده",text});
+    else if(navigator.clipboard){await navigator.clipboard.writeText(text);button.innerHTML=`${icon("check")} نتیجه کپی شد`;}
+  }catch(e){
+    if(e?.name!=="AbortError") button.textContent="اشتراک انجام نشد";
+  }
+}
+
+async function saveExamResultImage(){
+  try{if(document.fonts?.ready) await document.fonts.ready;}catch(e){}
+  const score=exam.total?Math.round(exam.correct/exam.total*100):0;
+  const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");
+  canvas.width=1080;canvas.height=1350;
+  ctx.fillStyle="#eef1f8";ctx.fillRect(0,0,1080,1350);
+  ctx.fillStyle="#303a8c";ctx.fillRect(70,70,940,530);
+  ctx.direction="rtl";ctx.textAlign="center";ctx.fillStyle="#f8d981";ctx.font="700 30px Vazirmatn, sans-serif";ctx.fillText("نتیجه آزمون افعال بی‌قاعده",540,145);
+  ctx.fillStyle="#ffffff";ctx.font="900 150px Nunito Sans, Vazirmatn, sans-serif";ctx.fillText(`${score}%`,540,330);
+  ctx.font="700 38px Vazirmatn, sans-serif";ctx.fillText(`${exam.correct} درست  ·  ${exam.wrong} غلط  ·  ${exam.total} سؤال`,540,430);
+  ctx.fillStyle="#d9ddff";ctx.font="500 28px Vazirmatn, sans-serif";ctx.fillText(score>=80?"تسلط خیلی خوب؛ همین ریتم را نگه دار.":score>=60?"خوب پیش رفتی؛ اشتباهات پایین را مرور کن.":"یک دور مرور و آزمون دوباره، نتیجه را سریع بهتر می‌کند.",540,500);
+  ctx.textAlign="right";ctx.fillStyle="#172033";ctx.font="800 38px Vazirmatn, sans-serif";ctx.fillText(`نیاز به مرور: ${exam.mistakes.length}`,950,680);
+  ctx.font="600 27px Vazirmatn, sans-serif";
+  let y=745;
+  if(!exam.mistakes.length){ctx.fillStyle="#117657";ctx.fillText("بدون اشتباه؛ همه پاسخ‌ها درست بودند.",950,y);}
+  else exam.mistakes.slice(0,7).forEach((m,index)=>{
+    ctx.fillStyle="#172033";ctx.fillText(`${index+1}. ${m.verb} — ${m.target}`,950,y);
+    ctx.fillStyle="#b83248";ctx.font="500 23px Vazirmatn, sans-serif";ctx.fillText(`پاسخ: ${String(m.answer).slice(0,52)}`,920,y+38);
+    ctx.fillStyle="#117657";ctx.fillText(`درست: ${String(m.expected).slice(0,52)}`,920,y+72);
+    ctx.font="600 27px Vazirmatn, sans-serif";y+=112;
+  });
+  if(exam.mistakes.length>7){ctx.fillStyle="#5f687b";ctx.fillText(`و ${exam.mistakes.length-7} مورد دیگر در فهرست داخل برنامه`,950,1290);}
+  canvas.toBlob(blob=>{
+    if(!blob) return;
+    const url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=`irregular-verbs-result-${Date.now()}.png`;a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  },"image/png");
+}
+
+function renderExamResult(){
+  const score=exam.total?Math.round(exam.correct/exam.total*100):0;
+  const modeName={mixed:"تصادفی",type:"تایپ",choice:"چهارگزینه‌ای",meaning:"معنی فارسی",pair:"دو فرم"}[exam.mode]||"تصادفی";
+  const message=score>=80?"تسلط خیلی خوب؛ همین ریتم را نگه دار.":score>=60?"خوب پیش رفتی؛ اشتباهات را مرور کن.":"یک دور مرور و آزمون دوباره، نتیجه را سریع بهتر می‌کند.";
+  const mistakes=exam.mistakes.length ? exam.mistakes.map((m,index)=>`
+    <article class="result-mistake">
+      <div class="result-mistake-head"><strong>${esc(m.verb)}</strong><span class="result-target">${esc(m.shown)} ← ${esc(m.target)}</span></div>
+      <div class="result-answer-grid">
+        <div class="result-answer wrong"><span>پاسخ شما</span><b dir="auto">${esc(m.answer)}</b></div>
+        <div class="result-answer correct"><span>پاسخ درست</span><b dir="auto">${esc(m.expected)}</b></div>
+      </div>
+      <div class="result-fa">${esc(m.persian)}</div>
+    </article>`).join("") : `<div class="empty">${icon("spark","big")}<b>بدون اشتباه!</b><div class="note">همهٔ پاسخ‌ها درست بودند.</div></div>`;
+
+  view.innerHTML=`
+  <div class="card exam-result">
+    <section class="result-hero" id="examShareCard">
+      <div class="result-label">نتیجه آزمون ${modeName}</div>
+      <div class="result-score">${fa(score)}٪</div>
+      <div class="result-message">${message}</div>
+      <div class="result-stats">
+        <div class="result-stat"><b>${fa(exam.total)}</b><span>کل سؤال</span></div>
+        <div class="result-stat"><b>${fa(exam.correct)}</b><span>درست</span></div>
+        <div class="result-stat"><b>${fa(exam.wrong)}</b><span>غلط</span></div>
+      </div>
+    </section>
+    <div class="result-actions">
+      <button type="button" class="btn" id="shareExam">${icon("share")} اشتراک نتیجه</button>
+      <button type="button" class="btn ghost" id="saveExamImage">${icon("image")} ذخیره تصویر</button>
+    </div>
+    <section>
+      <div class="result-section-head"><h3>پاسخ‌های نیازمند مرور</h3><span>${fa(exam.mistakes.length)} مورد</span></div>
+      <div class="result-mistakes">${mistakes}</div>
+    </section>
+    <div class="result-restart"><button type="button" class="btn primary" id="restartExam">${icon("restart")} آزمون جدید</button></div>
+  </div>`;
+  $("#shareExam").onclick=shareExamResult;
+  $("#saveExamImage").onclick=saveExamResultImage;
+  $("#restartExam").onclick=()=>{exam={status:"setup",mode:"mixed",total:10,answered:0,correct:0,wrong:0,mistakes:[],startedAt:0};current=null;renderExam();window.scrollTo({top:0,behavior:"smooth"});};
+}
+
 /* ---------- ساخت سوال ---------- */
 function makeQuestion(){
   const verb = nextVerb();
   if(!verb){ current=null; return; }
-  const answerType = rand(TYPES);
-  let promptType; do{ promptType=rand(TYPES); }while(promptType===answerType);
-  let mode = quizMode==="mixed" ? rand(["choice","type"]) : quizMode;
+  const mode = quizMode==="mixed" ? rand(["meaning","choice","type","pair"]) : quizMode;
+  let answerType, promptType;
+  let meaningAnswer=null;
   let options=[];
+
+  if(mode==="pair"){
+    promptType=rand(TYPES);
+    answerType="pair";
+  }else if(mode==="meaning"){
+    promptType=rand(TYPES);
+    answerType="meaning";
+    meaningAnswer=faForm(verb,promptType);
+    const set=new Set(TYPES.map(type=>faForm(verb,type)));
+    for(const other of shuffle(VERBS)){
+      if(set.size>=4) break;
+      if(other!==verb) set.add(faForm(other,promptType));
+    }
+    options=shuffle([...set]);
+  }else{
+    answerType=rand(TYPES);
+    do{ promptType=rand(TYPES); }while(promptType===answerType);
+  }
+
   if(mode==="choice"){
     const correct=verb[answerType];
     const set=new Set([correct]);
@@ -606,102 +1143,165 @@ function makeQuestion(){
     }
     options=shuffle([...set]);
   }
-  current={verb,promptType,answerType,mode,options};
+  const answerTypes=mode==="pair" ? TYPES.filter(type=>type!==promptType) : null;
+  current={verb,promptType,answerType,answerTypes,meaningAnswer,mode,options};
   answered=false;
 }
 
 function renderQuiz(){
+  const isExam=activeTab==="exam" && exam.status==="running";
   if(quizPool==="mistakes" && !mistakeVerbs().length){
     quizPool="all";
   }
   if(!current) makeQuestion();
   if(!current){ // pool خالی
-    view.innerHTML=`<div class="card empty"><div class="big">🎉</div>چیزی برای تمرین نیست!</div>`;
+    view.innerHTML=`<div class="card empty">${icon("spark","big")}<b>چیزی برای تمرین نیست.</b><div class="note">همهٔ موارد این بخش مرور شده‌اند.</div></div>`;
     return;
   }
   const q=current, v=q.verb;
-  const poolBadge = quizPool==="mistakes"
-    ? `<button class="pill" id="poolBtn">🎯 فقط اشتباهات (${fa(mistakeVerbs().length)}) — تغییر</button>`
-    : `<button class="pill" id="poolBtn">📚 همهٔ افعال — تمرین اشتباهات؟</button>`;
+  const liveStats=isExam?exam:session;
+  const poolBadge = isExam
+    ? `<span class="pill">${icon("target")} سؤال ${fa(Math.min(exam.answered+1,exam.total))} از ${fa(exam.total)}</span>`
+    : quizPool==="mistakes"
+      ? `<button type="button" class="pill" id="poolBtn">${icon("target")} فقط نیازمند مرور (${fa(mistakeVerbs().length)})</button>`
+      : `<button type="button" class="pill" id="poolBtn">${icon("book")} همهٔ افعال</button>`;
+  const examProgress=isExam?`<div class="exam-progress" aria-label="پیشرفت آزمون"><i id="examProgress" style="width:${exam.answered/exam.total*100}%"></i></div>`:"";
 
   let answerArea;
-  if(q.mode==="choice"){
-    answerArea=`<div class="options" id="opts">${q.options.map(o=>
-      `<button class="opt" data-val="${o}">${o}</button>`).join("")}</div>`;
+  if(q.mode==="choice" || q.mode==="meaning"){
+    answerArea=`<div class="options ${q.mode==="meaning"?"meaning-options":""}" id="opts">${q.options.map(o=>
+      `<button type="button" class="opt" data-val="${o}">${o}</button>`).join("")}</div>`;
+  }else if(q.mode==="pair"){
+    answerArea=`<form class="pair-fields" id="pairForm" novalidate>
+      ${q.answerTypes.map((type,index)=>`<label class="pair-field" for="ansPair${index}"><span class="field-label">${SHORT[type]} · ${LABEL[type]}</span>
+        <input class="type" id="ansPair${index}" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="${index===0?'next':'done'}" placeholder="پاسخ…"></label>`).join("")}
+      <div class="inline-error" id="pairError" role="alert"></div>
+      <div class="row pair-actions"><button type="submit" class="btn primary" id="checkPair">بررسی هر دو فرم</button></div>
+    </form>`;
   }else{
-    answerArea=`<div class="typewrap">
-      <input class="type" id="ans" placeholder="جواب را تایپ کن…" autocomplete="off"
-        autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done">
-      <div class="row"><button class="btn primary" id="check">بررسی</button></div>
-    </div>`;
+    answerArea=`<form class="typewrap" id="singleForm" novalidate>
+      <label class="field-label" for="ans">${LABEL[q.answerType]} را به انگلیسی بنویس</label>
+      <input class="type" id="ans" placeholder="پاسخ را تایپ کن…" autocomplete="off"
+        autocorrect="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-describedby="singleError">
+      <div class="inline-error" id="singleError" role="alert"></div>
+      <div class="row"><button type="submit" class="btn primary" id="check">بررسی پاسخ</button></div>
+    </form>`;
   }
+
+  const promptArea = q.mode==="pair" ? `
+    <div class="prompt">
+      <div class="pair-instruction">
+        <div class="ask">${q.answerTypes.map(type=>LABEL[type]).join(" و ")} را بنویس.</div>
+        <button type="button" class="pill pair-random" id="randomPair">فرم تصادفی دیگر</button>
+      </div>
+      <div class="triplet" aria-label="مسیر سه شکل فعل">
+        ${TYPES.map((type,index)=>`${index?'<div class="triplet-arrow" aria-hidden="true">→</div>':''}<div class="triplet-step ${type===q.promptType?'known':'blank'}"><small>${SHORT[type]}</small><strong>${type===q.promptType?v[type]:'?'}</strong></div>`).join("")}
+      </div>
+    </div>` : `
+    <div class="prompt">
+      <div class="ask">${q.mode==="meaning"?"معنی درست این شکل کدام است؟":q.mode==="choice"?"فرم درست را انتخاب کن":"فرم خواسته‌شده را از حافظه بنویس"}</div>
+      <div class="word qword ${q.mode==="meaning"?'meaning-word':''}">${q.mode==="meaning"?meaningPromptText(v,q.promptType):v[q.promptType]}</div>
+      <div class="target">هدف: ${q.mode==="meaning"?`<b>معنی فارسی</b>${meaningNeedsFormHint(v,q.promptType)?`<span class="form-cue">${SHORT[q.promptType]}</span>`:""}`:`${LABEL[q.answerType]} <b>(${SHORT[q.answerType]})</b>`}</div>
+      ${q.mode==="meaning"?"":`<div class="recall-hint">معنی را هم قبل از پاسخ، خودت بگو.</div>`}
+    </div>`;
 
   view.innerHTML=`
   <div class="card">
-    <div style="text-align:center;margin-bottom:10px">${poolBadge}</div>
-    <div class="prompt">
-      <div class="ask">${q.mode==="choice"?"کدام درست است؟":"این فعل را صرف کن"}</div>
-      <div class="word qword">${v[q.promptType]}</div>
-      <span class="tag">${LABEL[q.promptType]}</span>
-      <div class="fa-mean">${v.fa}</div>
-      <div class="target">→ ${LABEL[q.answerType]} <b>(${SHORT[q.answerType]})</b> ؟</div>
+    <div class="quiz-toolbar">${poolBadge}</div>
+    ${examProgress}
+    <div class="quiz-body ${q.mode==="pair"?"pair-mode":""}">
+      ${promptArea}
+      <div class="answer-slot">
+        ${answerArea}
+        <div class="feedback" id="fb" role="status" aria-live="polite"></div>
+      </div>
     </div>
-    ${answerArea}
-    <div class="feedback" id="fb"></div>
     <div class="mini">
-      <span>درست: <b id="mc">${fa(session.correct)}</b></span>
-      <span>غلط: <b id="mw">${fa(session.wrong)}</b></span>
-      <span>زنجیره: <b id="ms">${fa(session.streak)}</b></span>
+      <span>درست: <b id="mc">${fa(liveStats.correct)}</b></span>
+      <span>غلط: <b id="mw">${fa(liveStats.wrong)}</b></span>
+      <span>${isExam?"پاسخ داده":"زنجیره"}: <b id="ms">${fa(isExam?exam.answered:session.streak)}</b></span>
     </div>
   </div>`;
 
-  $("#poolBtn").onclick=()=>{
-    if(quizPool==="mistakes"){ quizPool="all"; }
-    else { if(!mistakeVerbs().length){alert("هنوز اشتباهی ذخیره نشده 🙂");return;} quizPool="mistakes"; }
-    current=null; makeQuestion(); renderQuiz(); refreshStats();
-  };
+  const poolBtn=$("#poolBtn");
+  if(poolBtn) poolBtn.onclick=()=>{
+      if(quizPool==="mistakes"){ quizPool="all"; }
+      else { if(!mistakeVerbs().length){alert("هنوز موردی برای مرور ثبت نشده است.");return;} quizPool="mistakes"; }
+      current=null; makeQuestion(); renderQuiz(); refreshStats();
+    };
 
-  if(q.mode==="choice"){
+  if(q.mode==="choice" || q.mode==="meaning"){
     view.querySelectorAll(".opt").forEach(b=> b.onclick=()=>chooseAnswer(b.dataset.val,b));
+  }else if(q.mode==="pair"){
+    const inputs=q.answerTypes.map((type,index)=>$("#ansPair"+index)), form=$("#pairForm");
+    form.addEventListener("submit",e=>{e.preventDefault();submitPair(inputs.map(inp=>inp.value));});
+    inputs[0].addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();inputs[1].focus();}});
+    inputs.forEach(inp=>inp.addEventListener("input",()=>{$("#pairError").classList.remove("show");inp.removeAttribute("aria-invalid");}));
+    $("#randomPair").onclick=()=>{
+      current.promptType=rand(TYPES.filter(type=>type!==current.promptType));
+      current.answerTypes=TYPES.filter(type=>type!==current.promptType);
+      answered=false;
+      renderQuiz();
+    };
+    if(!matchMedia("(pointer: coarse)").matches) inputs[0].focus();
   }else{
-    const inp=$("#ans"); inp.focus();
+    const inp=$("#ans");
     const go=()=>submitTyped(inp.value);
-    $("#check").onclick=go;
-    inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+    $("#singleForm").addEventListener("submit",e=>{e.preventDefault();go();});
+    inp.addEventListener("input",()=>{$("#singleError").classList.remove("show");inp.removeAttribute("aria-invalid");});
+    if(!matchMedia("(pointer: coarse)").matches) inp.focus();
   }
 }
 
-function finishAnswer(correct, chosen){
+function showFeedback(correct, message){
+  const v=current.verb;
+  const isExam=activeTab==="exam" && exam.status==="running";
+  const examDone=isExam && exam.answered>=exam.total;
+  const fb=$("#fb");
+  fb.parentElement.classList.add("answered");
+  fb.className="feedback show "+(correct?"ok":"bad");
+  fb.innerHTML = `<div class="feedback-title">${icon(correct?"check":"x")} ${message}</div>`
+    + `<span class="full">${v.infinitive} → ${v.past_simple} → ${v.past_participle}</span>`
+    + `<div class="feedback-meaning">${TYPES.map(type=>faForm(v,type)).join(" · ")}</div>`
+    + `<div class="row"><button type="button" class="btn primary" id="nextQ">${examDone?"دیدن نتیجه":"سؤال بعدی"}</button>
+         <button type="button" class="btn icon-btn" id="sayQ" aria-label="شنیدن تلفظ کامل">${icon("volume")}</button></div>`;
+  $("#nextQ").onclick=()=>{
+    if(isExam) advanceExam();
+    else { current=null; makeQuestion(); renderQuiz(); refreshStats(); }
+  };
+  $("#sayQ").onclick=()=>speak(spokenForms(v));
+  if(!correct) fb.classList.add("shake");
+  requestAnimationFrame(()=>$("#nextQ")?.focus({preventScroll:true}));
+
+  const liveStats=isExam?exam:session;
+  $("#mc").textContent=fa(liveStats.correct);
+  $("#mw").textContent=fa(liveStats.wrong);
+  $("#ms").textContent=fa(isExam?exam.answered:session.streak);
+  const progress=$("#examProgress");
+  if(progress) progress.style.width=(exam.answered/exam.total*100)+"%";
+  refreshStats();
+}
+
+function finishAnswer(correct,chosen){
   askPersist();
   const q=current, v=q.verb;
+  const expected=q.mode==="meaning" ? q.meaningAnswer : v[q.answerType];
   answered=true;
   if(correct){ session.correct++; session.streak++; recordSuccess(v,q.answerType); }
   else { session.wrong++; session.streak=0; recordMistake(v,q.answerType); }
-
-  const fb=$("#fb");
-  fb.className="feedback show "+(correct?"ok":"bad");
-  fb.innerHTML = (correct? "✅ آفرین! درست بود." : `❌ نه، درستش این بود: <b>${v[q.answerType]}</b>`)
-    + `<span class="full">${v.infinitive} → ${v.past_simple} → ${v.past_participle}</span>`
-    + `<div style="margin-top:4px;color:var(--muted);font-size:14px">${v.fa}</div>`
-    + `<div class="row"><button class="btn primary" id="nextQ">سوال بعدی ›</button>
-         <button class="btn icon-btn" id="sayQ">🔊</button></div>`;
-  $("#nextQ").onclick=()=>{ current=null; makeQuestion(); renderQuiz(); refreshStats(); };
-  $("#sayQ").onclick=()=>speak(spokenForms(v));
-  if(!correct) fb.classList.add("shake");
-
-  $("#mc").textContent=fa(session.correct);
-  $("#mw").textContent=fa(session.wrong);
-  $("#ms").textContent=fa(session.streak);
-  refreshStats();
+  recordExamResult(correct,chosen);
+  const message=correct ? "دقیقاً درست بود." : (q.mode==="meaning" ? `معنی درست: «${expected}»` : `پاسخ درست «${expected}» است.`);
+  showFeedback(correct,message);
 }
 
 function chooseAnswer(val,btn){
   if(answered) return;
   const q=current;
-  const correct = val===q.verb[q.answerType];
+  const expected=q.mode==="meaning" ? q.meaningAnswer : q.verb[q.answerType];
+  const correct = val===expected;
   view.querySelectorAll(".opt").forEach(b=>{
     b.disabled=true;
-    if(b.dataset.val===q.verb[q.answerType]) b.classList.add("correct");
+    if(b.dataset.val===expected) b.classList.add("correct");
     else if(b===btn) b.classList.add("wrong");
   });
   finishAnswer(correct,val);
@@ -709,14 +1309,65 @@ function chooseAnswer(val,btn){
 
 function submitTyped(value){
   if(answered) return;
-  if(!value.trim()){ return; }
+  if(!value.trim()){
+    const err=$("#singleError"), inp=$("#ans");
+    err.textContent="اول پاسخ را بنویس، بعد بررسی کن.";
+    err.classList.add("show");
+    inp.setAttribute("aria-invalid","true");
+    inp.focus();
+    return;
+  }
   const q=current;
   const ok = accepted(q.verb,q.answerType).has(norm(value));
   const inp=$("#ans");
   inp.disabled=true;
   inp.classList.add(ok?"correct":"wrong");
-  $("#check").style.display="none";
+  $("#check").disabled=true;
   finishAnswer(ok,value);
+}
+
+function submitPair(values){
+  if(answered) return;
+  const q=current;
+  const inputs=q.answerTypes.map((type,index)=>$("#ansPair"+index));
+  const err=$("#pairError");
+  const missing=[];
+  values.forEach((value,index)=>{if(!value.trim()) missing.push(inputs[index]);});
+  if(missing.length){
+    err.textContent=missing.length===2 ? "هر دو فرم را بنویس تا بررسی شوند." : "یک فرم هنوز خالی است.";
+    err.classList.add("show");
+    missing.forEach(inp=>inp.setAttribute("aria-invalid","true"));
+    missing[0].focus();
+    return;
+  }
+
+  askPersist();
+  const v=q.verb;
+  const results=q.answerTypes.map((type,index)=>accepted(v,type).has(norm(values[index])));
+  const allOK=results.every(Boolean);
+  answered=true;
+  inputs.forEach((inp,index)=>{
+    inp.disabled=true;
+    inp.classList.add(results[index]?"correct":"wrong");
+  });
+  $("#checkPair").disabled=true;
+
+  q.answerTypes.forEach((type,index)=>{
+    if(results[index]) recordSuccess(v,type); else recordMistake(v,type);
+  });
+  if(allOK){session.correct++;session.streak++;}
+  else{session.wrong++;session.streak=0;}
+  recordExamResult(allOK,values);
+
+  let message="هر دو فرم دقیقاً درست‌اند.";
+  if(!allOK){
+    const correctIndex=results.findIndex(Boolean);
+    if(correctIndex>=0){
+      const wrongIndex=correctIndex===0?1:0;
+      message=`${LABEL[q.answerTypes[correctIndex]]} درست بود؛ ${LABEL[q.answerTypes[wrongIndex]]} را دوباره مرور کن.`;
+    }else message="هر دو فرم نیاز به یک مرور کوتاه دارند.";
+  }
+  showFeedback(allOK,message);
 }
 
 /* ---------- اشتباهات ---------- */
@@ -725,28 +1376,28 @@ function renderMistakes(){
     .sort((a,b)=>store.mistakes[b.infinitive].count-store.mistakes[a.infinitive].count);
   let body;
   if(!list.length){
-    body=`<div class="empty"><div class="big">✨</div>هنوز اشتباهی ذخیره نشده.<br>برو تست بده تا اینجا پر بشه!</div>`;
+    body=`<div class="empty">${icon("spark","big")}<b>فعلاً چیزی برای مرور نداری.</b><div class="note">با شروع تست‌ها، موارد سخت به‌صورت خودکار اینجا جمع می‌شوند.</div></div>`;
   }else{
     body=`<div class="mlist">`+list.map(v=>{
       const m=store.mistakes[v.infinitive];
       const forms=Object.keys(m.forms).filter(f=>m.forms[f]>0).map(f=>SHORT[f]).join(" · ");
       return `<div class="mitem">
         <span class="w">${v.infinitive}</span>
-        <span class="d">${v.past_simple} · ${v.past_participle}${forms?` &nbsp; [${forms}]`:''}<br><span dir="rtl" style="color:var(--muted)">${v.fa}</span></span>
+        <span class="d">${v.past_simple} · ${v.past_participle}${forms?` &nbsp; [${forms}]`:''}<br><span dir="rtl" style="color:var(--muted)">${faForm(v,"infinitive")}</span></span>
         <span class="c">${fa(m.count)}</span></div>`;
     }).join("")+`</div>`;
   }
   view.innerHTML=`
   <div class="card">
-    <div class="prompt"><div class="ask">افعالی که اشتباه زدی (ذخیره‌شده روی مرورگر)</div></div>
+    <div class="prompt"><div class="ask">مرور هدفمند</div><h2 style="margin:3px 0 16px;font-size:22px">فعل‌هایی که هنوز تثبیت نشده‌اند</h2></div>
     ${body}
     <div class="row" style="margin-top:16px">
-      <button class="btn primary" id="practice" ${list.length?'':'disabled style="opacity:.5"'}>🎯 تمرین فقط اشتباهات</button>
+      <button type="button" class="btn primary" id="practice" ${list.length?'':'disabled'}>${icon("target")} تمرین همین موارد</button>
     </div>
     <div class="row" style="margin-top:8px">
-      <button class="btn ghost" id="clear" ${list.length?'':'disabled style="opacity:.5"'}>پاک کردن همه</button>
+      <button type="button" class="btn ghost" id="clear" ${list.length?'':'disabled'}>پاک کردن فهرست</button>
     </div>
-    <div class="note">با هر جواب درست به این افعال، شمارنده کم می‌شود و وقتی به صفر برسد از لیست حذف می‌شوند.</div>
+    <div class="note">هر پاسخ درست، نیاز به مرور را کمتر می‌کند؛ با تثبیت کامل، فعل از این فهرست خارج می‌شود.</div>
   </div>`;
 
   if(list.length){
@@ -759,12 +1410,17 @@ function renderMistakes(){
 document.querySelectorAll(".tab").forEach(b=>{
   b.addEventListener("click",()=>{
     const t=b.dataset.tab;
-    if(t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
+    if(t!==activeTab && t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
     setTab(t);
   });
 });
-refreshStats();
-renderLearn();
+window.addEventListener("hashchange",()=>{
+  const t=tabFromHash();
+  if(t===activeTab) return;
+  if(t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
+  setTab(t,false);
+});
+setTab(activeTab);
 </script>
 </body>
 </html>
