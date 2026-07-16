@@ -26,6 +26,34 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="آزمایشگاه فعل">
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+window.oneSignalSdkReady = new Promise(resolve=>{
+  if(!/^https?:$/.test(location.protocol)){ resolve(null); return; }
+  OneSignalDeferred.push(async OneSignal=>{
+    try{
+      const pageDirectory = location.pathname.endsWith("/")
+        ? location.pathname
+        : location.pathname.slice(0,location.pathname.lastIndexOf("/")+1);
+      const relativeDirectory = pageDirectory.replace(/^\/+/,"");
+      await OneSignal.init({
+        appId:"20182128-cf1f-40a2-be0c-18938fcd6f82",
+        safari_web_id:"web.onesignal.auto.2900aeea-27da-4bc5-9f95-2e3d9a76781c",
+        serviceWorkerPath:relativeDirectory+"push/onesignal/OneSignalSDKWorker.js",
+        serviceWorkerParam:{scope:pageDirectory+"push/onesignal/"},
+        allowLocalhostAsSecureOrigin:true,
+        autoResubscribe:true,
+        notifyButton:{enable:false}
+      });
+      resolve(OneSignal);
+    }catch(error){
+      console.warn("OneSignal initialization failed",error);
+      resolve(null);
+    }
+  });
+});
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -319,6 +347,9 @@
   .install-banner[hidden]{display:none}.install-mark{direction:ltr;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--primary-deep);color:#fff;font-family:var(--font-word);font-size:12px;font-weight:900}.install-copy{min-width:0;text-align:right}.install-copy strong{display:block;font-size:14px}.install-copy span{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.55}.install-action{min-height:42px;padding:8px 16px}.install-close{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:var(--muted);font-size:22px;line-height:1}.install-close:active{background:var(--soft)}
   @keyframes install-rise{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
 
+  .reminder-open{position:relative;flex:0 0 auto;margin-inline-start:auto;min-height:40px;padding:7px 11px;border:1px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.1);color:#fff;display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700}.reminder-open:active{background:rgba(255,255,255,.18)}.reminder-open .icon{width:18px;height:18px}.reminder-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}.reminder-dot.active{background:#f8d981;box-shadow:0 0 0 3px rgba(248,217,129,.16)}
+  .reminder-dialog{width:min(470px,calc(100% - 24px));max-height:min(680px,calc(100dvh - 24px));padding:0;border:0;border-radius:24px;background:var(--paper);color:var(--ink);box-shadow:0 26px 80px rgba(20,27,65,.32);overflow:auto}.reminder-dialog::backdrop{background:rgba(23,32,51,.55);backdrop-filter:blur(4px)}.reminder-form{padding:22px}.reminder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.reminder-head h2{margin:0;font-size:22px}.reminder-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.dialog-close{flex:0 0 40px;width:40px;height:40px;border:0;border-radius:12px;background:var(--soft);color:var(--muted);font-size:22px;line-height:1}.reminder-summary{margin:18px 0 12px;padding:13px 14px;border:1px solid #d7dcf2;border-radius:15px;background:var(--primary-soft);color:var(--primary-deep);font-size:13px;line-height:1.8}.reminder-control{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.reminder-control-copy{min-width:0}.reminder-control-copy span{display:block;font-size:14px;font-weight:700}.reminder-control-copy small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.switch{position:relative;flex:0 0 48px;width:48px;height:28px}.switch input{position:absolute;opacity:0;pointer-events:none}.switch-track{position:absolute;inset:0;border-radius:99px;background:#c9ceda;transition:.2s}.switch-track::after{content:"";position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(23,32,51,.2);transition:.2s}.switch input:checked+.switch-track{background:var(--primary)}.switch input:checked+.switch-track::after{transform:translateX(-20px)}.switch input:focus-visible+.switch-track{outline:3px solid rgba(237,174,46,.9);outline-offset:3px}.reminder-time{width:112px;min-height:44px;padding:8px 10px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);direction:ltr;text-align:center;outline:none}.reminder-time:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(70,83,189,.12)}.reminder-status{min-height:22px;margin-top:13px;color:var(--muted);font-size:12px;text-align:center}.reminder-status.ok{color:var(--ok)}.reminder-status.bad{color:var(--bad)}.reminder-save{width:100%;margin-top:10px}.reminder-privacy{margin:10px 0 0;color:var(--muted);font-size:10px;text-align:center;line-height:1.7}
+
   @media(min-width:700px){
     body{padding-top:16px}
     header{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,.9fr);align-items:center;gap:22px;padding:18px 22px}
@@ -333,7 +364,7 @@
     .quiz-body:not(.pair-mode) .prompt{margin-bottom:0}
     .quiz-body:not(.pair-mode) .options,.quiz-body:not(.pair-mode) .typewrap{margin-top:0}
   }
-  @media(max-width:430px){body{padding-left:10px;padding-right:10px}header{padding:13px 14px 12px;border-radius:20px 20px 9px 9px}header::after{right:18px;width:68px;height:4px}.brand-mark{width:42px;height:42px;border-radius:12px;font-size:11px}.brand-row{gap:9px}.eyebrow,header p{display:none}header h1{font-size:18px;letter-spacing:-.035em}.statbar{gap:6px;margin-top:9px}.stat{padding:6px 3px;border-radius:12px}.stat b{font-size:16px}.stat span{margin-top:2px;font-size:9px}nav.tabs{padding:6px;gap:4px}.tab{min-height:48px;font-size:11px;gap:4px}.tab .icon{width:16px;height:16px}.card{padding:20px 15px;border-radius:21px}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options.meaning-options .opt{font-size:13px;padding:10px 7px}.row{gap:7px}.btn{padding-left:9px;padding-right:9px;font-size:14px}.exam-settings{grid-template-columns:1fr}.pair-fields{grid-template-columns:1fr}.pair-actions,.inline-error{grid-column:1}.triplet{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:3px}.triplet-step{min-height:76px;padding:7px 3px}.triplet-step strong{font-size:18px}.install-banner{grid-template-columns:auto minmax(0,1fr) auto;padding:11px;gap:9px}.install-mark{width:40px;height:40px}.install-action{grid-column:2/3;justify-self:start;min-height:40px;margin-top:2px}.install-close{grid-column:3;grid-row:1/3}}
+  @media(max-width:430px){body{padding-left:10px;padding-right:10px}header{padding:13px 14px 12px;border-radius:20px 20px 9px 9px}header::after{right:18px;width:68px;height:4px}.brand-mark{width:42px;height:42px;border-radius:12px;font-size:11px}.brand-row{gap:9px}.eyebrow,header p{display:none}header h1{font-size:18px;letter-spacing:-.035em}.reminder-open{width:40px;height:40px;padding:0;justify-content:center}.reminder-open>span:not(.reminder-dot){display:none}.reminder-dot{position:absolute;margin:-27px 0 0 -27px}.statbar{gap:6px;margin-top:9px}.stat{padding:6px 3px;border-radius:12px}.stat b{font-size:16px}.stat span{margin-top:2px;font-size:9px}nav.tabs{padding:6px;gap:4px}.tab{min-height:48px;font-size:11px;gap:4px}.tab .icon{width:16px;height:16px}.card{padding:20px 15px;border-radius:21px}.options{grid-template-columns:repeat(2,minmax(0,1fr))}.options.meaning-options .opt{font-size:13px;padding:10px 7px}.row{gap:7px}.btn{padding-left:9px;padding-right:9px;font-size:14px}.exam-settings{grid-template-columns:1fr}.pair-fields{grid-template-columns:1fr}.pair-actions,.inline-error{grid-column:1}.triplet{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:3px}.triplet-step{min-height:76px;padding:7px 3px}.triplet-step strong{font-size:18px}.install-banner{grid-template-columns:auto minmax(0,1fr) auto;padding:11px;gap:9px}.install-mark{width:40px;height:40px}.install-action{grid-column:2/3;justify-self:start;min-height:40px;margin-top:2px}.install-close{grid-column:3;grid-row:1/3}.reminder-form{padding:18px 15px}.reminder-control{gap:9px}}
   @media(max-width:350px){nav.tabs{grid-template-columns:repeat(3,1fr)}.tab{flex-direction:column;gap:1px;font-size:10px}.brand-mark{display:none}}
   @media(orientation:landscape) and (max-height:520px){header{padding-top:16px;padding-bottom:16px}.statbar{margin-top:12px}main{margin-top:10px}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
@@ -349,6 +380,10 @@
         <h1>آزمایشگاه فعل</h1>
         <p>آموزش و تمرین ۹۶ فعل بی‌قاعده انگلیسی با معنی فارسی و آزمون آنلاین.</p>
       </div>
+      <button type="button" class="reminder-open" id="openReminder" aria-haspopup="dialog" aria-controls="reminderDialog">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+        <span>یادآوری</span><span class="reminder-dot" id="reminderDot" aria-hidden="true"></span>
+      </button>
     </div>
     <div class="statbar">
       <div class="stat"><b id="sAcc">۰٪</b><span>دقت کل</span></div>
@@ -404,6 +439,31 @@
   <button type="button" class="btn primary install-action" id="installApp">نصب برنامه</button>
   <button type="button" class="install-close" id="closeInstall" aria-label="فعلاً نصب نکن">×</button>
 </aside>
+
+<dialog class="reminder-dialog" id="reminderDialog" aria-labelledby="reminderTitle">
+  <form class="reminder-form" id="reminderForm" method="dialog">
+    <div class="reminder-head">
+      <div><h2 id="reminderTitle">یادآوری مطالعه</h2><p>زمان اعلان را خودت تعیین کن.</p></div>
+      <button type="button" class="dialog-close" id="closeReminder" aria-label="بستن">×</button>
+    </div>
+    <div class="reminder-summary">اگر تا ساعت انتخابی تمرین نکرده باشی، یک اعلان می‌گیری. موارد اشتباه نیز یک و سه روز بعد یادآوری می‌شوند.</div>
+    <div class="reminder-control">
+      <div class="reminder-control-copy"><span>اعلان روزانه</span><small>فقط یک‌بار و در صورت تمرین‌نکردن</small></div>
+      <label class="switch"><span class="sr-only">فعال‌کردن اعلان روزانه</span><input type="checkbox" id="reminderEnabled"><span class="switch-track"></span></label>
+    </div>
+    <label class="reminder-control" for="reminderTime">
+      <span class="reminder-control-copy"><span>ساعت یادآوری</span><small>بر اساس ساعت همین دستگاه</small></span>
+      <input class="reminder-time" type="time" id="reminderTime" value="20:00" required>
+    </label>
+    <div class="reminder-control">
+      <div class="reminder-control-copy"><span>مرور اشتباهات</span><small>یک و سه روز بعد از پاسخ اشتباه</small></div>
+      <label class="switch"><span class="sr-only">فعال‌کردن مرور اشتباهات</span><input type="checkbox" id="reviewReminderEnabled" checked><span class="switch-track"></span></label>
+    </div>
+    <div class="reminder-status" id="reminderStatus" role="status" aria-live="polite"></div>
+    <button type="submit" class="btn primary reminder-save" id="saveReminder">ذخیره تنظیمات</button>
+    <p class="reminder-privacy">اجازهٔ اعلان فقط پس از لمس دکمه درخواست می‌شود و هر زمان بخواهی می‌توانی آن را خاموش کنی.</p>
+  </form>
+</dialog>
 
 <script>
 /* ---------- داده افعال (embed شده تا فایل مستقل باشد) ---------- */
@@ -626,7 +686,9 @@ function icon(name, cls=""){
 
 /* ---------- ذخیره‌سازی ---------- */
 const KEY = "irregular_verbs_v1";
+const REMINDER_KEY = "irregular_verbs_reminders_v1";
 let store = loadStore();
+let reminderState = loadReminderState();
 function loadStore(){
   try{
     const raw = localStorage.getItem(KEY);
@@ -637,6 +699,16 @@ function loadStore(){
 let saveTimer=null;
 function saveStore(){
   try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
+}
+function loadReminderState(){
+  const fallback={enabled:false,time:"20:00",reviewEnabled:true,lastPracticeDay:0,reviewDue1:0,reviewDue3:0};
+  try{
+    const saved=JSON.parse(localStorage.getItem(REMINDER_KEY)||"null");
+    return saved ? {...fallback,...saved} : fallback;
+  }catch(e){return fallback;}
+}
+function saveReminderState(){
+  try{localStorage.setItem(REMINDER_KEY,JSON.stringify(reminderState));}catch(e){}
 }
 let askedPersist=false;
 async function askPersist(){
@@ -657,6 +729,58 @@ function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.rand
 function fa(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);}
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g," ");}
 function esc(s){return String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+function pad2(n){return String(n).padStart(2,"0");}
+function localDayValue(date=new Date()){return Number(`${date.getFullYear()}${pad2(date.getMonth()+1)}${pad2(date.getDate())}`);}
+function localDayPlus(days){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+days);return localDayValue(d);}
+function reminderUtcSlot(){
+  const [hour,minute]=String(reminderState.time||"20:00").split(":").map(Number);
+  const offset=-new Date().getTimezoneOffset();
+  const utc=((hour*60+minute-offset)%1440+1440)%1440;
+  return `${pad2(Math.floor(utc/60))}:${pad2(utc%60)}`;
+}
+function oneSignalWithTimeout(timeout=8000){
+  if(!window.oneSignalSdkReady) return Promise.resolve(null);
+  return Promise.race([
+    window.oneSignalSdkReady,
+    new Promise(resolve=>setTimeout(()=>resolve(null),timeout))
+  ]);
+}
+function reminderTags(enabled=reminderState.enabled){
+  return {
+    reminder_enabled:enabled?"1":"0",
+    reminder_time:String(reminderState.time||"20:00"),
+    reminder_slot_utc:reminderUtcSlot(),
+    timezone_offset:String(-new Date().getTimezoneOffset()),
+    last_practice_day:String(reminderState.lastPracticeDay||0),
+    review_enabled:reminderState.reviewEnabled?"1":"0",
+    review_needed:mistakeVerbs().length?"1":"0",
+    review_due_1:String(reminderState.reviewDue1||0),
+    review_due_3:String(reminderState.reviewDue3||0)
+  };
+}
+async function syncReminderTags(oneSignal=null,enabled=reminderState.enabled){
+  try{
+    const sdk=oneSignal||await oneSignalWithTimeout();
+    if(!sdk) return false;
+    await sdk.User.addTags(reminderTags(enabled));
+    return true;
+  }catch(error){
+    console.warn("Reminder tags could not be synced",error);
+    return false;
+  }
+}
+function recordStudyActivity(hadMistake){
+  reminderState.lastPracticeDay=localDayValue();
+  if(hadMistake && reminderState.reviewEnabled){
+    reminderState.reviewDue1=localDayPlus(1);
+    reminderState.reviewDue3=localDayPlus(3);
+  }else if(!mistakeVerbs().length){
+    reminderState.reviewDue1=0;
+    reminderState.reviewDue3=0;
+  }
+  saveReminderState();
+  if(reminderState.enabled) syncReminderTags();
+}
 // امتیاز شباهت املایی: حروف مشترک + هم‌شروع/هم‌پایان بودن
 function similar(a,b){
   a=norm(a); b=norm(b); let s=0;
@@ -1347,6 +1471,7 @@ function finishAnswer(correct,chosen){
   answered=true;
   if(correct){ session.correct++; session.streak++; recordSuccess(v,q.answerType); }
   else { session.wrong++; session.streak=0; recordMistake(v,q.answerType); }
+  recordStudyActivity(!correct);
   recordExamResult(correct,chosen);
   const message=correct ? "دقیقاً درست بود." : (q.mode==="meaning" ? `معنی درست: «${expected}»` : `پاسخ درست «${expected}» است.`);
   showFeedback(correct,message);
@@ -1415,6 +1540,7 @@ function submitPair(values){
   });
   if(allOK){session.correct++;session.streak++;}
   else{session.wrong++;session.streak=0;}
+  recordStudyActivity(!allOK);
   recordExamResult(allOK,values);
 
   let message="هر دو فرم دقیقاً درست‌اند.";
@@ -1460,7 +1586,7 @@ function renderMistakes(){
 
   if(list.length){
     $("#practice").onclick=()=>{ quizPool="mistakes"; quizMode="mixed"; current=null; makeQuestion(); setTab("mixed"); };
-    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); renderMistakes(); refreshStats(); } };
+    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); reminderState.reviewDue1=0; reminderState.reviewDue3=0; saveReminderState(); if(reminderState.enabled)syncReminderTags(); renderMistakes(); refreshStats(); } };
   }
 }
 
@@ -1488,6 +1614,114 @@ const installText=document.getElementById("installText");
 const INSTALL_DISMISS_KEY="pwa_install_dismissed_at";
 const isStandalone=matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
 const isIos=/iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+
+/* ---------- تنظیم یادآوری و OneSignal ---------- */
+const reminderDialog=document.getElementById("reminderDialog");
+const reminderForm=document.getElementById("reminderForm");
+const reminderEnabledInput=document.getElementById("reminderEnabled");
+const reviewReminderInput=document.getElementById("reviewReminderEnabled");
+const reminderTimeInput=document.getElementById("reminderTime");
+const reminderStatus=document.getElementById("reminderStatus");
+const reminderDot=document.getElementById("reminderDot");
+
+function updateReminderIndicator(){
+  reminderDot.classList.toggle("active",Boolean(reminderState.enabled));
+  document.getElementById("openReminder").setAttribute("aria-label",reminderState.enabled?`یادآوری فعال در ساعت ${reminderState.time}`:"تنظیم یادآوری مطالعه");
+}
+function setReminderStatus(message,tone=""){
+  reminderStatus.textContent=message;
+  reminderStatus.className="reminder-status"+(tone?" "+tone:"");
+}
+function populateReminderForm(){
+  reminderEnabledInput.checked=Boolean(reminderState.enabled);
+  reviewReminderInput.checked=reminderState.reviewEnabled!==false;
+  reminderTimeInput.value=reminderState.time||"20:00";
+  if(isIos&&!isStandalone) setReminderStatus("در آیفون، ابتدا برنامه را به Home Screen اضافه کن.");
+  else setReminderStatus(reminderState.enabled?`یادآوری ساعت ${reminderState.time} فعال است.`:"اعلان هنوز فعال نشده است.",reminderState.enabled?"ok":"");
+}
+function openReminderDialog(){
+  populateReminderForm();
+  if(typeof reminderDialog.showModal==="function") reminderDialog.showModal();
+  else reminderDialog.setAttribute("open","");
+}
+function closeReminderDialog(){
+  if(typeof reminderDialog.close==="function") reminderDialog.close();
+  else reminderDialog.removeAttribute("open");
+}
+document.getElementById("openReminder").addEventListener("click",openReminderDialog);
+document.getElementById("closeReminder").addEventListener("click",closeReminderDialog);
+reminderDialog.addEventListener("click",event=>{if(event.target===reminderDialog)closeReminderDialog();});
+reminderForm.addEventListener("submit",async event=>{
+  event.preventDefault();
+  const wantsEnabled=reminderEnabledInput.checked;
+  const saveButton=document.getElementById("saveReminder");
+  reminderState.time=reminderTimeInput.value||"20:00";
+  reminderState.reviewEnabled=reviewReminderInput.checked;
+  saveButton.disabled=true;
+  setReminderStatus("در حال ذخیره…");
+  try{
+    const oneSignal=await oneSignalWithTimeout();
+    if(!wantsEnabled){
+      reminderState.enabled=false;
+      saveReminderState();
+      if(oneSignal){
+        await syncReminderTags(oneSignal,false);
+        await oneSignal.User.PushSubscription.optOut();
+      }
+      updateReminderIndicator();
+      setReminderStatus("یادآوری خاموش شد.","ok");
+      return;
+    }
+    if(isIos&&!isStandalone){
+      reminderState.enabled=false;
+      saveReminderState();
+      reminderEnabledInput.checked=false;
+      setReminderStatus("در آیفون، اول برنامه را نصب کن و بعد از داخل اپ یادآوری را فعال کن.","bad");
+      return;
+    }
+    if(!oneSignal){
+      setReminderStatus("اتصال اعلان آماده نشد؛ اینترنت را بررسی کن و دوباره بزن.","bad");
+      return;
+    }
+    if(!oneSignal.Notifications.isPushSupported()){
+      setReminderStatus("این مرورگر از اعلان وب پشتیبانی نمی‌کند.","bad");
+      return;
+    }
+    if(window.Notification&&Notification.permission==="denied"){
+      setReminderStatus("اجازهٔ اعلان قبلاً مسدود شده؛ آن را از تنظیمات مرورگر فعال کن.","bad");
+      return;
+    }
+    await oneSignal.User.PushSubscription.optIn();
+    if(!oneSignal.User.PushSubscription.optedIn){
+      setReminderStatus("برای فعال‌شدن یادآوری، اجازهٔ اعلان را تأیید کن.","bad");
+      return;
+    }
+    reminderState.enabled=true;
+    if(reminderState.reviewEnabled&&mistakeVerbs().length&&!reminderState.reviewDue1){
+      reminderState.reviewDue1=localDayPlus(1);
+      reminderState.reviewDue3=localDayPlus(3);
+    }
+    saveReminderState();
+    await syncReminderTags(oneSignal,true);
+    updateReminderIndicator();
+    setReminderStatus(`یادآوری ساعت ${reminderState.time} فعال شد.`,"ok");
+  }catch(error){
+    console.warn("Reminder settings failed",error);
+    setReminderStatus("فعال‌سازی کامل نشد؛ دوباره تلاش کن.","bad");
+  }finally{saveButton.disabled=false;}
+});
+updateReminderIndicator();
+window.oneSignalSdkReady?.then(oneSignal=>{
+  if(!oneSignal) return;
+  oneSignal.User.PushSubscription.addEventListener("change",event=>{
+    if(reminderState.enabled&&!event.current.optedIn){
+      reminderState.enabled=false;
+      saveReminderState();
+      updateReminderIndicator();
+    }
+  });
+  if(reminderState.enabled) syncReminderTags(oneSignal,true);
+});
 
 function installWasRecentlyDismissed(){
   try{
