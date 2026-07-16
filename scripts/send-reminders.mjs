@@ -97,9 +97,11 @@ const pad2 = value => String(value).padStart(2, "0");
 const fullSlot = `${now.getUTCFullYear()}${pad2(now.getUTCMonth() + 1)}${pad2(now.getUTCDate())}${pad2(now.getUTCHours())}${pad2(now.getUTCMinutes())}`;
 const timeSlot = `${pad2(now.getUTCHours())}:${pad2(now.getUTCMinutes())}`;
 const utcWeekday = now.getUTCDay();
+const nowEpoch = Math.floor(now.getTime() / 1000);
 
 const dailyBase = [
   tag("reminder_enabled", "=", "1"),
+  tag("pause_until", "<", nowEpoch),
   tag("reminder_slot_utc", "=", timeSlot),
   tag("skip_daily_slot", "!=", fullSlot),
   tag("review_due_1_slot", "!=", fullSlot),
@@ -120,12 +122,14 @@ await Promise.all([
   ]),
   send("review", fullSlot, [
     tag("reminder_enabled", "=", "1"),
+    tag("pause_until", "<", nowEpoch),
     tag("review_enabled", "=", "1"),
     tag("review_needed", "=", "1"),
     tag("skip_daily_slot", "!=", fullSlot),
     tag("review_due_1_slot", "=", fullSlot),
     { operator: "OR" },
     tag("reminder_enabled", "=", "1"),
+    tag("pause_until", "<", nowEpoch),
     tag("review_enabled", "=", "1"),
     tag("review_needed", "=", "1"),
     tag("skip_daily_slot", "!=", fullSlot),
