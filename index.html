@@ -2892,8 +2892,6 @@ document.getElementById("introEnableNotification").addEventListener("click",asyn
   }
   button.disabled=false;
 });
-if(!introWasSeen()) setTimeout(showIntro,450);
-
 function installWasRecentlyDismissed(){
   try{
     const time=Number(localStorage.getItem(INSTALL_DISMISS_KEY)||0);
@@ -2901,7 +2899,7 @@ function installWasRecentlyDismissed(){
   }catch(e){return false;}
 }
 function showInstallSuggestion(iosGuide=false){
-  if(isStandalone || installWasRecentlyDismissed() || !introWasSeen()) return;
+  if(isStandalone || installWasRecentlyDismissed()) return;
   installText.textContent=iosGuide?manualInstallText():"برای دسترسی سریع‌تر، برنامه را روی دستگاهت نصب کن.";
   installButton.textContent=deferredInstallPrompt?"نصب برنامه":(iosGuide?"متوجه شدم":"روش نصب");
   installButton.dataset.manualAck=iosGuide?"true":"false";
