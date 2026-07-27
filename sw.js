@@ -1,4 +1,4 @@
-const CACHE_NAME="irregular-verbs-pwa-v10";
+const CACHE_NAME="irregular-verbs-pwa-v11";
 const APP_SHELL=[
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const APP_SHELL=[
   "./icons/icon.svg",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
+  "./icons/splash-background.png",
   "./icons/apple-touch-icon.png"
 ];
 
