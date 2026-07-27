@@ -36,17 +36,17 @@
     {
       "name": "یادگیری",
       "short_name": "یادگیری",
-      "url": "./#learn"
+      "url": "./?tab=learn"
     },
     {
       "name": "شروع آزمون",
       "short_name": "آزمون",
-      "url": "./#exam"
+      "url": "./?tab=exam"
     },
     {
       "name": "مرور اشتباهات",
       "short_name": "مرور",
-      "url": "./#mistakes"
+      "url": "./?tab=mistakes"
     }
   ]
 }

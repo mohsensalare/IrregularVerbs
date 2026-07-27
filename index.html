@@ -1477,12 +1477,23 @@ function spokenForms(v){
 /* ---------- وضعیت ---------- */
 const TAB_IDS = new Set(["learn","practice","exam","mistakes","settings","about"]);
 const LEGACY_PRACTICE_TABS = new Set(["meaning","choice","type","pair","mixed"]);
-function tabFromHash(){
-  const tab=location.hash.slice(1);
+function tabFromLaunchUrl(){
+  const params=new URLSearchParams(location.search);
+  const tab=params.get("tab") || location.hash.slice(1);
   if(LEGACY_PRACTICE_TABS.has(tab)) return "practice";
   return TAB_IDS.has(tab) ? tab : "learn";
 }
-let activeTab = tabFromHash();
+function cleanLaunchUrl(){
+  if(!location.hash && !new URLSearchParams(location.search).has("tab")) return;
+  try{
+    const url=new URL(location.href);
+    url.searchParams.delete("tab");
+    url.hash="";
+    history.replaceState(null,"",url.pathname+url.search);
+  }catch(e){}
+}
+let activeTab = tabFromLaunchUrl();
+cleanLaunchUrl();
 let learnIndex = 0;
 let learnListVisible = false;
 let learnSearch = "";
@@ -1560,14 +1571,10 @@ function refreshStats(){
 }
 
 /* ---------- روتر ---------- */
-function setTab(tab,syncHash=true){
+function setTab(tab){
   if(!TAB_IDS.has(tab)) tab="learn";
   const destinationChanged=activeTab!==tab;
   activeTab=tab;
-  if(syncHash && location.hash!=="#"+tab){
-    try{ history.replaceState(null,"","#"+tab); }
-    catch(e){ location.hash=tab; }
-  }
   document.querySelectorAll(".tab").forEach(b=>{
     const on=b.dataset.tab===tab || (tab==="about" && b.dataset.tab==="settings"); b.classList.toggle("active",on);
     b.setAttribute("aria-selected",String(on));
@@ -2501,12 +2508,6 @@ document.querySelectorAll(".tab").forEach(b=>{
     if(t!==activeTab && t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
     setTab(t);
   });
-});
-window.addEventListener("hashchange",()=>{
-  const t=tabFromHash();
-  if(t===activeTab) return;
-  if(t!=="mistakes" && t!=="learn"){ quizPool="all"; current=null; }
-  setTab(t,false);
 });
 setTab(activeTab);
 
