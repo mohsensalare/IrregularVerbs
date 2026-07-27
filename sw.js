@@ -1,7 +1,8 @@
-const CACHE_NAME="irregular-verbs-pwa-v5";
+const CACHE_NAME="irregular-verbs-pwa-v10";
 const APP_SHELL=[
   "./",
   "./index.html",
+  "./verbs-data.js",
   "./manifest.webmanifest",
   "./icons/icon.svg",
   "./icons/icon-192.png",

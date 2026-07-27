@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#303a8c">
 <title>آموزش افعال بی‌قاعده انگلیسی با معنی فارسی و آزمون آنلاین</title>
-<meta name="description" content="آموزش و تمرین ۹۶ فعل بی‌قاعده انگلیسی با معنی فارسی، تلفظ، تمرین V1 V2 V3، آزمون تایپی و چهارگزینه‌ای و مرور هوشمند اشتباهات؛ رایگان و مناسب موبایل.">
+<meta name="description" content="آموزش و تمرین ۹۶ فعل مهم و فهرست کامل ۲۴۴ فعل بی‌قاعده انگلیسی با معنی فارسی، تلفظ، تمرین V1 V2 V3 و آزمون؛ رایگان و مناسب موبایل.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Mohsen Salare">
 <link rel="canonical" href="https://mohsensalare.github.io/IrregularVerbs/">
@@ -14,7 +14,7 @@
 <meta property="og:locale" content="fa_IR">
 <meta property="og:site_name" content="آزمایشگاه فعل">
 <meta property="og:title" content="آموزش افعال بی‌قاعده انگلیسی با معنی فارسی">
-<meta property="og:description" content="یادگیری و آزمون ۹۶ فعل بی‌قاعده انگلیسی با سه شکل V1، V2 و V3، معنی فارسی و مرور اشتباهات.">
+<meta property="og:description" content="یادگیری و آزمون ۹۶ فعل مهم و ۲۴۴ فعل کامل با سه شکل V1، V2 و V3، معنی فارسی و مرور اشتباهات.">
 <meta property="og:url" content="https://mohsensalare.github.io/IrregularVerbs/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="آموزش افعال بی‌قاعده انگلیسی با معنی فارسی">
@@ -30,7 +30,8 @@
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 window.oneSignalSdkReady = new Promise(resolve=>{
-  if(!/^https?:$/.test(location.protocol)){ resolve(null); return; }
+  const localHost=/^(localhost|127\.0\.0\.1|::1)$/.test(location.hostname);
+  if(!/^https?:$/.test(location.protocol)||localHost){ resolve(null); return; }
   OneSignalDeferred.push(async OneSignal=>{
     try{
       const pageDirectory = location.pathname.endsWith("/")
@@ -61,7 +62,7 @@ window.oneSignalSdkReady = new Promise(resolve=>{
   "name": "آزمایشگاه فعل؛ آموزش افعال بی‌قاعده انگلیسی",
   "alternateName": "Irregular Verbs Workbook",
   "url": "https://mohsensalare.github.io/IrregularVerbs/",
-  "description": "ابزار رایگان فارسی برای آموزش، تمرین و آزمون ۹۶ فعل بی‌قاعده انگلیسی با معنی، تلفظ و مرور اشتباهات.",
+  "description": "ابزار رایگان فارسی برای آموزش، تمرین و آزمون ۹۶ فعل مهم و فهرست کامل ۲۴۴ فعل بی‌قاعده انگلیسی با معنی، تلفظ و مرور اشتباهات.",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Any",
   "browserRequirements": "Requires JavaScript",
@@ -326,22 +327,140 @@ window.oneSignalSdkReady = new Promise(resolve=>{
   .pill{min-height:38px;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--soft);color:var(--muted);border-radius:99px;padding:6px 12px;font-size:12px;font-weight:800;border:1px solid transparent}
   .pill:active{background:#e7eaf2}:focus-visible{outline:3px solid rgba(237,174,46,.9);outline-offset:3px}
 
-  .exam-setup{text-align:center}.exam-setup .big{width:56px;height:56px;color:var(--primary);margin-bottom:8px}
-  .exam-setup h2{margin:0;font-size:26px}.exam-setup p{max-width:540px;margin:8px auto 22px;color:var(--muted);font-size:14px}
-  .exam-settings{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;margin:0 auto}.exam-select-wrap{display:block;text-align:right}.exam-select-wrap span{display:block;margin-bottom:7px;color:var(--muted);font-size:13px;font-weight:700}
-  .exam-select{width:100%;min-height:52px;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);outline:none}
-  .exam-select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(70,83,189,.12)}
-  .exam-start{max-width:320px;margin:18px auto 0}.exam-progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin:-7px 0 18px}
+  .exam-screen,.exam-result-screen{width:100%;max-width:720px;margin:0 auto}.exam-screen>.exam-setup{margin-top:12px}
+  .exam-deck-summary{
+    min-height:48px;margin-bottom:12px;padding:9px 12px;border:1px solid var(--line);border-radius:14px;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;font-weight:800
+  }
+  .exam-deck-summary .icon{width:18px;height:18px;color:var(--primary)}
+  .exam-setup{text-align:center}.exam-gold-accent{width:42px;height:4px;margin:0 auto;border-radius:99px;background:var(--accent)}
+  .exam-setup h2{margin:12px 0 0;font-size:24px}.exam-setup p{max-width:540px;margin:7px auto 20px;color:var(--muted);font-size:13px;line-height:1.9}
+  .exam-section-title{display:block;margin:0 0 7px;text-align:right;color:var(--ink);font-size:14px;font-weight:900}
+  .exam-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:18px}
+  .exam-option{
+    min-width:0;height:52px;padding:6px 9px;border:1px solid var(--line);border-radius:13px;background:var(--paper);color:var(--muted);
+    display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:800;
+    transition:transform .16s ease,background-color .2s,border-color .2s,color .2s
+  }
+  .exam-option .icon{width:18px;height:18px}.exam-option.active{background:var(--primary-soft);border:1.5px solid color-mix(in srgb,var(--primary) 52%,var(--line));color:var(--primary-deep)}
+  .exam-option>span:not(.exam-selection-mark),.exam-count>span:first-child{flex:1;text-align:center}
+  .exam-selection-mark{
+    flex:0 0 18px;width:18px;height:18px;border-radius:6px;background:var(--primary);color:#fff;display:grid;place-items:center;
+    opacity:0;transform:scale(.65);transition:opacity .16s ease,transform .2s cubic-bezier(.2,.8,.2,1)
+  }
+  .exam-selection-mark .icon{width:11px;height:11px}.active>.exam-selection-mark{opacity:1;transform:scale(1)}
+  [data-theme="dark"] .exam-option.active{color:var(--ink)}
+  .exam-option:active{transform:scale(.97)}.exam-option:last-child:nth-child(odd){grid-column:auto}
+  .exam-count-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+  .exam-count{
+    min-width:0;height:48px;padding:5px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--muted);
+    display:flex;align-items:center;gap:3px;font-family:var(--font-word),var(--font-ui);font-size:13px;font-weight:800;transition:transform .16s ease,background-color .2s,border-color .2s,color .2s
+  }
+  .exam-count.active{background:var(--primary-soft);border:1.5px solid color-mix(in srgb,var(--primary) 52%,var(--line));color:var(--primary-deep)}
+  [data-theme="dark"] .exam-count.active{color:var(--ink)}
+  .exam-count:active{transform:scale(.96)}
+  .exam-start{margin:20px 0 0}.exam-start .btn{width:100%}.exam-question-card{max-width:780px;margin:0 auto}.practice-question-card{max-width:780px;margin:12px auto 0}
+  .exam-progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin:-7px 0 18px}
   .exam-progress i{display:block;height:100%;background:var(--accent);border-radius:inherit;transition:width .25s ease}
 
-  .result-hero{background:var(--primary-deep);color:#fff;border-radius:20px;padding:24px;text-align:center;overflow:hidden;position:relative}
-  .result-hero::after{content:"";position:absolute;width:180px;height:180px;border:34px solid rgba(255,255,255,.05);border-radius:50%;left:-70px;top:-80px}
-  .result-label{color:#f8d981;font-size:12px;font-weight:700}.result-score{font-family:var(--font-word),var(--font-ui);font-size:clamp(54px,12vw,78px);font-weight:900;line-height:1;margin:8px 0}.result-message{color:rgba(255,255,255,.82);font-size:14px}
-  .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.result-stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:9px 5px}.result-stat b{display:block;font-family:var(--font-word),var(--font-ui);font-size:21px}.result-stat span{font-size:10px;color:rgba(255,255,255,.7)}
-  .result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 26px}.result-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:24px;margin-bottom:12px}.result-section-head h3{margin:0;font-size:20px}.result-section-head span{color:var(--muted);font-size:12px}
-  .result-mistakes{display:flex;flex-direction:column;gap:10px}.result-mistake{border:1px solid var(--line);background:var(--soft);border-radius:17px;padding:14px}.result-mistake-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.result-mistake-head strong{direction:ltr;font-family:var(--font-word);font-size:20px}.result-target{color:var(--muted);font-size:12px}
-  .result-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.result-answer{background:#fff;border-radius:12px;padding:9px 10px;min-width:0}.result-answer span{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.result-answer b{display:block;text-align:start;font-family:var(--font-word),var(--font-ui);font-size:13px;overflow-wrap:anywhere}.result-answer.wrong b{color:var(--bad)}.result-answer.correct b{color:var(--ok)}
-  .result-fa{margin-top:8px;color:var(--muted);font-size:12px}.result-restart{margin-top:18px}
+  .exam-result-summary{text-align:center}.result-title{margin:10px 0 0;font-size:24px}.result-subtitle{margin:2px 0 0;color:var(--muted);font-size:12px}
+  .result-ring{
+    --score-angle:0deg;width:126px;height:126px;margin:16px auto 0;padding:8px;border-radius:50%;
+    background:conic-gradient(var(--primary) var(--score-angle),var(--soft) 0);display:grid;place-items:center
+  }
+  .result-ring-inner{width:98px;height:98px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center;color:var(--primary-deep)}
+  [data-theme="dark"] .result-ring-inner{color:var(--ink)}
+  .result-score{direction:ltr;font-family:var(--font-word),var(--font-ui);font-size:34px;font-weight:900;line-height:1}
+  .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+  .result-stat{padding:9px 5px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}
+  .result-stat b{display:block;font-family:var(--font-word),var(--font-ui);font-size:20px;line-height:23px}.result-stat span{font-size:11px;color:var(--muted)}
+  .result-stat.correct b{color:var(--primary)}.result-stat.wrong b{color:var(--bad)}
+  .result-message{margin-top:12px;padding:11px;border:1px solid color-mix(in srgb,var(--primary) 16%,var(--line));border-radius:14px;background:var(--primary-soft);color:var(--primary-deep);font-size:15px;font-weight:900}
+  [data-theme="dark"] .result-message{color:var(--ink)}
+  .result-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .result-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 10px}.result-section-head h3{margin:0;font-size:20px}.result-section-head span{color:var(--muted);font-size:12px}
+  .result-mistakes{display:flex;flex-direction:column;gap:8px}.result-mistake{border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:start}
+  .result-mistake-index{width:30px;height:30px;border-radius:50%;background:var(--badbg);color:var(--bad);display:grid;place-items:center;font-family:var(--font-word);font-size:12px;font-weight:900}
+  .result-mistake-body{min-width:0}.result-mistake-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.result-mistake-head strong{direction:ltr;font-family:var(--font-word);font-size:16px}.result-target{color:var(--muted);font-size:11px}
+  .result-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}.result-answer{background:var(--soft);border-radius:10px;padding:7px 9px;min-width:0}.result-answer span{display:block;color:var(--muted);font-size:9px;margin-bottom:2px}.result-answer b{display:block;text-align:start;font-family:var(--font-word),var(--font-ui);font-size:12px;overflow-wrap:anywhere}.result-answer.wrong b{color:var(--bad)}.result-answer.correct b{color:var(--ok)}
+  .result-fa{margin-top:6px;color:var(--muted);font-size:11px;line-height:1.7}.result-restart{margin-top:18px}
+
+  .review-screen{width:100%;max-width:720px;margin:0 auto}
+  .review-summary{text-align:center}.review-summary h2{margin:0;font-size:24px}.review-summary p{margin:3px 0 0;color:var(--muted);font-size:13px}
+  .review-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .review-clear{
+    min-height:50px;padding:8px 12px;border:1px solid color-mix(in srgb,var(--bad) 25%,var(--line));border-radius:13px;
+    background:var(--badbg);color:var(--bad);font-weight:800
+  }
+  .review-list-title{margin:12px 0 8px;text-align:center;font-size:16px;font-weight:900}
+  .review-list{display:flex;flex-direction:column;gap:8px}
+  .review-row{
+    min-height:66px;padding:10px 13px;border:1px solid var(--line);border-radius:14px;background:var(--paper);
+    display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.85fr) auto;align-items:center;gap:8px
+  }
+  .review-word{min-width:0;text-align:right}.review-word strong{display:block;direction:ltr;color:var(--primary-deep);font-family:var(--font-word);font-size:17px;font-weight:900;text-align:right}
+  [data-theme="dark"] .review-word strong{color:var(--ink)}
+  .review-word span{display:block;direction:ltr;color:var(--muted);font-family:var(--font-word);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+  .review-meaning{min-width:0;color:var(--ink);font-size:13px;line-height:1.7;text-align:left;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .review-count{padding:5px 8px;border-radius:8px;background:var(--primary-soft);color:var(--primary-deep);font-family:var(--font-word);font-size:12px;font-weight:900;direction:ltr}
+  [data-theme="dark"] .review-count{color:var(--ink)}
+  .review-clear-dialog{width:min(400px,calc(100% - 28px));padding:0;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--ink);box-shadow:0 24px 80px rgba(23,32,51,.34)}
+  .review-clear-dialog::backdrop{background:rgba(23,32,51,.55);backdrop-filter:blur(4px)}
+  .review-dialog-body{padding:20px}.review-dialog-body h3{margin:0;font-size:20px}.review-dialog-body p{margin:7px 0 18px;color:var(--muted);font-size:13px;line-height:1.9}
+  .review-dialog-actions{display:flex;justify-content:flex-end;gap:8px}.review-dialog-action{min-height:44px;padding:8px 14px;border:0;border-radius:11px;background:var(--soft);color:var(--ink);font-weight:800}
+  .review-dialog-action.danger{background:var(--badbg);color:var(--bad)}
+
+  .learn-screen{width:100%;max-width:920px;margin:0 auto}
+  .deck-selector,.learn-view-switch{padding:4px;border:1px solid var(--line);border-radius:15px;background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .deck-choice,.learn-view-choice{
+    min-width:0;min-height:44px;padding:8px 10px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--muted);
+    display:flex;align-items:center;justify-content:center;gap:5px;font-size:13px;font-weight:700;transition:background-color .18s,border-color .18s,color .18s,transform .14s
+  }
+  .deck-choice.active,.learn-view-choice.active{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 18%,transparent);color:var(--primary-deep);font-weight:900}
+  [data-theme="dark"] .deck-choice.active,[data-theme="dark"] .learn-view-choice.active{color:var(--ink)}
+  .deck-choice .icon,.learn-view-choice .icon{width:16px;height:16px}.deck-choice:active,.learn-view-choice:active{transform:scale(.98)}
+  .learn-view-switch{margin-top:8px;border-radius:14px}.learn-view-choice{min-height:42px;font-size:12px}
+  .learn-layout{margin-top:7px}.learn-panel.is-hidden{display:none}
+  .learn-card{text-align:center}.learn-card-counter{color:var(--muted);font-size:12px}
+  .learn-base-row,.learn-meaning-row,.learn-form-word-row,.learn-form-meaning-row{display:flex;align-items:center;justify-content:center}
+  .learn-base{direction:ltr;color:var(--primary-deep);font-family:var(--font-word);font-size:38px;line-height:45px;font-weight:900}
+  [data-theme="dark"] .learn-base{color:var(--ink)}
+  .learn-meaning{color:var(--ink);font-size:15px;font-weight:800;text-align:center}
+  .learn-icon-action{
+    flex:0 0 auto;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:13px;background:var(--soft);color:var(--muted);
+    display:grid;place-items:center;transition:transform .14s,background-color .18s,border-color .18s,color .18s
+  }
+  .learn-icon-action.small{width:36px;height:36px;border-radius:11px}.learn-icon-action.tiny{width:32px;height:32px;border-radius:10px}
+  .learn-icon-action.selected{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 22%,var(--line));color:var(--primary)}
+  .learn-icon-action .icon{width:20px;height:20px}.learn-icon-action.small .icon,.learn-icon-action.tiny .icon{width:17px;height:17px}.learn-icon-action:active{transform:scale(.93)}
+  .learn-form-grid{direction:ltr;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+  .learn-form-tile{padding:10px 8px;border:1px solid var(--line);border-radius:15px;background:var(--soft);text-align:center}
+  .learn-form-label{color:var(--muted);font-size:11.5px}.learn-form-word{min-width:0;direction:ltr;color:var(--ink);font-family:var(--font-word);font-size:18px;line-height:23px;font-weight:900;overflow-wrap:anywhere}
+  .learn-form-meaning{min-width:0;color:var(--muted);font-size:11px;line-height:1.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .learn-progress{height:5px;margin-top:13px;border-radius:99px;background:var(--soft);overflow:hidden}.learn-progress span{display:block;height:100%;border-radius:inherit;background:var(--primary);transition:width .25s ease}
+  .learn-controls{direction:ltr;display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+  .alphabet-heading{padding-top:5px;text-align:center}.alphabet-heading h2{margin:0;font-size:22px}.alphabet-heading p{margin:2px 0 0;color:var(--muted);font-size:13px}
+  .learn-search{display:flex;align-items:center;gap:7px;margin-top:8px;padding:0 13px;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
+  .learn-search input{flex:1;min-width:0;min-height:48px;padding:10px 0;border:0;outline:0;background:transparent;color:var(--ink);font-size:15px}
+  .learn-search .icon{width:20px;height:20px;color:var(--muted)}
+  .learn-list{display:flex;flex-direction:column;gap:7px;margin-top:7px}
+  .letter-divider{display:flex;align-items:center;gap:8px;padding:5px 0 1px}.letter-divider strong{direction:ltr;color:var(--primary-deep);font-family:var(--font-word);font-size:19px;font-weight:900}
+  [data-theme="dark"] .letter-divider strong{color:var(--ink)}
+  .letter-divider i{flex:1;height:1px;background:var(--line)}.letter-divider span{color:var(--muted);font-size:11px}
+  .learn-list-row{
+    width:100%;min-height:64px;padding:10px 13px;border:1px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);
+    display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:8px;text-align:right;
+    transition:background-color .18s,border-color .18s,transform .14s
+  }
+  .learn-list-row.selected{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 30%,var(--line))}
+  .learn-list-row:active{transform:scale(.985)}.learn-list-word{min-width:0}.learn-list-word strong{display:block;direction:ltr;font-family:var(--font-word);font-size:17px;line-height:21px;font-weight:900;text-align:right}
+  .learn-list-word span{display:block;direction:ltr;color:var(--muted);font-family:var(--font-word);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+  .learn-list-meaning{min-width:0;font-size:13px;line-height:1.7;text-align:left;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  @media(min-width:760px){
+    .learn-view-switch{display:none}.learn-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:10px;align-items:start}
+    .learn-panel.is-hidden{display:block}.learn-card-panel{position:sticky;top:10px}.learn-list-panel{max-height:calc(100dvh - 120px);padding:0 4px 12px;overflow:auto;scrollbar-width:thin}
+  }
 
   .install-banner{position:fixed;z-index:50;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(560px,calc(100% - 24px));display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:11px;padding:12px 13px;background:rgba(255,255,255,.97);border:1px solid rgba(70,83,189,.2);border-radius:19px;box-shadow:0 18px 54px rgba(30,39,89,.24);backdrop-filter:blur(14px);animation:install-rise .28s ease}
   .install-banner[hidden]{display:none}.install-mark{direction:ltr;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--primary-deep);color:#fff;font-family:var(--font-word);font-size:12px;font-weight:900}.install-copy{min-width:0;text-align:right}.install-copy strong{display:block;font-size:14px}.install-copy span{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.55}.install-action{min-height:42px;padding:8px 16px}.install-close{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:var(--muted);font-size:22px;line-height:1}.install-close:active{background:var(--soft)}
@@ -370,6 +489,205 @@ window.oneSignalSdkReady = new Promise(resolve=>{
   @media(orientation:landscape) and (max-height:520px){header{padding-top:16px;padding-bottom:16px}.statbar{margin-top:12px}main{margin-top:10px}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+<style id="mobile-parity-theme">
+  /* Shared visual language with the Kotlin Multiplatform Android/iOS app. */
+  :root,[data-palette="notebook"]{
+    --canvas:#eef1f8;--paper:#ffffff;--card:#ffffff;--ink:#172033;--muted:#5f687b;
+    --primary:#4653bd;--primary-deep:#303a8c;--primary-soft:#eef0ff;
+    --accent:#edae2e;--accent-soft:#fff3d5;--line:#dce1ec;--soft:#f4f6fa;
+  }
+  [data-palette="ocean"]{
+    --primary:#2a7187;--primary-deep:#1c5367;--primary-soft:#e7f3f6;
+    --accent:#e8a83a;--accent-soft:#fff1d7;
+  }
+  [data-palette="mint"]{
+    --primary:#2f7d6b;--primary-deep:#1e5b4e;--primary-soft:#e6f4ef;
+    --accent:#d8a331;--accent-soft:#fff0ce;
+  }
+  [data-palette="berry"]{
+    --primary:#98516b;--primary-deep:#713a50;--primary-soft:#f7eaf0;
+    --accent:#d9a334;--accent-soft:#fff0d2;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --canvas:#0f1420;--paper:#171d2a;--card:#171d2a;--ink:#f1f3f8;--muted:#b8c1d1;
+    --line:#364055;--soft:#202838;--ok:#8fd5bb;--okbg:#1d4438;--bad:#ffb2bd;--badbg:#5e2934;
+    --shadow:0 18px 50px rgba(0,0,0,.30);--shadow-small:0 7px 24px rgba(0,0,0,.28);
+  }
+  [data-theme="dark"][data-palette="notebook"]{--primary:#bbc2ff;--primary-deep:#303a8c;--primary-soft:#30396f;--accent:#f0be52;--accent-soft:#51431e}
+  [data-theme="dark"][data-palette="ocean"]{--primary:#8ecde0;--primary-deep:#1c5367;--primary-soft:#244e5b;--accent:#f1bb59;--accent-soft:#51431e}
+  [data-theme="dark"][data-palette="mint"]{--primary:#91d5c2;--primary-deep:#1e5b4e;--primary-soft:#285448;--accent:#e9b94e;--accent-soft:#51431e}
+  [data-theme="dark"][data-palette="berry"]{--primary:#e2a9bd;--primary-deep:#713a50;--primary-soft:#63394a;--accent:#e8b850;--accent-soft:#51431e}
+
+  body{
+    padding-bottom:calc(112px + env(safe-area-inset-bottom));
+    background-color:var(--canvas);
+    background-image:
+      radial-gradient(circle at 0 150px,var(--accent-soft),transparent 290px),
+      linear-gradient(color-mix(in srgb,var(--line) 35%,transparent) 1px,transparent 1px);
+    transition:background-color .22s ease,color .22s ease;
+  }
+  header{background:var(--primary-deep);border-radius:24px 24px 10px 10px;box-shadow:0 2px 8px rgba(23,32,51,.13)}
+  header::after{width:66px;height:5px;right:18px}
+  header p{font-size:13px}
+  .reminder-open[hidden]{display:none!important}
+  main{margin-top:10px}
+  .card{border-radius:20px;padding:20px 16px;box-shadow:0 2px 8px rgba(23,32,51,.09)}
+  .card::before{top:22px}
+  .btn.primary{box-shadow:none;background:var(--primary);color:#fff}
+  [data-theme="dark"] .btn.primary{background:var(--primary-soft);color:var(--ink)}
+  [data-theme="dark"] .btn.ghost,
+  [data-theme="dark"] .opt,
+  [data-theme="dark"] input.type,
+  [data-theme="dark"] .exam-select,
+  [data-theme="dark"] .result-answer,
+  [data-theme="dark"] .reminder-install,
+  [data-theme="dark"] .reminder-time,
+  [data-theme="dark"] .pause-option{background:var(--paper);color:var(--ink)}
+  [data-theme="dark"] .search-input:focus{background:var(--paper)}
+  [data-theme="dark"] .feedback.ok{border-color:#39735f}
+  [data-theme="dark"] .feedback.bad{border-color:#8d4351}
+
+  nav.tabs.bottom-dock{
+    position:fixed;z-index:45;top:auto;bottom:max(8px,env(safe-area-inset-bottom));left:50%;
+    direction:rtl;width:min(620px,calc(100% - 18px));height:78px;margin:0;padding:0 7px;
+    transform:translateX(-50%);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+    align-items:end;gap:2px;overflow:visible;background:transparent;border:0;border-radius:0;
+    box-shadow:none;backdrop-filter:none;isolation:isolate;
+  }
+  nav.tabs.bottom-dock::before{
+    content:"";position:absolute;z-index:-1;inset-inline:0;bottom:0;height:61px;
+    background:var(--paper);background:color-mix(in srgb,var(--paper) 98%,transparent);
+    border:1px solid var(--line);border-radius:24px;box-shadow:0 8px 28px rgba(23,32,51,.18);
+    backdrop-filter:blur(14px);
+  }
+  .bottom-dock .tab{
+    position:relative;z-index:1;justify-self:center;width:56px;min-width:0;height:53px;min-height:53px;padding:5px 2px;border-radius:18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    color:var(--muted);font-size:10px;line-height:1.35;transform:scale(.9);transform-origin:center bottom;
+    transition:transform .22s cubic-bezier(.2,.8,.2,1),background-color .2s,color .2s,box-shadow .2s;
+  }
+  .bottom-dock .tab .icon{width:22px;height:22px;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+  .bottom-dock .tab.active:not(.central-tab){background:var(--primary-soft);color:var(--primary-deep);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--primary) 24%,transparent);transform:translateY(-4px) scale(1)}
+  [data-theme="dark"] .bottom-dock .tab.active:not(.central-tab){color:var(--ink)}
+  .bottom-dock .tab.active:not(.central-tab)::before{
+    content:"";position:absolute;top:4px;width:5px;height:5px;border-radius:50%;background:var(--accent)
+  }
+  .bottom-dock .central-tab{
+    width:66px;height:66px;min-height:66px;justify-self:center;margin-bottom:0;border-radius:50%;
+    background:var(--soft);border:1px solid var(--line);transform:translateY(-9px) scale(.94);
+    box-shadow:0 4px 12px rgba(23,32,51,.12)
+  }
+  .bottom-dock .central-tab.active{
+    background:var(--primary-deep);color:#fff;border:2px solid var(--accent);
+    transform:translateY(-14px) scale(1.02);box-shadow:0 9px 20px color-mix(in srgb,var(--primary-deep) 28%,transparent)
+  }
+  .bottom-dock .central-tab .icon{width:25px;height:25px}
+  .bottom-dock .tab:active{transform:scale(.94)}
+  .bottom-dock .tab.active:not(.central-tab):active{transform:translateY(-4px) scale(.94)}
+  .bottom-dock .central-tab:active{transform:translateY(-9px) scale(.9)}
+  .bottom-dock .central-tab.active:active{transform:translateY(-14px) scale(.96)}
+  .bottom-dock .dock-label{display:block;white-space:nowrap}
+  .install-banner{bottom:calc(92px + env(safe-area-inset-bottom))}
+
+  .practice-modes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:15px}
+  .practice-mode{
+    min-height:50px;padding:6px 4px;border:1px solid var(--line);border-radius:13px;background:var(--paper);
+    color:var(--muted);font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    transition:background-color .18s,border-color .18s,color .18s,transform .12s;
+  }
+  .practice-mode .icon{width:18px;height:18px}.practice-mode.active{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 50%,var(--line));color:var(--primary-deep)}
+  [data-theme="dark"] .practice-mode.active{color:var(--ink)}
+  .practice-mode:active{transform:scale(.97)}
+
+  .settings-screen{display:flex;flex-direction:column;gap:10px}
+  .screen-title{margin:0;text-align:center;font-size:22px;font-weight:900}
+  .settings-card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px 16px;overflow:hidden}
+  .settings-card::before{content:"";position:absolute;right:0;top:22px;width:5px;height:40px;border-radius:4px 0 0 4px;background:var(--accent)}
+  .settings-head{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+  .settings-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--primary-soft);color:var(--primary)}
+  .settings-icon .icon{width:22px;height:22px}.settings-copy{min-width:0}.settings-copy strong{display:block;font-size:17px}.settings-copy span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+  .theme-modes{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px}
+  .theme-mode,.palette-tile{
+    min-height:48px;border:1px solid var(--line);border-radius:13px;background:var(--paper);color:var(--ink);font-weight:800
+  }
+  .theme-mode.active,.palette-tile.active{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 55%,var(--line));color:var(--primary-deep)}
+  [data-theme="dark"] .theme-mode.active,[data-theme="dark"] .palette-tile.active{color:var(--ink)}
+  .palette-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .palette-tile{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;font-size:12px}
+  .palette-dots{direction:ltr;display:flex}.palette-dot{width:21px;height:21px;border:2px solid var(--paper);border-radius:50%;margin-left:-5px;box-shadow:0 0 0 1px rgba(23,32,51,.09)}
+  .settings-action{
+    width:100%;min-height:52px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:right
+  }
+  .settings-action+.settings-action{margin-top:8px}.settings-action-main{display:flex;align-items:center;gap:10px}.settings-action .icon{color:var(--primary)}
+  .settings-action strong{display:block;font-size:14px}.settings-action small{display:block;margin-top:2px;color:var(--muted);font-size:10px}
+  .settings-badge{padding:5px 9px;border-radius:99px;background:var(--primary-soft);color:var(--primary-deep);font-size:10px;font-weight:800}
+  [data-theme="dark"] .settings-badge{color:var(--ink)}
+  .settings-about-action{
+    width:100%;min-height:72px;padding:13px;border:1px solid var(--line);border-radius:15px;background:var(--paper);color:var(--ink);
+    display:flex;align-items:center;gap:9px;text-align:right
+  }
+  .settings-about-copy{flex:1;min-width:0}.settings-about-copy strong{display:block;font-size:14px}.settings-about-copy small{display:block;margin-top:2px;color:var(--muted);font-size:11.5px}
+  .voice-status{display:flex;align-items:center;gap:7px;margin-bottom:9px;padding:8px 11px;border:1px solid color-mix(in srgb,var(--primary) 18%,var(--line));border-radius:12px;background:var(--primary-soft);color:var(--primary-deep);font-size:11.5px;font-weight:800}
+  [data-theme="dark"] .voice-status{color:var(--ink)}
+  .voice-status.unavailable{align-items:flex-start;background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 24%,var(--line));color:var(--ink);line-height:1.8}
+  .voice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .voice-tile{
+    min-width:0;padding:9px;border:1px solid var(--line);border-radius:13px;background:var(--paper);
+    display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--ink);transition:background-color .2s,border-color .2s,transform .15s
+  }
+  .voice-tile.selected{background:var(--primary-soft);border:1.5px solid color-mix(in srgb,var(--primary) 55%,var(--line))}
+  .voice-select-main{width:100%;min-height:42px;padding:0;border:0;background:transparent;color:inherit;text-align:center}
+  .voice-name{display:flex;align-items:center;justify-content:center;gap:5px;font-size:13px;font-weight:900;line-height:1.45;overflow-wrap:anywhere}
+  .voice-name .icon{width:15px;height:15px;color:var(--primary)}
+  .voice-detail{display:block;margin-top:1px;color:var(--muted);font-family:var(--font-word);font-size:10.5px;direction:ltr}
+  .voice-preview{
+    width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:11px;background:var(--soft);color:var(--primary);
+    display:grid;place-items:center
+  }
+  .voice-tile.selected .voice-preview{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 22%,var(--line))}
+  .voice-preview .icon{width:18px;height:18px}.voice-tile:active{transform:scale(.985)}
+
+  .about-screen{max-width:720px;margin:0 auto}
+  .about-card{position:relative;padding:16px;border:1px solid var(--line);border-radius:20px;background:var(--paper);box-shadow:0 2px 8px rgba(23,32,51,.09);overflow:hidden}
+  .about-card::before{content:"";position:absolute;right:0;top:22px;width:5px;height:40px;border-radius:4px 0 0 4px;background:var(--accent)}
+  .about-content{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .about-brand-shell{padding:7px;border-radius:17px;background:var(--primary-deep)}
+  .about-brand-mark{
+    direction:ltr;width:58px;height:58px;padding:7px;border:1px solid rgba(255,255,255,.2);border-radius:17px;background:rgba(255,255,255,.1);
+    display:flex;align-items:flex-end;gap:3px
+  }
+  .about-brand-mark span{flex:1;display:grid;place-items:center;border-radius:4px;background:rgba(255,255,255,.16);color:#fff;font-family:var(--font-word);font-size:10px;font-weight:900}
+  .about-brand-mark span:nth-child(1){height:18px}.about-brand-mark span:nth-child(2){height:23px}.about-brand-mark span:nth-child(3){height:28px}
+  .about-title{margin:12px 0 0;font-size:24px;font-weight:900}.about-subtitle{margin:0;color:var(--muted);font-size:13px}
+  .about-counts{width:100%;margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--primary-soft);color:var(--primary-deep);font-size:14px;font-weight:800;line-height:24px}
+  [data-theme="dark"] .about-counts{color:var(--ink)}
+  .about-dedication{width:100%;margin:12px 0 0;padding:18px 16px;border-radius:16px;background:var(--accent-soft);color:var(--ink);font-size:14px;line-height:26px;text-align:center;font-weight:800}
+  .about-actions{width:100%;margin-top:12px}.about-back{min-height:44px;border:0;background:transparent;color:var(--primary);font-weight:800}
+  .about-version{margin-top:2px;color:var(--muted);font-size:11px}
+
+  @media(min-width:700px){
+    nav.tabs.bottom-dock{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .bottom-dock .tab{font-size:10px}
+    .settings-screen{max-width:720px;margin:0 auto}
+  }
+  @media(max-width:430px){
+    body{padding-bottom:calc(106px + env(safe-area-inset-bottom))}
+    header{min-height:151px;padding:13px 14px 12px}
+    .statbar{margin-top:10px}.stat span{font-size:10px}
+    nav.tabs.bottom-dock{width:calc(100% - 16px)}
+    .bottom-dock .tab{font-size:9.5px}
+    .practice-modes{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+    .practice-mode{font-size:9px;min-height:48px;padding-inline:1px}.practice-mode .icon{width:16px;height:16px}
+    .settings-card{padding:16px 13px}.palette-tile{padding:7px;font-size:11px}.palette-dot{width:18px;height:18px}
+  }
+  @media(max-width:350px){
+    nav.tabs.bottom-dock{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .bottom-dock .tab{flex-direction:column;font-size:8.5px}
+    .bottom-dock .central-tab{width:61px;height:61px;min-height:61px}
+  }
+</style>
 </head>
 <body>
 <div class="app">
@@ -379,52 +697,40 @@ window.oneSignalSdkReady = new Promise(resolve=>{
       <div class="brand-copy">
         <div class="eyebrow">IRREGULAR VERB WORKBOOK</div>
         <h1>آزمایشگاه فعل</h1>
-        <p>آموزش و تمرین ۹۶ فعل بی‌قاعده انگلیسی با معنی فارسی و آزمون آنلاین.</p>
+        <p>۹۶ فعل مهم برای شروع سریع و ۲۴۴ فعل کامل از A تا Z.</p>
       </div>
-      <button type="button" class="reminder-open" id="openReminder" aria-haspopup="dialog" aria-controls="reminderDialog">
+      <button type="button" class="reminder-open" id="openReminder" aria-haspopup="dialog" aria-controls="reminderDialog" hidden>
         <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
         <span>یادآوری</span><span class="reminder-dot" id="reminderDot" aria-hidden="true"></span>
       </button>
     </div>
     <div class="statbar">
-      <div class="stat"><b id="sAcc">۰٪</b><span>دقت کل</span></div>
-      <div class="stat"><b id="sStreak">۰</b><span>زنجیرهٔ درست</span></div>
-      <div class="stat"><b id="sMis">۰</b><span>نیاز به مرور</span></div>
+      <div class="stat"><b id="sCorrect">۰</b><span>درست کل</span></div>
+      <div class="stat"><b id="sWrong">۰</b><span>غلط</span></div>
+      <div class="stat"><b id="sStreak">۰</b><span>زنجیره</span></div>
     </div>
   </header>
 
-  <nav class="tabs" id="tabs" role="tablist" aria-label="حالت تمرین">
-    <button type="button" role="tab" aria-selected="true" class="tab active" data-tab="learn">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg>
-      یادگیری
-    </button>
-    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="meaning">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h7M7.5 3v2c0 4-2 7-5 9M5 10c1.4 1.7 3 3 5 4M13 19l4-10 4 10M14.5 15h5"/></svg>
-      معنی
-    </button>
-    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="choice">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
-      گزینه‌ای
-    </button>
-    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="type">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h.01M11 9h.01M15 9h.01M18 9h.01M8 13h8"/></svg>
-      تایپ
-    </button>
-    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="pair">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h5v5H4zM15 12h5v5h-5zM9 9.5h3a3 3 0 0 1 3 3v2"/></svg>
-      دو فرم
-    </button>
-    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="mixed">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h3c4 0 5 10 9 10h6M18 14l3 3-3 3M3 17h3c1.2 0 2.1-.9 3-2.2M15 7h6M18 4l3 3-3 3"/></svg>
-      ترکیبی
+  <nav class="tabs bottom-dock" id="tabs" role="tablist" aria-label="بخش‌های برنامه">
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="practice">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="13" r="7"/><circle cx="11" cy="13" r="2.5"/><path d="m15.8 8.2 5-5M17 3h4v4"/></svg>
+      <span class="dock-label">تمرین</span>
     </button>
     <button type="button" role="tab" aria-selected="false" class="tab" data-tab="exam">
       <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5M9 9h6M9 13h6M9 17h4"/></svg>
-      آزمون
+      <span class="dock-label">آزمون</span>
+    </button>
+    <button type="button" role="tab" aria-selected="true" class="tab active central-tab" data-tab="learn">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg>
+      <span class="dock-label">یادگیری</span>
     </button>
     <button type="button" role="tab" aria-selected="false" class="tab" data-tab="mistakes">
-      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2.8 19a1.4 1.4 0 0 0 1.2 2h16a1.4 1.4 0 0 0 1.2-2zM12 9v4M12 17h.01"/></svg>
-      مرور
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h10v18l-5-3.5L7 21z"/><path d="m9.5 10 1.6 1.6 3.5-3.7"/></svg>
+      <span class="dock-label">مرور</span>
+    </button>
+    <button type="button" role="tab" aria-selected="false" class="tab" data-tab="settings">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="11" cy="18" r="2"/></svg>
+      <span class="dock-label">تنظیمات</span>
     </button>
   </nav>
 
@@ -534,9 +840,10 @@ window.oneSignalSdkReady = new Promise(resolve=>{
   </form>
 </dialog>
 
+<script src="./verbs-data.js"></script>
 <script>
-/* ---------- داده افعال (embed شده تا فایل مستقل باشد) ---------- */
-const VERBS = [
+/* ---------- ۹۶ فعل مهم وب؛ منبع تعیین حالت مهم ---------- */
+const LEGACY_IMPORTANT_VERBS = [
 {"infinitive":"be","past_simple":"was/were","past_participle":"been","common_mistakes":["beed","bee","ben"],"fa":"بودن"},
 {"infinitive":"beat","past_simple":"beat","past_participle":"beaten","common_mistakes":["beated","beeten","beaden"],"fa":"کتک زدن / شکست دادن"},
 {"infinitive":"become","past_simple":"became","past_participle":"become","common_mistakes":["becomed","becamed","becomen"],"fa":"شدن"},
@@ -734,20 +1041,45 @@ const FA_FORMS = {
   "write":{"infinitive":"نوشتن","past_simple":"نوشت","past_participle":"نوشته"}
 };
 
+const IMPORTANT_BASES = new Set(LEGACY_IMPORTANT_VERBS.map(verb=>verb.infinitive));
+const LEGACY_BY_BASE = new Map(LEGACY_IMPORTANT_VERBS.map(verb=>[verb.infinitive,verb]));
+const COMPLETE_SOURCE = Array.isArray(window.VERB_DATA) && window.VERB_DATA.length===244
+  ? window.VERB_DATA
+  : LEGACY_IMPORTANT_VERBS;
+const ALL_VERBS = COMPLETE_SOURCE.map(verb=>({
+  ...verb,
+  common_mistakes:LEGACY_BY_BASE.get(verb.infinitive)?.common_mistakes||verb.common_mistakes||[],
+  important:IMPORTANT_BASES.has(verb.infinitive)
+})).sort((a,b)=>a.infinitive.localeCompare(b.infinitive,"en"));
+const IMPORTANT_VERBS = ALL_VERBS.filter(verb=>verb.important);
+const DECK_KEY = "verb_lab_deck_v1";
+let deckMode = (()=>{try{return localStorage.getItem(DECK_KEY)==="complete"?"complete":"important";}catch(e){return "important";}})();
+let VERBS = deckMode==="complete" ? ALL_VERBS : IMPORTANT_VERBS;
+
 const TYPES = ["infinitive","past_simple","past_participle"];
-const LABEL = {infinitive:"مصدر", past_simple:"گذشتهٔ ساده", past_participle:"اسم مفعول", meaning:"معنی"};
-const SHORT = {infinitive:"Base", past_simple:"Past", past_participle:"P.P.", meaning:"معنی"};
+const LABEL = {infinitive:"مصدر", past_simple:"گذشته ساده", past_participle:"اسم مفعول", meaning:"معنی"};
+const SHORT = {infinitive:"V1", past_simple:"V2", past_participle:"V3", meaning:"معنی"};
 const ICON_PATH = {
   search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
   volume:'<path d="M11 5 6 9H3v6h3l5 4zM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>',
   target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M21 12h-3"/>',
   book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/>',
   check:'<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.2 2.2 4.8-5"/>',
+  checkSimple:'<path d="m6 12 4 4 8-9"/>',
   x:'<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',
   spark:'<path d="m12 3 1.3 4.2L17.5 9l-4.2 1.8L12 15l-1.3-4.2L6.5 9l4.2-1.8zM19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7z"/>',
   share:'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/>',
   image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 15-4.5-4.5L7 20"/>',
-  restart:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/>'
+  restart:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/>',
+  settings:'<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="11" cy="18" r="2"/>',
+  bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',
+  palette:'<path d="M12 3a9 9 0 1 0 0 18h1.5a2 2 0 0 0 0-4H12a2 2 0 0 1 0-4h4a5 5 0 0 0 5-5c0-2.8-4-5-9-5z"/><circle cx="7.5" cy="9" r=".7"/><circle cx="10" cy="6.5" r=".7"/><circle cx="14" cy="6.5" r=".7"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  previous:'<path d="m15 5-7 7 7 7"/>',
+  next:'<path d="m9 5 7 7-7 7"/>',
+  type:'<path d="M5 5h14M12 5v14M8 19h8"/>',
+  pair:'<path d="M4 7h6v5H4zM14 12h6v5h-6zM10 9.5h2a3 3 0 0 1 3 3"/>',
+  mixed:'<path d="M3 7h3c4 0 5 10 9 10h6M18 14l3 3-3 3M3 17h3c1.2 0 2.1-.9 3-2.2M15 7h6M18 4l3 3-3 3"/>'
 };
 function icon(name, cls=""){
   return `<svg class="icon ${cls}" aria-hidden="true" viewBox="0 0 24 24">${ICON_PATH[name]||""}</svg>`;
@@ -756,6 +1088,31 @@ function icon(name, cls=""){
 /* ---------- ذخیره‌سازی ---------- */
 const KEY = "irregular_verbs_v1";
 const REMINDER_KEY = "irregular_verbs_reminders_v1";
+const UI_KEY = "verb_lab_ui_v1";
+const PALETTES = {
+  notebook:{label:"نیلی دفتر",dots:["#303a8c","#4653bd","#edae2e"]},
+  ocean:{label:"آبی اقیانوس",dots:["#1c5367","#2a7187","#e8a83a"]},
+  mint:{label:"سبز نعنایی",dots:["#1e5b4e","#2f7d6b","#d8a331"]},
+  berry:{label:"زرشکی ملایم",dots:["#713a50","#98516b","#d9a334"]}
+};
+let uiPrefs=loadUiPrefs();
+function loadUiPrefs(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(UI_KEY)||"null")||{};
+    return {
+      palette:PALETTES[saved.palette]?saved.palette:"notebook",
+      theme:saved.theme==="dark"?"dark":"light"
+    };
+  }catch(e){return {palette:"notebook",theme:"light"};}
+}
+function applyUiPrefs(){
+  document.documentElement.dataset.palette=uiPrefs.palette;
+  document.documentElement.dataset.theme=uiPrefs.theme;
+  const deep={notebook:"#303a8c",ocean:"#1c5367",mint:"#1e5b4e",berry:"#713a50"}[uiPrefs.palette];
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content",uiPrefs.theme==="dark"?"#0f1420":deep);
+  try{localStorage.setItem(UI_KEY,JSON.stringify(uiPrefs));}catch(e){}
+}
+applyUiPrefs();
 let store = loadStore();
 let reminderState = loadReminderState();
 function loadStore(){
@@ -933,7 +1290,7 @@ function accepted(verb,type){
   return new Set([norm(v),...parts]);
 }
 function faForm(verb,type){
-  return FA_FORMS[verb.infinitive]?.[type] || verb.fa;
+  return verb.fa?.[type] || FA_FORMS[verb.infinitive]?.[type] || (typeof verb.fa==="string"?verb.fa:"");
 }
 function meaningPromptText(verb,type){
   return verb[type];
@@ -951,15 +1308,16 @@ let chosenVoice = null;
 let preferredVoiceName = (()=>{ try{return localStorage.getItem(VOICE_KEY)||"";}catch(e){return "";} })();
 
 function englishVoices(){ return voicesCache.filter(v=>/^en/i.test(v.lang||"")); }
+function persianVoice(){ return voicesCache.find(v=>/^fa(?:[-_]|$)/i.test(v.lang||"")) || null; }
 
 // صداهای تفننی/بی‌کیفیتِ سیستم که برای آموزش بی‌فایده‌اند
 const BAD_VOICE = /\b(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|good news|jester|junior|kathy|organ|princess|ralph|trinoids|whisper|wobble|zarvox|superstar|grandma|grandpa|rocko|sandy|shelley|reed|flo|eddy|fred|hysterical|novelty)\b/i;
 
-// فقط صداهای مفید برای آموزش: آمریکایی/بریتانیایی، باکیفیت، بدون تکرار — حداکثر چند تا
+// صداهای انگلیسی مفید برای آموزش، مشابه فهرست iOS؛ بدون نمونه‌های تفننی و تکراری
 function usefulVoices(){
   let list = voicesCache.filter(v=>{
     const l=v.lang||"", n=v.name||"";
-    if(!/^en[-_](us|gb)/i.test(l)) return false;     // فقط US و GB
+    if(!/^en(?:[-_]|$)/i.test(l)) return false;
     if(/compact|eloquence/i.test(n)) return false;   // صداهای فشردهٔ بی‌کیفیت
     if(BAD_VOICE.test(n)) return false;              // صداهای تفننی
     return true;
@@ -967,7 +1325,7 @@ function usefulVoices(){
   if(!list.length) list = englishVoices();           // اگر چیزی نماند، عقب‌نشینی
   list = list.slice().sort((a,b)=>rankVoice(b)-rankVoice(a));
   const seen=new Set();
-  return list.filter(v=>{ if(seen.has(v.name))return false; seen.add(v.name); return true; }).slice(0,5);
+  return list.filter(v=>{ if(seen.has(v.name))return false; seen.add(v.name); return true; });
 }
 
 // امتیازدهی به صداها: طبیعی/باکیفیت بالا، compact پایین
@@ -1003,7 +1361,7 @@ function refreshVoices(){ chosenVoice = pickVoice(); }
 if(window.speechSynthesis){
   refreshVoices();
   // بعضی مرورگرها لیست صداها را با تأخیر می‌دهند
-  speechSynthesis.onvoiceschanged = ()=>{ refreshVoices(); if(activeTab==="learn") renderLearn(); };
+  speechSynthesis.onvoiceschanged = ()=>{ refreshVoices(); if(activeTab==="learn") renderLearn(); else if(activeTab==="settings") renderSettings(); };
 }
 
 function speak(text){
@@ -1022,6 +1380,19 @@ function speak(text){
     });
   }catch(e){}
 }
+function speakPersian(text){
+  try{
+    const voice=persianVoice();
+    if(!window.speechSynthesis || !voice) return;
+    speechSynthesis.cancel();
+    const utterance=new SpeechSynthesisUtterance(String(text));
+    utterance.voice=voice;
+    utterance.lang=voice.lang || "fa-IR";
+    utterance.rate=.88;
+    utterance.pitch=1;
+    speechSynthesis.speak(utterance);
+  }catch(e){}
+}
 
 // تلفظ‌های استثنا (هم‌نگاره‌ها): گذشتهٔ read مثل «red» خوانده می‌شود نه «reed»
 const PRON = {
@@ -1034,35 +1405,42 @@ function spokenForms(v){
   return `${sayForm(v,'infinitive')}, ${sayForm(v,'past_simple').replace('/',' or ')}, ${sayForm(v,'past_participle')}`;
 }
 
-// منوی انتخاب صدا (فقط وقتی چند صدای انگلیسی موجود باشد)
-function voiceSelectHTML(){
-  const list = usefulVoices();
-  if(list.length<2) return "";
-  const cur = chosenVoice ? chosenVoice.name : "";
-  const label = v=>{
-    const region = /^en[-_]gb/i.test(v.lang||"") ? "UK" : "US";
-    const name = v.name.replace(/\s*\((enhanced|premium|natural)\)/i,"").trim();
-    return `${region} — ${name}`;
-  };
-  return `<select id="voiceSel" class="pill" aria-label="انتخاب صدای تلفظ" style="direction:ltr;max-width:220px;font-size:12px;padding:6px 10px">
-    ${list.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${v.name===cur?' selected':''}>${label(v)}</option>`).join("")}
-  </select>`;
-}
-
 /* ---------- وضعیت ---------- */
-const TAB_IDS = new Set(["learn","meaning","choice","type","pair","mixed","exam","mistakes"]);
+const TAB_IDS = new Set(["learn","practice","exam","mistakes","settings","about"]);
+const LEGACY_PRACTICE_TABS = new Set(["meaning","choice","type","pair","mixed"]);
 function tabFromHash(){
   const tab=location.hash.slice(1);
+  if(LEGACY_PRACTICE_TABS.has(tab)) return "practice";
   return TAB_IDS.has(tab) ? tab : "learn";
 }
 let activeTab = tabFromHash();
 let learnIndex = 0;
+let learnListVisible = false;
+let learnSearch = "";
 let session = {correct:0, wrong:0, streak:0};
 let exam = {status:"setup", mode:"mixed", total:10, answered:0, correct:0, wrong:0, mistakes:[], startedAt:0};
+let examSetup = {mode:"mixed", count:10};
 let quizMode = "choice";       // meaning | choice | type | pair | mixed
 let quizPool = "all";          // all | mistakes
 let current = null;            // سوال جاری
 let answered = false;
+
+function setVerbDeckMode(mode){
+  const nextMode=mode==="complete"?"complete":"important";
+  if(nextMode===deckMode) return;
+  const selectedBase=VERBS[learnIndex]?.infinitive;
+  deckMode=nextMode;
+  VERBS=deckMode==="complete"?ALL_VERBS:IMPORTANT_VERBS;
+  const nextIndex=selectedBase?VERBS.findIndex(verb=>verb.infinitive===selectedBase):-1;
+  learnIndex=nextIndex>=0?nextIndex:0;
+  learnSearch="";
+  current=null;
+  deck=[];
+  deckKey="";
+  exam={status:"setup",mode:"mixed",total:10,answered:0,correct:0,wrong:0,mistakes:[],startedAt:0};
+  examSetup={mode:"mixed",count:10};
+  try{localStorage.setItem(DECK_KEY,deckMode);}catch(e){}
+}
 
 function mistakeVerbs(){ return VERBS.filter(v=>store.mistakes[v.infinitive]&&store.mistakes[v.infinitive].count>0); }
 function poolVerbs(){ return quizPool==="mistakes" ? mistakeVerbs() : VERBS; }
@@ -1107,121 +1485,194 @@ function recordSuccess(verb,type){
 
 /* ---------- نوار آمار بالا ---------- */
 function refreshStats(){
-  const tot = store.life.correct + store.life.wrong;
-  const acc = tot ? Math.round(store.life.correct/tot*100) : 0;
-  $("#sAcc").textContent = fa(acc)+"٪";
+  $("#sCorrect").textContent = fa(store.life.correct);
+  $("#sWrong").textContent = fa(store.life.wrong);
   $("#sStreak").textContent = fa(session.streak);
-  $("#sMis").textContent = fa(mistakeVerbs().length);
 }
 
 /* ---------- روتر ---------- */
 function setTab(tab,syncHash=true){
   if(!TAB_IDS.has(tab)) tab="learn";
+  const destinationChanged=activeTab!==tab;
   activeTab=tab;
   if(syncHash && location.hash!=="#"+tab){
     try{ history.replaceState(null,"","#"+tab); }
     catch(e){ location.hash=tab; }
   }
   document.querySelectorAll(".tab").forEach(b=>{
-    const on=b.dataset.tab===tab; b.classList.toggle("active",on);
+    const on=b.dataset.tab===tab || (tab==="about" && b.dataset.tab==="settings"); b.classList.toggle("active",on);
     b.setAttribute("aria-selected",String(on));
     if(on && b.scrollIntoView) b.scrollIntoView({inline:"center",block:"nearest"});
   });
   if(tab==="learn") renderLearn();
   else if(tab==="mistakes") renderMistakes();
   else if(tab==="exam") renderExam();
-  else { quizMode=tab; renderQuiz(); }
+  else if(tab==="settings") renderSettings();
+  else if(tab==="about") renderAbout();
+  else renderQuiz();
   refreshStats();
+  if(destinationChanged) window.scrollTo({top:0,behavior:"auto"});
 }
 
-/* ---------- یادگیری (فلش‌کارت) ---------- */
-let revealed=false;
-
-// جستجو روی صورت‌های انگلیسی و معنی فارسی
+/* ---------- یادگیری؛ هم‌ساخت با LearnScreen اپ ---------- */
 function searchVerbs(q){
-  q = norm(q);
-  if(!q) return [];
-  return VERBS.filter(v=>
-    v.infinitive.toLowerCase().includes(q) ||
-    v.past_simple.toLowerCase().includes(q) ||
-    v.past_participle.toLowerCase().includes(q) ||
-    TYPES.some(type=>faForm(v,type).includes(q))
+  const query=norm(q);
+  if(!query) return VERBS;
+  return VERBS.filter(verb=>
+    verb.infinitive.toLowerCase().includes(query) ||
+    verb.past_simple.toLowerCase().includes(query) ||
+    verb.past_participle.toLowerCase().includes(query) ||
+    TYPES.some(type=>faForm(verb,type).includes(query))
   );
 }
-// نتایج را فقط داخل کانتینر به‌روزرسانی می‌کند تا فوکوس اینپوت از بین نرود
-function renderSearchResults(){
-  const box=$("#searchResults"), sb=$("#searchBox");
-  if(!box||!sb) return;
-  const q=sb.value;
-  if(!q.trim()){ box.innerHTML=""; return; }
-  const res=searchVerbs(q);
-  if(!res.length){ box.innerHTML=`<div class="note" style="text-align:right">چیزی پیدا نشد</div>`; return; }
-  box.innerHTML=`<div class="mlist" style="margin-top:8px">`+res.slice(0,8).map(v=>{
-    const i=VERBS.indexOf(v);
-    return `<button type="button" class="mitem" data-i="${i}">
-      <span class="w">${v.infinitive}</span>
-      <span class="d">${v.past_simple} · ${v.past_participle} — <span dir="rtl">${faForm(v,"infinitive")}</span></span></button>`;
-  }).join("")+`</div>`;
-  box.querySelectorAll(".mitem").forEach(el=>el.onclick=()=>{
-    learnIndex=parseInt(el.dataset.i,10); revealed=false; renderLearn();
+
+function learnDeckSelectorHTML(){
+  return `<div class="deck-selector" role="group" aria-label="مجموعه افعال">
+    <button type="button" class="deck-choice${deckMode==="important"?" active":""}" data-deck-mode="important" aria-pressed="${deckMode==="important"}">
+      ${deckMode==="important"?icon("checkSimple"):""}<span>افعال مهم · ${IMPORTANT_VERBS.length}</span>
+    </button>
+    <button type="button" class="deck-choice${deckMode==="complete"?" active":""}" data-deck-mode="complete" aria-pressed="${deckMode==="complete"}">
+      ${deckMode==="complete"?icon("checkSimple"):""}<span>فهرست کامل · ${ALL_VERBS.length}</span>
+    </button>
+  </div>`;
+}
+
+function learnViewSwitchHTML(){
+  return `<div class="learn-view-switch" role="group" aria-label="نمای یادگیری">
+    <button type="button" class="learn-view-choice${learnListVisible?"":" active"}" data-learn-view="card" aria-pressed="${!learnListVisible}">
+      ${icon("book")}<span>کارت یادگیری</span>
+    </button>
+    <button type="button" class="learn-view-choice${learnListVisible?" active":""}" data-learn-view="list" aria-pressed="${learnListVisible}">
+      ${icon("search")}<span>فهرست A–Z</span>
+    </button>
+  </div>`;
+}
+
+function learnFormTileHTML(verb,type){
+  return `<section class="learn-form-tile">
+    <div class="learn-form-label">${SHORT[type]} · ${LABEL[type]}</div>
+    <div class="learn-form-word-row">
+      <span class="learn-form-word">${esc(verb[type])}</span>
+      <button type="button" class="learn-icon-action tiny" data-speak-form="${type}" aria-label="پخش ${esc(verb[type])}">${icon("volume")}</button>
+    </div>
+    <div class="learn-form-meaning-row">
+      <span class="learn-form-meaning">${esc(faForm(verb,type))}</span>
+      ${persianVoice()?`<button type="button" class="learn-icon-action tiny" data-speak-fa="${type}" aria-label="خواندن معنی فارسی ${esc(faForm(verb,type))}">${icon("volume")}</button>`:""}
+    </div>
+  </section>`;
+}
+
+function learnRowsHTML(verbs){
+  const row=verb=>`<button type="button" class="learn-list-row${verb.infinitive===VERBS[learnIndex]?.infinitive?" selected":""}" data-learn-base="${esc(verb.infinitive)}">
+    <span class="learn-list-word"><strong>${esc(verb.infinitive)}</strong><span>${esc(verb.past_simple)} · ${esc(verb.past_participle)}</span></span>
+    <span class="learn-list-meaning">${esc(faForm(verb,"infinitive"))}</span>
+  </button>`;
+  if(deckMode!=="complete") return verbs.map(row).join("");
+  return Object.entries(Object.groupBy?Object.groupBy(verbs,verb=>verb.infinitive[0].toUpperCase()):verbs.reduce((groups,verb)=>{
+    const letter=verb.infinitive[0].toUpperCase();
+    (groups[letter]??=[]).push(verb);
+    return groups;
+  },{})).map(([letter,items])=>`
+    <div class="letter-divider"><strong>${letter}</strong><i></i><span>${items.length} فعل</span></div>
+    ${items.map(row).join("")}
+  `).join("");
+}
+
+function bindLearnRows(){
+  view.querySelectorAll("[data-learn-base]").forEach(button=>button.onclick=()=>{
+    const nextIndex=VERBS.findIndex(verb=>verb.infinitive===button.dataset.learnBase);
+    if(nextIndex<0) return;
+    const listPanel=$(".learn-list-panel");
+    const savedScroll=listPanel?.scrollTop||0;
+    learnIndex=nextIndex;
+    learnListVisible=false;
+    renderLearn();
+    const nextListPanel=$(".learn-list-panel");
+    if(innerWidth>=760 && nextListPanel) nextListPanel.scrollTop=savedScroll;
+    else window.scrollTo({top:0,behavior:"auto"});
   });
+}
+
+function updateLearnList(){
+  const verbs=searchVerbs(learnSearch);
+  const count=$("#learnResultCount");
+  const rows=$("#learnListRows");
+  if(count) count.textContent=String(verbs.length);
+  if(rows) rows.innerHTML=verbs.length?learnRowsHTML(verbs):`<div class="empty">فعلی پیدا نشد.</div>`;
+  bindLearnRows();
 }
 
 function renderLearn(){
-  const v = VERBS[learnIndex];
-  const pct = ((learnIndex+1)/VERBS.length*100);
-  view.innerHTML = `
-  <div class="card flash">
-    <div class="search-wrap">
-      <label for="searchBox" class="sr-only">جستجوی فعل یا معنی</label>
-      ${icon("search")}
-      <input class="search-input" id="searchBox" dir="auto" placeholder="جستجوی فعل یا معنی…" autocomplete="off"
-        autocorrect="off" autocapitalize="none" spellcheck="false">
-      <div id="searchResults"></div>
+  if(!VERBS.length) return;
+  learnIndex=Math.max(0,Math.min(learnIndex,VERBS.length-1));
+  const verb=VERBS[learnIndex];
+  const progress=(learnIndex+1)/VERBS.length*100;
+  const visible=searchVerbs(learnSearch);
+  view.innerHTML=`
+  <div class="learn-screen">
+    ${learnDeckSelectorHTML()}
+    ${learnViewSwitchHTML()}
+    <div class="learn-layout">
+      <div class="learn-panel learn-card-panel${learnListVisible?" is-hidden":""}">
+        <section class="card learn-card">
+          <div class="learn-card-counter">کارت ${learnIndex+1} از ${VERBS.length}</div>
+          <div class="learn-base-row">
+            <span class="learn-base">${esc(verb.infinitive)}</span>
+            <button type="button" class="learn-icon-action" id="speakBase" aria-label="پخش ${esc(verb.infinitive)}">${icon("volume")}</button>
+          </div>
+          <div class="learn-meaning-row">
+            <span class="learn-meaning">${esc(faForm(verb,"infinitive"))}</span>
+            ${persianVoice()?`<button type="button" class="learn-icon-action small" id="speakBaseFa" aria-label="خواندن معنی فارسی ${esc(faForm(verb,"infinitive"))}">${icon("volume")}</button>`:""}
+          </div>
+          <div class="learn-form-grid">
+            ${learnFormTileHTML(verb,"past_simple")}
+            ${learnFormTileHTML(verb,"past_participle")}
+          </div>
+          <div class="learn-progress" aria-label="پیشرفت یادگیری"><span style="width:${progress}%"></span></div>
+          <div class="learn-controls">
+            <button type="button" class="learn-icon-action" id="learnPrevious" aria-label="فعل قبلی">${icon("previous")}</button>
+            <button type="button" class="learn-icon-action selected" id="speakAllForms" aria-label="پخش هر سه فرم">${icon("volume")}</button>
+            <button type="button" class="learn-icon-action" id="learnNext" aria-label="فعل بعدی">${icon("next")}</button>
+          </div>
+        </section>
+      </div>
+      <div class="learn-panel learn-list-panel${learnListVisible?"":" is-hidden"}">
+        <div class="alphabet-heading">
+          <h2>فهرست الفبایی</h2>
+          <p>برای دیدن کارت هر فعل روی آن بزن · <span id="learnResultCount">${visible.length}</span> فعل</p>
+        </div>
+        <label class="learn-search">
+          <span class="sr-only">جستجوی فعل یا معنی</span>
+          <input id="learnSearchInput" dir="auto" value="${esc(learnSearch)}" placeholder="جستجوی فعل یا معنی..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+          ${icon("search")}
+        </label>
+        <div class="learn-list" id="learnListRows">${visible.length?learnRowsHTML(visible):`<div class="empty">فعلی پیدا نشد.</div>`}</div>
+      </div>
     </div>
-    <div class="lead">کارت ${fa(learnIndex+1)} از ${fa(VERBS.length)}</div>
-    <button type="button" class="word base word-button" id="baseW" aria-label="شنیدن تلفظ ${v.infinitive}">${v.infinitive}</button>
-    <div class="fa-mean">${faForm(v,"infinitive")}</div>
-    <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center">
-      <button type="button" class="pill" id="say">${icon("volume")} تلفظ کامل</button>
-      ${voiceSelectHTML()}
-    </div>
-    <div class="forms">
-      <div class="form"><small>${LABEL.past_simple} · ${SHORT.past_simple}</small>
-        <button type="button" class="v reveal-word ${revealed?'':'hidden-form'}" data-reveal>${v.past_simple}</button>
-        <button type="button" class="pill sayf" aria-label="شنیدن گذشته ساده" data-type="past_simple" style="margin-top:6px;padding:3px 11px;font-size:13px">${icon("volume")}</button></div>
-      <div class="form"><small>${LABEL.past_participle} · ${SHORT.past_participle}</small>
-        <button type="button" class="v reveal-word ${revealed?'':'hidden-form'}" data-reveal>${v.past_participle}</button>
-        <button type="button" class="pill sayf" aria-label="شنیدن اسم مفعول" data-type="past_participle" style="margin-top:6px;padding:3px 11px;font-size:13px">${icon("volume")}</button></div>
-    </div>
-    <div class="progress"><i style="width:${pct}%"></i></div>
-    <div class="row">
-      <button type="button" class="btn" id="prev">قبلی</button>
-      <button type="button" class="btn ghost" id="reveal">${revealed?'مخفی کن':'نمایش پاسخ'}</button>
-      <button type="button" class="btn primary" id="next">بعدی</button>
-    </div>
-    <div class="note">روی قسمت تار بزن تا جواب را ببینی</div>
   </div>`;
 
-  const sb=$("#searchBox");
-  if(sb){ sb.oninput=renderSearchResults; sb.onfocus=()=>sb.select(); }
-  $("#say").onclick=()=>speak(spokenForms(v));
-  $("#baseW").onclick=()=>speak(sayForm(v,'infinitive'));
-  view.querySelectorAll(".sayf").forEach(b=>b.onclick=e=>{
-    e.stopPropagation();
-    speak(sayForm(v,b.dataset.type).replace('/',' or '));
+  view.querySelectorAll("[data-deck-mode]").forEach(button=>button.onclick=()=>{
+    setVerbDeckMode(button.dataset.deckMode);
+    renderLearn();
   });
-  const vsel=$("#voiceSel");
-  if(vsel) vsel.onchange=()=>{
-    preferredVoiceName=vsel.value;
-    try{ localStorage.setItem(VOICE_KEY, preferredVoiceName); }catch(e){}
-    refreshVoices();
-    speak(v.infinitive); // پیش‌نمایش صدای انتخاب‌شده
+  view.querySelectorAll("[data-learn-view]").forEach(button=>button.onclick=()=>{
+    learnListVisible=button.dataset.learnView==="list";
+    renderLearn();
+  });
+  const searchInput=$("#learnSearchInput");
+  if(searchInput) searchInput.oninput=()=>{
+    learnSearch=searchInput.value;
+    updateLearnList();
   };
-  $("#reveal").onclick=()=>{revealed=!revealed;renderLearn();};
-  view.querySelectorAll("[data-reveal]").forEach(el=>el.onclick=()=>{revealed=true;renderLearn();});
-  $("#prev").onclick=()=>{learnIndex=(learnIndex-1+VERBS.length)%VERBS.length;revealed=false;renderLearn();};
-  $("#next").onclick=()=>{learnIndex=(learnIndex+1)%VERBS.length;revealed=false;renderLearn();};
+  bindLearnRows();
+  $("#speakBase").onclick=()=>speak(sayForm(verb,"infinitive"));
+  const speakBaseFa=$("#speakBaseFa");
+  if(speakBaseFa) speakBaseFa.onclick=()=>speakPersian(faForm(verb,"infinitive"));
+  view.querySelectorAll("[data-speak-form]").forEach(button=>button.onclick=()=>speak(sayForm(verb,button.dataset.speakForm).replaceAll("/"," or ")));
+  view.querySelectorAll("[data-speak-fa]").forEach(button=>button.onclick=()=>speakPersian(faForm(verb,button.dataset.speakFa)));
+  $("#speakAllForms").onclick=()=>speak(spokenForms(verb));
+  $("#learnPrevious").onclick=()=>{learnIndex=(learnIndex-1+VERBS.length)%VERBS.length;renderLearn();};
+  $("#learnNext").onclick=()=>{learnIndex=(learnIndex+1)%VERBS.length;renderLearn();};
 }
 
 /* ---------- آزمون زمان‌دار با تعداد سؤال مشخص ---------- */
@@ -1238,40 +1689,62 @@ function renderExam(){
     return;
   }
 
+  const modes=[
+    ["mixed","ترکیبی","mixed"],
+    ["choice","چهارگزینه‌ای","check"],
+    ["type","تایپ","type"],
+    ["meaning","معنی فارسی","target"],
+    ["pair","دو فرم","pair"]
+  ];
+  const countOptions=[10,20,50,VERBS.length].filter((value,index,array)=>value<=VERBS.length&&array.indexOf(value)===index);
+  if(!countOptions.includes(examSetup.count)) examSetup.count=countOptions[0]||VERBS.length;
   view.innerHTML=`
-  <div class="card exam-setup">
-    ${icon("spark","big")}
-    <h2>آزمون</h2>
-    <p>نوع آزمون و تعداد سؤال را خودت مشخص کن.</p>
-    <div class="exam-settings">
-      <label class="exam-select-wrap" for="examMode">
-        <span>نوع آزمون</span>
-        <select class="exam-select" id="examMode">
-          <option value="mixed" selected>تصادفی · همهٔ حالت‌ها</option>
-          <option value="type">تایپ فرم درست</option>
-          <option value="choice">چهارگزینه‌ای</option>
-          <option value="meaning">معنی فارسی</option>
-          <option value="pair">نوشتن دو فرم</option>
-        </select>
-      </label>
-      <label class="exam-select-wrap" for="examCount">
-        <span>تعداد سؤال</span>
-        <select class="exam-select" id="examCount">
-          <option value="5">۵ سؤال</option>
-          <option value="10" selected>۱۰ سؤال</option>
-          <option value="20">۲۰ سؤال</option>
-          <option value="30">۳۰ سؤال</option>
-          <option value="all">همهٔ فعل‌ها · ${fa(VERBS.length)} سؤال</option>
-        </select>
-      </label>
+  <div class="exam-screen">
+    ${learnDeckSelectorHTML()}
+    <div class="card exam-setup">
+      <div class="exam-gold-accent" aria-hidden="true"></div>
+      <h2>آزمون شخصی‌سازی‌شده</h2>
+      <p>نوع سؤال و تعداد را انتخاب کن. پاسخ‌ها در پایان با فهرست مرور نمایش داده می‌شوند.</p>
+
+      <span class="exam-section-title">نوع آزمون</span>
+      <div class="exam-mode-grid" role="group" aria-label="نوع آزمون">
+        ${modes.map(([mode,label,modeIcon])=>`<button type="button" class="exam-option${examSetup.mode===mode?" active":""}" data-exam-mode="${mode}" aria-pressed="${examSetup.mode===mode}">
+          ${icon(modeIcon)}<span>${label}</span><span class="exam-selection-mark" aria-hidden="true">${icon("checkSimple")}</span>
+        </button>`).join("")}
+      </div>
+
+      <span class="exam-section-title">تعداد سؤال</span>
+      <div class="exam-count-grid" role="group" aria-label="تعداد سؤال">
+        ${countOptions.map(count=>`<button type="button" class="exam-count${examSetup.count===count?" active":""}" data-exam-count="${count}" aria-pressed="${examSetup.count===count}">
+          <span>${count===VERBS.length?"همه":fa(count)}</span><span class="exam-selection-mark" aria-hidden="true">${icon("checkSimple")}</span>
+        </button>`).join("")}
+      </div>
+
+      <div class="exam-start"><button type="button" class="btn primary" id="startExam">شروع آزمون ${fa(examSetup.count)} سؤالی</button></div>
     </div>
-    <div class="exam-start"><button type="button" class="btn primary" id="startExam">شروع آزمون</button></div>
-    <div class="note">در پایان، نمره و فهرست پاسخ‌های اشتباه را یکجا می‌بینی.</div>
   </div>`;
-  $("#startExam").onclick=()=>{
-    const count=$("#examCount").value;
-    startExam(count==="all"?VERBS.length:Number(count),$("#examMode").value);
-  };
+  view.querySelectorAll("[data-deck-mode]").forEach(button=>button.onclick=()=>{
+    setVerbDeckMode(button.dataset.deckMode);
+    renderExam();
+  });
+  view.querySelectorAll("[data-exam-mode]").forEach(button=>button.onclick=()=>{
+    examSetup.mode=button.dataset.examMode;
+    view.querySelectorAll("[data-exam-mode]").forEach(item=>{
+      const active=item.dataset.examMode===examSetup.mode;
+      item.classList.toggle("active",active);
+      item.setAttribute("aria-pressed",String(active));
+    });
+  });
+  view.querySelectorAll("[data-exam-count]").forEach(button=>button.onclick=()=>{
+    examSetup.count=Number(button.dataset.examCount);
+    view.querySelectorAll("[data-exam-count]").forEach(item=>{
+      const active=Number(item.dataset.examCount)===examSetup.count;
+      item.classList.toggle("active",active);
+      item.setAttribute("aria-pressed",String(active));
+    });
+    $("#startExam").textContent=`شروع آزمون ${fa(examSetup.count)} سؤالی`;
+  });
+  $("#startExam").onclick=()=>startExam(examSetup.count,examSetup.mode);
 }
 
 function startExam(total,mode="mixed"){
@@ -1336,17 +1809,7 @@ function examResultText(){
   return `نتیجه آزمون افعال بی‌قاعده\nنوع آزمون: ${modeName}\nنمره: ${score}٪\nدرست: ${exam.correct} از ${exam.total}\nغلط: ${exam.wrong}${details?`\n\nنیاز به مرور:\n${details}`:""}`;
 }
 
-async function shareExamResult(){
-  const button=$("#shareExam"),text=examResultText();
-  try{
-    if(navigator.share) await navigator.share({title:"نتیجه آزمون افعال بی‌قاعده",text});
-    else if(navigator.clipboard){await navigator.clipboard.writeText(text);button.innerHTML=`${icon("check")} نتیجه کپی شد`;}
-  }catch(e){
-    if(e?.name!=="AbortError") button.textContent="اشتراک انجام نشد";
-  }
-}
-
-async function saveExamResultImage(){
+async function saveExamResultImage(shareFirst=false){
   try{if(document.fonts?.ready) await document.fonts.ready;}catch(e){}
   const score=exam.total?Math.round(exam.correct/exam.total*100):0;
   const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");
@@ -1368,53 +1831,79 @@ async function saveExamResultImage(){
     ctx.font="600 27px Vazirmatn, sans-serif";y+=112;
   });
   if(exam.mistakes.length>7){ctx.fillStyle="#5f687b";ctx.fillText(`و ${exam.mistakes.length-7} مورد دیگر در فهرست داخل برنامه`,950,1290);}
-  canvas.toBlob(blob=>{
-    if(!blob) return;
-    const url=URL.createObjectURL(blob),a=document.createElement("a");
-    a.href=url;a.download=`irregular-verbs-result-${Date.now()}.png`;a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-  },"image/png");
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+  if(!blob) return;
+  const filename=`irregular-verbs-result-${Date.now()}.png`;
+  if(shareFirst && typeof File!=="undefined" && navigator.share){
+    const file=new File([blob],filename,{type:"image/png"});
+    const shareData={title:"نتیجه آزمون افعال بی‌قاعده",text:examResultText(),files:[file]};
+    try{
+      if(!navigator.canShare || navigator.canShare(shareData)){
+        await navigator.share(shareData);
+        return;
+      }
+    }catch(error){
+      if(error?.name==="AbortError") return;
+    }
+  }
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;
+  a.download=filename;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const button=$("#shareExam");
+  if(button) button.innerHTML=`${icon("check")} تصویر ذخیره شد`;
 }
 
 function renderExamResult(){
   const score=exam.total?Math.round(exam.correct/exam.total*100):0;
-  const modeName={mixed:"تصادفی",type:"تایپ",choice:"چهارگزینه‌ای",meaning:"معنی فارسی",pair:"دو فرم"}[exam.mode]||"تصادفی";
-  const message=score>=80?"تسلط خیلی خوب؛ همین ریتم را نگه دار.":score>=60?"خوب پیش رفتی؛ اشتباهات را مرور کن.":"یک دور مرور و آزمون دوباره، نتیجه را سریع بهتر می‌کند.";
+  const message=score>=90?"عالی بود؛ فعل‌ها محکم نشسته‌اند.":score>=70?"خیلی خوب؛ چند مورد را مرور کن.":"شروع خوبی است؛ مرور اشتباهات کمکت می‌کند.";
   const mistakes=exam.mistakes.length ? exam.mistakes.map((m,index)=>`
     <article class="result-mistake">
-      <div class="result-mistake-head"><strong>${esc(m.verb)}</strong><span class="result-target">${esc(m.shown)} ← ${esc(m.target)}</span></div>
-      <div class="result-answer-grid">
-        <div class="result-answer wrong"><span>پاسخ شما</span><b dir="auto">${esc(m.answer)}</b></div>
-        <div class="result-answer correct"><span>پاسخ درست</span><b dir="auto">${esc(m.expected)}</b></div>
+      <span class="result-mistake-index">${index+1}</span>
+      <div class="result-mistake-body">
+        <div class="result-mistake-head"><strong>${esc(m.verb)}</strong><span class="result-target">${esc(m.shown)} ← ${esc(m.target)}</span></div>
+        <div class="result-answer-grid">
+          <div class="result-answer wrong"><span>پاسخ شما</span><b dir="auto">${esc(m.answer)}</b></div>
+          <div class="result-answer correct"><span>پاسخ درست</span><b dir="auto">${esc(m.expected)}</b></div>
+        </div>
+        <div class="result-fa">${esc(m.persian)}</div>
       </div>
-      <div class="result-fa">${esc(m.persian)}</div>
-    </article>`).join("") : `<div class="empty">${icon("spark","big")}<b>بدون اشتباه!</b><div class="note">همهٔ پاسخ‌ها درست بودند.</div></div>`;
+    </article>`).join("") : "";
 
   view.innerHTML=`
-  <div class="card exam-result">
-    <section class="result-hero" id="examShareCard">
-      <div class="result-label">نتیجه آزمون ${modeName}</div>
-      <div class="result-score">${fa(score)}٪</div>
-      <div class="result-message">${message}</div>
+  <div class="exam-result-screen">
+    <section class="card exam-result-summary" id="examShareCard">
+      <div class="exam-gold-accent" aria-hidden="true"></div>
+      <h2 class="result-title">کارنامه آزمون</h2>
+      <p class="result-subtitle">یک نگاه کوتاه به نتیجه و موارد نیازمند مرور</p>
+      <div class="result-ring" style="--score-angle:${score*3.6}deg" role="img" aria-label="امتیاز ${score} درصد">
+        <div class="result-ring-inner"><span class="result-score">${score}%</span></div>
+      </div>
       <div class="result-stats">
-        <div class="result-stat"><b>${fa(exam.total)}</b><span>کل سؤال</span></div>
-        <div class="result-stat"><b>${fa(exam.correct)}</b><span>درست</span></div>
-        <div class="result-stat"><b>${fa(exam.wrong)}</b><span>غلط</span></div>
+        <div class="result-stat"><b>${exam.total}</b><span>کل</span></div>
+        <div class="result-stat correct"><b>${exam.correct}</b><span>درست</span></div>
+        <div class="result-stat wrong"><b>${exam.wrong}</b><span>غلط</span></div>
+      </div>
+      <div class="result-message">${message}</div>
+      <div class="result-actions">
+        <button type="button" class="btn ghost" id="shareExam">${icon("share")} اشتراک تصویر</button>
+        <button type="button" class="btn primary" id="restartExam">آزمون تازه</button>
       </div>
     </section>
-    <div class="result-actions">
-      <button type="button" class="btn" id="shareExam">${icon("share")} اشتراک نتیجه</button>
-      <button type="button" class="btn ghost" id="saveExamImage">${icon("image")} ذخیره تصویر</button>
-    </div>
-    <section>
+    ${exam.mistakes.length?`<section>
       <div class="result-section-head"><h3>پاسخ‌های نیازمند مرور</h3><span>${fa(exam.mistakes.length)} مورد</span></div>
       <div class="result-mistakes">${mistakes}</div>
-    </section>
-    <div class="result-restart"><button type="button" class="btn primary" id="restartExam">${icon("restart")} آزمون جدید</button></div>
+    </section>`:""}
   </div>`;
-  $("#shareExam").onclick=shareExamResult;
-  $("#saveExamImage").onclick=saveExamResultImage;
-  $("#restartExam").onclick=()=>{exam={status:"setup",mode:"mixed",total:10,answered:0,correct:0,wrong:0,mistakes:[],startedAt:0};current=null;renderExam();window.scrollTo({top:0,behavior:"smooth"});};
+  $("#shareExam").onclick=()=>saveExamResultImage(true);
+  $("#restartExam").onclick=()=>{
+    exam={status:"setup",mode:"mixed",total:10,answered:0,correct:0,wrong:0,mistakes:[],startedAt:0};
+    examSetup={mode:"mixed",count:10};
+    current=null;
+    renderExam();
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
 }
 
 /* ---------- ساخت سوال ---------- */
@@ -1484,6 +1973,18 @@ function renderQuiz(){
       ? `<button type="button" class="pill" id="poolBtn">${icon("target")} فقط نیازمند مرور (${fa(mistakeVerbs().length)})</button>`
       : `<button type="button" class="pill" id="poolBtn">${icon("book")} همهٔ افعال</button>`;
   const examProgress=isExam?`<div class="exam-progress" aria-label="پیشرفت آزمون"><i id="examProgress" style="width:${exam.answered/exam.total*100}%"></i></div>`:"";
+  const practiceModes=isExam?"":`
+    <div class="practice-modes" role="group" aria-label="نوع تمرین">
+      ${[
+        ["meaning","معنی","book"],
+        ["choice","گزینه‌ای","check"],
+        ["type","تایپ","type"],
+        ["pair","دو فرم","pair"],
+        ["mixed","ترکیبی","mixed"]
+      ].map(([mode,label,modeIcon])=>`<button type="button" class="practice-mode${quizMode===mode?" active":""}" data-practice-mode="${mode}" aria-pressed="${quizMode===mode}">
+        ${icon(modeIcon)}<span>${label}</span>
+      </button>`).join("")}
+    </div>`;
 
   let answerArea;
   if(q.mode==="choice" || q.mode==="meaning"){
@@ -1524,7 +2025,9 @@ function renderQuiz(){
     </div>`;
 
   view.innerHTML=`
-  <div class="card">
+  ${isExam?"":learnDeckSelectorHTML()}
+  <div class="card${isExam?" exam-question-card":" practice-question-card"}">
+    ${practiceModes}
     <div class="quiz-toolbar">${poolBadge}</div>
     ${examProgress}
     <div class="quiz-body ${q.mode==="pair"?"pair-mode":""}">
@@ -1541,6 +2044,25 @@ function renderQuiz(){
     </div>
   </div>`;
 
+  if(!isExam){
+    view.querySelectorAll("[data-deck-mode]").forEach(button=>button.onclick=()=>{
+      setVerbDeckMode(button.dataset.deckMode);
+      makeQuestion();
+      renderQuiz();
+    });
+  }
+
+  view.querySelectorAll("[data-practice-mode]").forEach(button=>{
+    button.onclick=()=>{
+      const nextMode=button.dataset.practiceMode;
+      if(nextMode===quizMode) return;
+      quizMode=nextMode;
+      quizPool="all";
+      current=null;
+      makeQuestion();
+      renderQuiz();
+    };
+  });
   const poolBtn=$("#poolBtn");
   if(poolBtn) poolBtn.onclick=()=>{
       if(quizPool==="mistakes"){ quizPool="all"; }
@@ -1690,39 +2212,216 @@ function submitPair(values){
   showFeedback(allOK,message);
 }
 
+/* ---------- تنظیمات و درباره ما؛ هم‌ساخت با اپ موبایل ---------- */
+function paletteDotsHTML(key){
+  return `<span class="palette-dots" aria-hidden="true">${PALETTES[key].dots.map(color=>`<i class="palette-dot" style="background:${color}"></i>`).join("")}</span>`;
+}
+
+async function shareWebApp(){
+  const data={
+    title:"آزمایشگاه فعل",
+    text:"آزمایشگاه فعل؛ آموزش و تمرین افعال بی‌قاعده انگلیسی",
+    url:"https://mohsensalare.github.io/IrregularVerbs/"
+  };
+  try{
+    if(navigator.share){await navigator.share(data);return;}
+    await navigator.clipboard.writeText(`${data.text}\n${data.url}`);
+    alert("لینک برنامه کپی شد.");
+  }catch(error){
+    if(error?.name!=="AbortError") prompt("لینک برنامه",data.url);
+  }
+}
+
+function webAppInstalled(){
+  return matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
+}
+
+function voiceTilesHTML(){
+  const voices=usefulVoices();
+  if(!voices.length){
+    return `<div class="empty" style="padding:12px;font-size:12px">مرورگر صدای انگلیسی مناسبی در اختیار نگذاشته است.</div>`;
+  }
+  const selected=chosenVoice?.name || "";
+  return `<div class="voice-grid" role="list" aria-label="گوینده‌های انگلیسی">
+    ${voices.map(voice=>{
+      const active=voice.name===selected;
+      return `<article class="voice-tile${active?" selected":""}" role="listitem">
+        <button type="button" class="voice-select-main" data-select-voice="${esc(voice.name)}" aria-pressed="${active}">
+          <span class="voice-name">${active?icon("checkSimple"):""}<span>${esc(voice.name)}</span></span>
+          <span class="voice-detail">${esc((voice.lang||"en").replace("_","-"))}</span>
+        </button>
+        <button type="button" class="voice-preview" data-preview-voice="${esc(voice.name)}" aria-label="پخش نمونه ${esc(voice.name)}">${icon("volume")}</button>
+      </article>`;
+    }).join("")}
+  </div>`;
+}
+
+function selectWebVoice(name,preview=false){
+  preferredVoiceName=name;
+  try{localStorage.setItem(VOICE_KEY,preferredVoiceName);}catch(e){}
+  refreshVoices();
+  if(preview) speak("Hello. Let's practice irregular verbs.");
+}
+
+function persianSpeechStatusHTML(){
+  if(persianVoice()){
+    return `<div class="voice-status">${icon("checkSimple")}<span>خواندن معنی‌های فارسی روی این دستگاه فعال است.</span></div>`;
+  }
+  return `<div class="voice-status unavailable">${icon("info")}<span><strong>خواندن فارسی هنوز فعال نیست.</strong><br>در تنظیمات گفتار دستگاه، عبارت «Persian text to speech» یا «صدای فارسی» را جست‌وجو و یک صدای فارسی نصب کن؛ سپس مرورگر را دوباره باز کن.</span></div>`;
+}
+
+function renderSettings(){
+  view.innerHTML=`
+  <div class="settings-screen">
+    <h2 class="screen-title">تنظیمات</h2>
+    <section class="settings-card" aria-labelledby="appearanceTitle">
+      <div class="settings-head">
+        <span class="settings-icon">${icon("palette")}</span>
+        <div class="settings-copy"><strong id="appearanceTitle">پالت رنگ</strong><span>حال‌وهوای برنامه را خودت انتخاب کن</span></div>
+      </div>
+      <div class="theme-modes" role="group" aria-label="حالت نمایش">
+        <button type="button" class="theme-mode${uiPrefs.theme==="light"?" active":""}" data-theme-mode="light" aria-pressed="${uiPrefs.theme==="light"}">روشن</button>
+        <button type="button" class="theme-mode${uiPrefs.theme==="dark"?" active":""}" data-theme-mode="dark" aria-pressed="${uiPrefs.theme==="dark"}">تیره</button>
+      </div>
+      <div class="palette-grid">
+        ${Object.keys(PALETTES).map(key=>`<button type="button" class="palette-tile${uiPrefs.palette===key?" active":""}" data-palette-choice="${key}" aria-pressed="${uiPrefs.palette===key}">
+          ${paletteDotsHTML(key)}<span>${PALETTES[key].label}</span>${uiPrefs.palette===key?icon("checkSimple"):""}
+        </button>`).join("")}
+      </div>
+    </section>
+
+    <section class="settings-card" aria-labelledby="speechTitle">
+      <div class="settings-head">
+        <span class="settings-icon">${icon("volume")}</span>
+        <div class="settings-copy"><strong id="speechTitle">گوینده تلفظ</strong><span>لهجه و صدای دلخواهت را انتخاب کن</span></div>
+      </div>
+      ${persianSpeechStatusHTML()}
+      ${voiceTilesHTML()}
+    </section>
+
+    <section class="settings-card" aria-label="تنظیمات برنامه">
+      <button type="button" class="settings-action" id="settingsReminder">
+        <span class="settings-action-main">${icon("bell")}<span><strong>یادآوری مطالعه</strong><small>زمان و نوع اعلان‌ها را تنظیم کن</small></span></span>
+        <span class="settings-badge">${reminderState.enabled?"فعال":"تنظیم"}</span>
+      </button>
+      <button type="button" class="settings-action" id="settingsInstall">
+        <span class="settings-action-main">${icon("book")}<span><strong>نصب برنامه وب</strong><small>دسترسی سریع از صفحه اصلی دستگاه</small></span></span>
+        <span class="settings-badge">${webAppInstalled()?"نصب‌شده":"نصب"}</span>
+      </button>
+    </section>
+
+    <button type="button" class="settings-about-action" id="openAbout">
+      <span class="settings-icon">${icon("info")}</span>
+      <span class="settings-about-copy"><strong>درباره ما</strong><small>یادبود، اطلاعات نسخه و اشتراک‌گذاری برنامه</small></span>
+      <span class="settings-badge">مشاهده</span>
+    </button>
+  </div>`;
+
+  view.querySelectorAll("[data-theme-mode]").forEach(button=>button.onclick=()=>{
+    uiPrefs.theme=button.dataset.themeMode;
+    applyUiPrefs();
+    renderSettings();
+  });
+  view.querySelectorAll("[data-palette-choice]").forEach(button=>button.onclick=()=>{
+    uiPrefs.palette=button.dataset.paletteChoice;
+    applyUiPrefs();
+    renderSettings();
+  });
+  view.querySelectorAll("[data-select-voice]").forEach(button=>button.onclick=()=>{
+    selectWebVoice(button.dataset.selectVoice);
+    renderSettings();
+  });
+  view.querySelectorAll("[data-preview-voice]").forEach(button=>button.onclick=()=>{
+    selectWebVoice(button.dataset.previewVoice,true);
+    renderSettings();
+  });
+  $("#settingsReminder").onclick=openReminderDialog;
+  $("#settingsInstall").onclick=async()=>{
+    if(webAppInstalled()){alert("نسخه وب همین حالا به‌صورت برنامه نصب شده است.");return;}
+    const result=await promptAppInstall();
+    if(result==="manual") alert(manualInstallText());
+  };
+  $("#openAbout").onclick=()=>setTab("about");
+}
+
+function renderAbout(){
+  view.innerHTML=`
+  <div class="about-screen">
+    <section class="about-card" aria-labelledby="aboutPageTitle">
+      <div class="about-content">
+        <div class="about-brand-shell" aria-hidden="true">
+          <div class="about-brand-mark"><span>V1</span><span>V2</span><span>V3</span></div>
+        </div>
+        <h2 class="about-title" id="aboutPageTitle">آزمایشگاه فعل</h2>
+        <p class="about-subtitle">دفتر تمرین افعال بی‌قاعده انگلیسی</p>
+        <div class="about-counts">۹۶ فعل مهم برای شروع سریع<br>۲۴۴ فعل کامل از A تا Z</div>
+        <p class="about-dedication">تقدیم به تمام جاویدنامان از دست‌رفته در حوادث اخیر، به‌خصوص دانش‌آموزان مدرسهٔ شجره طیبه. 💔</p>
+        <div class="about-actions">
+          <button type="button" class="btn primary" id="shareAbout">${icon("share")} اشتراک‌گذاری برنامه</button>
+        </div>
+        <button type="button" class="about-back" id="backToSettings">بازگشت به تنظیمات</button>
+        <span class="about-version">نسخه ۱.۰.۰</span>
+      </div>
+    </section>
+  </div>`;
+  $("#shareAbout").onclick=shareWebApp;
+  $("#backToSettings").onclick=()=>setTab("settings");
+}
+
 /* ---------- اشتباهات ---------- */
 function renderMistakes(){
   const list = mistakeVerbs()
     .sort((a,b)=>store.mistakes[b.infinitive].count-store.mistakes[a.infinitive].count);
-  let body;
-  if(!list.length){
-    body=`<div class="empty">${icon("spark","big")}<b>فعلاً چیزی برای مرور نداری.</b><div class="note">با شروع تست‌ها، موارد سخت به‌صورت خودکار اینجا جمع می‌شوند.</div></div>`;
-  }else{
-    body=`<div class="mlist">`+list.map(v=>{
-      const m=store.mistakes[v.infinitive];
-      const forms=Object.keys(m.forms).filter(f=>m.forms[f]>0).map(f=>SHORT[f]).join(" · ");
-      return `<div class="mitem">
-        <span class="w">${v.infinitive}</span>
-        <span class="d">${v.past_simple} · ${v.past_participle}${forms?` &nbsp; [${forms}]`:''}<br><span dir="rtl" style="color:var(--muted)">${faForm(v,"infinitive")}</span></span>
-        <span class="c">${fa(m.count)}</span></div>`;
-    }).join("")+`</div>`;
-  }
+  const rows=list.map(v=>{
+    const m=store.mistakes[v.infinitive];
+    return `<article class="review-row">
+      <div class="review-word"><strong>${esc(v.infinitive)}</strong><span>${esc(v.past_simple)} · ${esc(v.past_participle)}</span></div>
+      <div class="review-meaning">${esc(faForm(v,"infinitive"))}</div>
+      <span class="review-count">×${m.count}</span>
+    </article>`;
+  }).join("");
   view.innerHTML=`
-  <div class="card">
-    <div class="prompt"><div class="ask">مرور هدفمند</div><h2 style="margin:3px 0 16px;font-size:22px">فعل‌هایی که هنوز تثبیت نشده‌اند</h2></div>
-    ${body}
-    <div class="row" style="margin-top:16px">
-      <button type="button" class="btn primary" id="practice" ${list.length?'':'disabled'}>${icon("target")} تمرین همین موارد</button>
+  <div class="review-screen">
+    <section class="card review-summary">
+      <h2>مرور هوشمند</h2>
+      <p>${list.length?`${list.length} فعل از پاسخ‌های اشتباهت آمادهٔ مرور است.`:"فعلاً چیزی برای مرور نداری."}</p>
+      ${list.length?`<div class="review-actions">
+        <button type="button" class="btn primary" id="practice">شروع مرور</button>
+        <button type="button" class="review-clear" id="clear">پاک‌کردن فهرست</button>
+      </div>`:""}
+    </section>
+    ${list.length?`<h3 class="review-list-title">نیازمند مرور</h3><div class="review-list">${rows}</div>`:""}
+  </div>
+  <dialog class="review-clear-dialog" id="clearReviewDialog" aria-labelledby="clearReviewTitle">
+    <div class="review-dialog-body">
+      <h3 id="clearReviewTitle">فهرست مرور پاک شود؟</h3>
+      <p>آمار کلی باقی می‌ماند؛ فقط فعل‌های این فهرست حذف می‌شوند.</p>
+      <div class="review-dialog-actions">
+        <button type="button" class="review-dialog-action" id="cancelClearReview">انصراف</button>
+        <button type="button" class="review-dialog-action danger" id="confirmClearReview">پاک کن</button>
+      </div>
     </div>
-    <div class="row" style="margin-top:8px">
-      <button type="button" class="btn ghost" id="clear" ${list.length?'':'disabled'}>پاک کردن فهرست</button>
-    </div>
-    <div class="note">هر پاسخ درست، نیاز به مرور را کمتر می‌کند؛ با تثبیت کامل، فعل از این فهرست خارج می‌شود.</div>
-  </div>`;
+  </dialog>`;
 
   if(list.length){
-    $("#practice").onclick=()=>{ quizPool="mistakes"; quizMode="mixed"; current=null; makeQuestion(); setTab("mixed"); };
-    $("#clear").onclick=()=>{ if(confirm("همهٔ اشتباهات پاک شوند؟")){ store.mistakes={}; saveStore(); reminderState.reviewDue1=0; reminderState.reviewDue3=0; reminderState.reviewDue1Slot="0"; reminderState.reviewDue3Slot="0"; saveReminderState(); if(reminderState.enabled)syncReminderTags(); renderMistakes(); refreshStats(); } };
+    $("#practice").onclick=()=>{ quizPool="mistakes"; quizMode="mixed"; current=null; makeQuestion(); setTab("practice"); };
+    const dialog=$("#clearReviewDialog");
+    $("#clear").onclick=()=>dialog.showModal();
+    $("#cancelClearReview").onclick=()=>dialog.close();
+    dialog.addEventListener("click",event=>{if(event.target===dialog)dialog.close();});
+    $("#confirmClearReview").onclick=()=>{
+      dialog.close();
+      store.mistakes={};
+      saveStore();
+      reminderState.reviewDue1=0;
+      reminderState.reviewDue3=0;
+      reminderState.reviewDue1Slot="0";
+      reminderState.reviewDue3Slot="0";
+      saveReminderState();
+      if(reminderState.enabled)syncReminderTags();
+      renderMistakes();
+      refreshStats();
+    };
   }
 }
 
