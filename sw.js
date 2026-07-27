@@ -1,4 +1,4 @@
-const CACHE_NAME="irregular-verbs-pwa-v13";
+const CACHE_NAME="irregular-verbs-pwa-v14";
 const APP_SHELL=[
   "./",
   "./index.html",

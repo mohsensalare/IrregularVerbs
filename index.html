@@ -212,6 +212,9 @@ window.oneSignalSdkReady = new Promise(resolve=>{
   .pill{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--muted);
     border-radius:99px;padding:5px 11px;font-size:12px;font-weight:700;cursor:pointer;border:0;font-family:inherit}
   footer{color:rgba(255,255,255,.7);text-align:center;font-size:11.5px;margin:16px 0 4px}
+  .app-footer{direction:ltr;color:var(--muted);font-family:var(--font-word);letter-spacing:.01em}
+  .app-footer a{color:var(--primary-deep);font-weight:900;text-decoration:none;text-underline-offset:3px}
+  .app-footer a:hover,.app-footer a:focus-visible{text-decoration:underline}
 </style>
 <style id="workbook-theme">
   :root{
@@ -804,6 +807,9 @@ window.setTimeout(()=>{
   </nav>
 
   <main id="view" tabindex="-1"></main>
+  <footer class="app-footer" lang="en">
+    made with ❤️ by <a href="https://mohsensalare.ir/" target="_blank" rel="noopener noreferrer">mohsen salari</a>
+  </footer>
 </div>
 
 <aside class="install-banner" id="installBanner" role="region" aria-labelledby="installTitle" hidden>
